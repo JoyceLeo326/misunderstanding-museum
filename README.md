@@ -6,9 +6,9 @@
 
 ## Live site
 
-- Vercel: will be added after the production deployment is authenticated and completed.
-- GitHub Pages fallback: `https://jrleo326.github.io/intent-misunderstanding-museum/`
-- Four-page case study: [`assets/intent-misunderstanding-museum-case-study.pdf`](assets/intent-misunderstanding-museum-case-study.pdf)
+- Vercel: [`https://intent-misunderstanding-museum.vercel.app/`](https://intent-misunderstanding-museum.vercel.app/)
+- GitHub: [`JoyceLeo326/intent-misunderstanding-museum`](https://github.com/JoyceLeo326/intent-misunderstanding-museum)
+- Four-page case study: [`assets/intent-misunderstanding-museum-case-study.pdf`](https://intent-misunderstanding-museum.vercel.app/assets/intent-misunderstanding-museum-case-study.pdf)
 
 ## Project status
 
@@ -185,7 +185,7 @@ The repository includes `vercel.json` with security headers and static-asset cac
 vercel --prod
 ```
 
-The production URL is written back to this README only after Vercel confirms the deployment.
+Production is live at [`intent-misunderstanding-museum.vercel.app`](https://intent-misunderstanding-museum.vercel.app/). The project is a static deployment with no backend, analytics or stored form data.
 
 ### GitHub Pages (fallback)
 
