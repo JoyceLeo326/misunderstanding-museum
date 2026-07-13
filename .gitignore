@@ -1,0 +1,14 @@
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+private/
+resume/
+resumes/
+application_pack/
+*.docx
+*.pages
+*.key
+*.numbers
+*简历*
+*联系方式*
