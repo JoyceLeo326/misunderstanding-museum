@@ -1,22 +1,14 @@
 # 06 · Content safety and privacy
 
-**Status:** Proposed publication checklist
+**Status:** Eight content-safety principles · Fifteen-point release check
 
 ## Principle
 
 > We can collect misunderstandings; we cannot consume other people’s vulnerability.
 
-跨文化关系内容天然带有隐私、身份和刻板印象风险。情绪越强，越需要明确素材来源、产品边界和当事人权利。
+跨文化关系内容天然带有隐私、身份和刻板印象风险。情绪越强，越需要明确素材来源、编辑方式和当事人权利。
 
-## Product claims
-
-- 只陈述Intent提供AI实时翻译。
-- 不宣称Intent读取、识别、判断或预测用户情绪。
-- 不宣称产品理解所有文化潜台词。
-- 不承诺翻译绝对正确或能够消除所有误会。
-- 产品露出要区分“翻译内容”和“人自己补充的语境”。
-
-## Story status labels
+## Material labels
 
 Every published item must use one of these labels:
 
@@ -61,7 +53,7 @@ Every published item must use one of these labels:
 
 - AI生成的人物、聊天或视觉要明确标注。
 - 不用生成头像冒充真实用户。
-- 不用合成截图伪装真实产品后台或传播结果。
+- 不用合成截图伪装真实投稿记录或传播结果。
 - 生成翻译示例必须由具备相应语言能力的人复核。
 - 不把AI生成内容作为文化事实来源。
 
@@ -79,11 +71,11 @@ Every published item must use one of these labels:
 - [ ] 是否意外暴露第三人信息？
 - [ ] 是否定义撤回、删除和二次分发范围？
 
-### Product
+### Context
 
-- [ ] 是否只陈述可确认的实时翻译能力？
-- [ ] 是否暗示情绪识别、读心或绝对正确？
-- [ ] 用户能否分辨产品翻译与人物自己解释的语境？
+- [ ] 字面、人物理解与编辑注释是否清楚分开？
+- [ ] 语境解释是否来自当事人或可核验来源？
+- [ ] 是否允许不同地区与关系身份提供其他解释？
 
 ### Culture
 
@@ -93,20 +85,10 @@ Every published item must use one of these labels:
 
 ### Data
 
-- [ ] 是否虚构了点赞、阅读、安装、CPI、ROI或用户证言？
+- [ ] 阅读、互动、投稿与合作数据是否来自对应平台或台账？
 - [ ] 指标是否注明样本、时间、预算、归因窗和口径？
 - [ ] “待验证”内容是否被误写成“已证明”？
 
 任何一项无法确认时，不发布或升级给负责人审核。
 
-## Public case-site privacy
-
-本GitHub项目不包含：
-
-- 个人简历；
-- 电话、私人邮箱或住址；
-- 其他求职投递材料；
-- 原始聊天、真实用户数据或未公开企业信息；
-- 可提交数据的后端。
-
-网页中的UGC表单只在浏览器本地演示交互，提交后立即清空，不发送网络请求。
+网页中的UGC表单只做本地交互预览，提交后立即清空，不发送网络请求。

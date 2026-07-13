@@ -1,32 +1,28 @@
-# Intent Misunderstanding Museum
+# Misunderstanding Museum · 误会博物馆
 
-> Independent Xiaohongshu content growth concept · 独立小红书内容增长概念项目
+> Cross-cultural content IP · UGC curation · KOC collaboration · Growth experiments
 
-**Independent Concept** · **No Real Business Data** · **Not Affiliated with Intent**
+**Content IP** · **Editorial System** · **Growth Experiment Design**
 
 ## Live site
 
-- Vercel: [`https://intent-misunderstanding-museum.vercel.app/`](https://intent-misunderstanding-museum.vercel.app/)
-- GitHub: [`JoyceLeo326/intent-misunderstanding-museum`](https://github.com/JoyceLeo326/intent-misunderstanding-museum)
-- Four-page case study: [`assets/intent-misunderstanding-museum-case-study.pdf`](https://intent-misunderstanding-museum.vercel.app/assets/intent-misunderstanding-museum-case-study.pdf)
+- Vercel: [`https://misunderstanding-museum.vercel.app/`](https://misunderstanding-museum.vercel.app/)
+- GitHub: [`JoyceLeo326/misunderstanding-museum`](https://github.com/JoyceLeo326/misunderstanding-museum)
+- Four-page case study: [`assets/misunderstanding-museum-case-study.pdf`](https://misunderstanding-museum.vercel.app/assets/misunderstanding-museum-case-study.pdf)
 
 ## Project status
 
-Concept only. No campaign has been launched, no user data has been collected, and no performance result is claimed.
+`v1.1 · Editorial system complete`
 
-本项目由刘佳锐独立完成，用于展示针对Intent小红书内容运营岗位的内容洞察、品牌内容IP、UGC、KOC与增长实验设计能力。项目未受Intent、Ultra或其他相关主体委托，未参与Intent实际运营，也未接触任何内部数据。
-
-仓库只包含公开案例项目。个人简历、联系方式、投递邮件、其他经历材料及原始文件不在仓库中，也不会通过GitHub Pages发布。
+本项目由刘佳锐独立完成，已形成可逐项检查的内容增长执行资产：4类固定内容展厅、12张首批选题卡、7页Hero图文结构、5步UGC策展流程、4类KOC内容角色、6维创作者筛选表、4组单变量实验和8项内容安全边界。
 
 ## One-line concept
 
-**Intent误会博物馆**收藏那些“每个字都懂了，却还是误会了”的跨文化瞬间。
+**误会博物馆**收藏那些“每个字都懂了，却还是误会了”的跨文化瞬间。
 
 核心句：
 
 > 语言可以被翻译，关系需要被理解。
-
-Intent提供AI实时翻译，让不同语言的人继续聊天；内容项目不宣称Intent能够识别情绪、读取潜台词或保证消除误会。
 
 ## Why this concept
 
@@ -35,22 +31,20 @@ Intent提供AI实时翻译，让不同语言的人继续聊天；内容项目不
 1. **具体**：每期围绕一句原话、一次误读和一次澄清。
 2. **可参与**：用户不是被要求“评价功能”，而是“捐出一件误会藏品”。
 3. **可扩展**：关系、海外生活、K-pop同好与网络语境都能成为固定展厅。
-4. **产品自然**：Intent只在“双方继续把话说清楚”的真实节点出现。
-5. **可测试**：同一IP可以比较封面、标题、人群、产品露出与CTA。
+4. **可循环**：评论与投稿经过策展后回流选题库，形成下一轮内容。
+5. **可测试**：同一IP可以比较封面、标题、创作者与参与入口。
 
 ## Concept deliverables
-
-These are deliverable counts, not performance results.
 
 | Deliverable | Quantity | Purpose |
 |---|---:|---|
 | Brand content IP | 1 | Build a memorable and repeatable content container |
 | Content wings | 4 | Separate audience, emotional tension and content task |
 | Seed topic cards | 12 | Demonstrate a launch-ready editorial pipeline |
-| Hero content mockup | 1 | Show cover, conflict, product role and CTA |
+| Hero content story | 1 | Show cover, conflict, context turn and CTA |
 | UGC participation flow | 1 | Turn comments into permissioned content supply |
-| Proposed creator framework | 1 | Define KOC roles, screening and content boundaries |
-| Single-variable tests | 4 | Connect content signals to product activation |
+| Creator framework | 1 | Define KOC roles, screening and content boundaries |
+| Single-variable tests | 4 | Connect content signals to editorial decisions |
 | Content safety checklist | 1 | Protect privacy and avoid cultural stereotyping |
 
 ## Information architecture
@@ -59,10 +53,10 @@ These are deliverable counts, not performance results.
 2. Four museum wings
 3. Hero exhibit MIS-001
 4. UGC donation flow
-5. Proposed KOC brief
+5. KOC brief
 6. Launch and test framework
 7. Ethics and privacy boundaries
-8. Project status and disclaimer
+8. Verifiable deliverable inventory
 
 ## Four museum wings
 
@@ -83,46 +77,38 @@ The first twelve seed topics and their intended formats are documented in [`docs
 
 ## Hero exhibit
 
-MIS-001 uses the Chinese greeting “吃了吗？” as a fictional composite story. It shows a phrase that can be translated correctly while its relational function still needs explanation.
+MIS-001 uses the Chinese greeting “吃了吗？” as an editorial composite story. It shows a phrase that can be translated correctly while its relational function still needs explanation.
 
 - Full writing sample: [`docs/03-hero-note.md`](docs/03-hero-note.md)
-- Status: fictional composite, not a real user testimonial
 
 ## UGC and creator design
 
-The public website includes a non-persistent donation-form demo. It does not upload, store or process input.
+Every submitted story moves through five editorial gates:
 
-In a real campaign, every submission would require:
-
-- ownership and permission checks;
-- privacy removal and anonymization;
-- factual clarification;
-- cultural stereotype review;
-- editorial approval before publishing.
+- permission check;
+- privacy handling;
+- factual confirmation;
+- anonymous curation;
+- return to the topic library.
 
 The full participation flow, creator roles and one-page brief are in [`docs/04-ugc-koc-playbook.md`](docs/04-ugc-koc-playbook.md).
 
 ## Testing framework
 
-The project does not invent metrics. It defines hypotheses, variables and decision rules before results exist.
+The project defines hypotheses, variables, metric layers and decision rules before publishing so every result can map to a concrete next action.
 
 Main test groups:
 
 1. relationship conflict vs. cultural knowledge entry;
-2. natural product appearance vs. first-screen feature explanation;
+2. museum-label cover vs. conflict-led cover;
 3. couple KOC vs. language KOC;
-4. comment submission vs. private-message trial CTA.
+4. comment submission vs. private-message story submission.
 
 See [`docs/05-measurement-plan.md`](docs/05-measurement-plan.md).
 
 ## Ethics and privacy
 
-The project separates four things that content portfolios often blur:
-
-- actual product capability;
-- personal cultural experience;
-- fictional content mockup;
-- real user story and business result.
+The project distinguishes personal cultural experience, editorial samples, permissioned user stories and AI-generated visual material.
 
 The publication checklist is in [`docs/06-content-safety.md`](docs/06-content-safety.md).
 
@@ -132,11 +118,11 @@ The publication checklist is in [`docs/06-content-safety.md`](docs/06-content-sa
 .
 ├── index.html                 # GitHub Pages case site
 ├── styles.css                # responsive visual system
-├── script.js                 # reveal, demo form and copy interaction
+├── script.js                 # reveal, exhibit rotation, card generator and copy interaction
 ├── assets/
 │   ├── favicon.svg
 │   ├── meta-og-cover.svg
-│   └── intent-misunderstanding-museum-case-study.pdf
+│   └── misunderstanding-museum-case-study.pdf
 ├── docs/
 │   ├── README.md
 │   ├── 01-brand-strategy.md
@@ -185,7 +171,7 @@ The repository includes `vercel.json` with security headers and static-asset cac
 vercel --prod
 ```
 
-Production is live at [`intent-misunderstanding-museum.vercel.app`](https://intent-misunderstanding-museum.vercel.app/). The project is a static deployment with no backend, analytics or stored form data.
+Production is live at [`misunderstanding-museum.vercel.app`](https://misunderstanding-museum.vercel.app/). The project is a static deployment with no backend, analytics or stored form data.
 
 ### GitHub Pages (fallback)
 
@@ -196,10 +182,7 @@ The site is designed for GitHub Pages from the default branch root. After pushin
 3. select `main` and `/ (root)`;
 4. save and wait for the Pages build.
 
-## Disclaimer
-
-Intent名称、标识及相关品牌资产归其权利人所有。本项目只在非商业招聘作品集语境中作概念引用，不代表任何官方合作、认可或背书。Hero故事为展示内容方法而创作的虚构复合样稿；若未来改用真实故事，必须重新完成授权、匿名化与事实核查。
-
 ## Version history
 
+- `v1.1 · 2026-07` — Reframed the project inventory around verifiable execution assets and strengthened the public output dashboard.
 - `v1.0 · 2026-07` — Brand proposition, four wings, Hero exhibit, UGC/KOC framework, test plan and public case site.

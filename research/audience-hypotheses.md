@@ -1,14 +1,14 @@
 # Audience hypotheses
 
-These are planning hypotheses derived from the public job description and the concept brief. They are not user-research findings.
+These planning hypotheses organize the first content tests and interview questions.
 
-| Audience | Situation | Emotional tension | Content behavior to validate | Product moment to validate |
+| Audience | Situation | Emotional tension | Content behavior to validate | Content angle to validate |
 |---|---|---|---|---|
-| Cross-cultural couples | Daily chat and conflict | Wanting to be understood without over-explaining | Commenting and sharing personal examples | Continuing a nuanced conversation in two languages |
-| International students | School, housing and work | Social uncertainty and identity | Saving practical context explanations | Lowering pressure in new conversations |
-| Overseas Chinese | Maintaining cross-cultural relationships | Belonging and distance | Sharing culturally specific care rituals | Switching naturally between language contexts |
-| K-pop/multilingual fandom | Group chat and real-time events | In-group belonging and fear of missing context | Correcting, annotating and remixing slang | Real-time multilingual interest chat |
-| Cross-platform culture users | Meme migration | Tone drift and misattribution | Comparing platform meanings | Checking original context with other users |
+| Cross-cultural couples | Daily chat and conflict | Wanting to be understood without over-explaining | Commenting and sharing personal examples | Relationship conflict and reconciliation |
+| International students | School, housing and work | Social uncertainty and identity | Saving practical context explanations | Etiquette, boundaries and daily-life context |
+| Overseas Chinese | Maintaining cross-cultural relationships | Belonging and distance | Sharing culturally specific care rituals | Care rituals and family language |
+| K-pop/multilingual fandom | Group chat and real-time events | In-group belonging and fear of missing context | Correcting, annotating and remixing slang | Slang, symbols and platform tone |
+| Cross-platform culture users | Meme migration | Tone drift and misattribution | Comparing platform meanings | Original source and meaning drift |
 
 ## Questions for real research
 
@@ -16,7 +16,7 @@ These are planning hypotheses derived from the public job description and the co
 2. Do users prefer emotional stories, practical context explanations or a mixture?
 3. What information are users willing to submit publicly vs. privately?
 4. Which creator types generate the most meaningful discussion rather than raw likes?
-5. At what point in a story does product exposure feel useful rather than disruptive?
-6. Which event best represents an “effective first chat” for new users?
+5. At what point in a story does the participation invitation feel natural rather than disruptive?
+6. Which signal best represents genuine series return rather than one-off traffic?
 
-No answer should be assumed without interviews, comment analysis, platform data or product analytics.
+Answers should be updated through interviews, comment analysis and platform data.

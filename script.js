@@ -91,14 +91,16 @@ if (finePointer && !reducedMotion && !figmaCaptureMode) {
   });
 }
 
-const demoForm = document.querySelector('[data-demo-form]');
+const cardForm = document.querySelector('[data-card-form]');
 const formStatus = document.querySelector('[data-form-status]');
 
-if (demoForm && formStatus) {
-  demoForm.addEventListener('submit', (event) => {
+if (cardForm && formStatus) {
+  cardForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    formStatus.textContent = '流程预览完成：内容未上传、未保存。真实项目会先经过授权、匿名化与风险审核。';
-    demoForm.reset();
+    const title = cardForm.elements.title.value.trim();
+    const original = cardForm.elements.original.value.trim();
+    const meaning = cardForm.elements.meaning.value.trim();
+    formStatus.textContent = `藏品卡已生成｜${title}：${original} → ${meaning}`;
   });
 }
 
@@ -110,8 +112,7 @@ const donationTemplate = `藏品名称：
 我真正想表达：
 对方当时怎样理解：
 后来怎样解释清楚：
-是否同意匿名收录：
-是否拥有相关聊天与素材授权：`;
+确认匿名策展与素材授权：`;
 
 async function copyTemplate() {
   try {

@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#fcf7f0"/>
-  <rect x="58" y="54" width="82" height="82" rx="22" fill="#3b0714"/>
-  <path d="m82 101 31-16 5 10-31 16Z" fill="#fff"/>
-  <text x="165" y="108" fill="#3b0714" font-family="Arial Black, sans-serif" font-size="43">Intent</text>
-  <text x="62" y="250" fill="#3b0714" font-family="Arial Black, PingFang SC, sans-serif" font-size="92" font-weight="900">误会博物馆</text>
-  <text x="65" y="318" fill="#251b1e" font-family="PingFang SC, sans-serif" font-size="31" font-weight="700">语言可以被翻译，关系需要被理解。</text>
+  <rect x="62" y="58" width="172" height="42" fill="none" stroke="#3b0714" stroke-width="2"/>
+  <text x="82" y="85" fill="#3b0714" font-family="monospace" font-size="15" font-weight="700" letter-spacing="2">MIS / ARCHIVE</text>
+  <text x="62" y="205" fill="#3b0714" font-family="Songti SC, STSong, serif" font-size="78" font-weight="900">误会</text>
+  <text x="140" y="300" fill="#3b0714" font-family="Songti SC, STSong, serif" font-size="104" font-weight="900">博物馆</text>
+  <text x="65" y="353" fill="#251b1e" font-family="PingFang SC, sans-serif" font-size="28" font-weight="700">语言可以被翻译，关系需要被理解。</text>
   <rect x="65" y="396" width="380" height="105" fill="#f7e6eb"/>
   <text x="92" y="435" fill="#716469" font-family="monospace" font-size="15">ORIGINAL LINE · MIS-001</text>
-  <text x="92" y="477" fill="#3b0714" font-family="Arial Black, PingFang SC, sans-serif" font-size="31">“吃了吗？”</text>
+  <text x="92" y="477" fill="#3b0714" font-family="Songti SC, STSong, serif" font-size="34" font-weight="900">“吃了吗？”</text>
   <path d="M475 449h132" stroke="#3b0714" stroke-width="3" stroke-dasharray="8 8"/>
   <circle cx="542" cy="449" r="28" fill="#fff0c7"/>
   <text x="528" y="459" fill="#3b0714" font-family="PingFang SC, sans-serif" font-size="24" font-weight="800">译</text>
   <rect x="638" y="396" width="476" height="105" fill="#e5eff7"/>
   <text x="665" y="435" fill="#716469" font-family="monospace" font-size="15">LITERAL TRANSLATION</text>
-  <text x="665" y="477" fill="#3b0714" font-family="Arial Black, sans-serif" font-size="31">Have you eaten?</text>
-  <text x="65" y="573" fill="#681f33" font-family="monospace" font-size="18">INDEPENDENT CONCEPT PROJECT · NOT LAUNCHED</text>
+  <text x="665" y="477" fill="#3b0714" font-family="Avenir Next, sans-serif" font-size="31" font-weight="700">Have you eaten?</text>
+  <text x="65" y="573" fill="#681f33" font-family="monospace" font-size="18">CONTENT IP · UGC CURATION · GROWTH EXPERIMENTS</text>
 </svg>

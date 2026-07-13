@@ -1,173 +1,138 @@
 # 05 · Measurement plan
 
-**Test status:** NOT RUN
+**Framework:** 4 single-variable tests · 5-stage content funnel · weekly decisions
 
-当前没有曝光、互动、安装、注册、CPI、ROI或产品激活数据。本文件只定义实验假设、指标口径和后续判断，不填写估计结果。
+这套测量框架把每一条内容信号对应到明确动作：保留什么、改动什么、停止什么，以及下一轮只测试哪一个变量。
 
 ## First-month launch plan
 
 ### W0 · Observation and setup
 
 - 拆解目标人群高互动内容的封面、首句、评论语言和分享动机。
-- 建立12张种子选题卡、风险词表和投稿授权模板。
-- 与产品团队确认实时翻译能力边界、落地页和可用埋点。
-- 定义同一批次的发布时间、预算、人群和归因窗口。
+- 建立12张种子选题卡、风险词表、投稿授权模板和周复盘表。
+- 为打开、消费、共鸣、参与与回访五个阶段确定统计口径。
+- 固定同批测试的发布时间、人群、预算与观察窗口。
 
-### W1 · Brand opening
+### W1 · Opening exhibit
 
 - 发布Hero藏品MIS-001及2个标题/封面变体。
-- 评论区使用固定问题收集“原话”，不公开采集私密故事。
-- 验证关系故事是否同时带来有效评论和产品主页访问。
+- 评论区使用固定问题收集“原话”，再由私信承接完整故事。
+- 比较关系故事与文化知识两种入口的打开率、收藏率和有效评论率。
 
 ### W2 · Creator relay
 
-- 跨国情侣、海外生活、K-pop三类创作者同题共创。
+- 邀请跨国情侣、海外生活、K-pop三类创作者同题共创。
 - 不统一口吻，只统一“原话—误读—澄清—投稿邀请”。
-- 比较不同创作者类型的评论质量、点击和有效首聊成本。
+- 比较不同创作者类型的CPE、有效评论率与UGC启动率。
 
 ### W3 · UGC curation
 
-- 对授权内容完成匿名化和事实确认。
-- 发布“本周新入馆”，整理共同注释。
-- 观察固定投稿模板是否提高有效UGC完成率。
+- 对授权内容完成匿名化、事实确认与文化敏感检查。
+- 发布“本周新入馆”，将共同注释整理为二次内容。
+- 观察固定投稿模板是否提高完成率与可发布素材占比。
 
 ### W4 · Amplify and learn
 
 - 只选择自然互动质量较好的内容进入小额付费测试。
-- 记录预算、时间、人群、创作者历史表现与节日等干扰因素。
-- 将“内容信号—获客—产品激活”放在同一页判断。
+- 记录预算、时间、人群、创作者历史表现与外部事件。
+- 将“内容信号—用户参与—系列回访”放在同一页复盘。
 
 ## Hypotheses
 
-- **H1** 关系故事型内容比功能说明型内容产生更多有效评论和收藏。
+- **H1** 关系故事型内容比文化知识型内容产生更多有效评论。
 - **H2** 跨国情侣、海外生活和K-pop人群对不同故事入口的反应不同。
 - **H3** 固定投稿模板比开放式“分享故事”更容易形成有效UGC。
-- **H4** 产品在故事转折后出现，比首屏直接介绍功能更自然。
-- **H5** “博物馆藏品”封面与强冲突大字封面的打开表现存在差异。
+- **H4** “博物馆展签”封面比强冲突大字封面更有系列识别度。
+- **H5** 评论区捐藏品与私信提交适合承接不同隐私程度的故事。
 
 ## Four primary A/B tests
 
 | Test | Version A | Version B | Primary metric | Decision question |
 |---|---|---|---|---|
-| Content entry | Relationship conflict | Cultural knowledge | Open rate, meaningful comment rate | Story or knowledge for acquisition? |
-| Product exposure | Natural appearance after conflict | Feature on first screen | Profile visit, activation | How to balance resonance and memory? |
-| Creator type | Couple KOC | Language/culture KOC | CPE, effective first-chat cost | Authentic story or expert explanation? |
-| CTA | Comment donation | Private-message trial | UGC completion, activation | Community or acquisition objective? |
+| Content entry | Relationship conflict | Cultural knowledge | Open rate, meaningful comment rate | Story or knowledge for attention? |
+| Cover structure | Museum label | Conflict-led headline | Open rate, save rate | Recognition or immediate tension? |
+| Creator type | Couple KOC | Language/culture KOC | CPE, meaningful comment rate | Lived story or expert context? |
+| Participation entry | Comment donation | Private-message submission | Valid UGC start, completion | Which path yields complete stories? |
 
 ## Test discipline
 
 - 一次只改变一个主要变量。
-- 同题自然内容至少复测，不使用单篇偶然波动下结论。
-- 付费测试达到团队预设的最低点击或激活样本后再判断。
+- 同题内容至少复测一次，不用单篇偶然波动下结论。
 - 同时间窗、相似预算和相似人群比较素材。
-- 获胜方案需要主指标改善，且有效评论质量与产品激活质量不得明显恶化。
-- 每次实验记录版本、发布日期、创作者、预算、定向、归因窗和外部事件。
+- 达到预设的有效互动或投稿样本后再判断。
+- 获胜方案需要主指标改善，且评论质量、授权率与内容安全不得恶化。
+- 每次实验记录版本、发布日期、创作者、预算、定向、观察窗和外部事件。
 
-## Metric dictionary
+## Five-stage metric dictionary
 
-正式执行前，所有公式与数据源都应由内容、投放、产品和数据团队共同确认。
-
-### See
+### 1 · See
 
 - Impressions
 - Cover open rate or video three-second retention
-- Source: Xiaohongshu content/ad platform
+- Source: content/ad platform
 
-### Consume
+### 2 · Consume
 
-- Reading time, completion, video completion
-- Slide completion for multi-image posts if available
+- Reading time and completion
+- Video completion or multi-image slide completion
 - Source: content platform
 
-### Resonate
+### 3 · Resonate
 
-- Save rate, comment rate, share rate
-- Meaningful comment rate: contains a story, question, context or submission; not a pure emoji
+- Save, comment and share rate
+- Meaningful comment rate: contains a story, question, context or submission
 - Source: platform data plus sampled manual tagging
 
-### Participate
+### 4 · Participate
 
 - Valid UGC start rate
 - Submission completion rate
 - Permission-qualified submission count
 - Community annotation count
-- Source: comment/DM/form workflow
+- Source: comment, DM and form workflow
 
-### Acquire
+### 5 · Return
 
-- Profile visit rate
-- Landing-page CTR
-- Install and registration rate
-- CPI or cost per registration
-- Source: tracked link, platform and app attribution
+- Follow rate after reading
+- Series revisit and repeat commenter rate
+- Repeat submission or annotation rate
+- Source: account analytics and content ledger
 
-### Activate
+## North-star content metric
 
-- First real-time translation event
-- First cross-language conversation
-- Suggested “effective first chat”: a new user completes at least three alternating message rounds within 24 hours; final definition requires product-team validation
-- Source: product analytics
+> Permission-qualified submissions per 1,000 qualified reads
 
-### Retain
-
-- D1/D7 repeat conversation
-- Continued conversation with an existing contact
-- Source: product analytics
-
-## Suggested north-star bridge metric
-
-For content acquisition evaluation, a possible bridge metric is:
-
-> Effective first chats per 1,000 qualified content reads
-
-or
-
-> Cost per effective first chat
-
-This connects content quality with a meaningful product action. It should only be used after the product team validates event definitions and attribution.
+“合格阅读”需达到团队设定的阅读时长或完成度；“授权投稿”需完成事实核对、匿名化与发布授权。这个指标同时约束内容质量、参与意愿和后续可用性。
 
 ## Diagnostic rules
 
 ### High open, low saves/comments
 
-Interpretation: cover or title wins, but the content delivers insufficient value or emotional truth.
+封面赢了，正文价值没有兑现。保留入口，重写具体语境，并把评论问题收窄到一句可回答的原话。
 
-Next action: keep the entry, rewrite the body, add specific context or a sharper question.
+### High comments, low valid UGC starts
 
-### High comments, low landing-page CTR
+故事有共鸣，但参与动作不够明确。把泛泛的“分享经历”改为固定字段，并将私密内容转入私信。
 
-Interpretation: story resonates, but the product bridge is weak or arrives at the wrong moment.
+### High starts, low completion
 
-Next action: make the real-time conversation scene clearer without turning the post into a feature demo.
+用户愿意参与，但表单长度、隐私顾虑或授权说明形成阻力。减少非必要字段，前置说明公开范围和删除方式。
 
-### High landing CTR, low install
+### High submissions, low permission rate
 
-Interpretation: the content promise and landing-page promise may not match, or the page has friction.
+活动容易参与，却没有形成可发布素材。强化素材所有权提示、匿名化选项和最终确认环节。
 
-Next action: preserve story continuity on the landing page and review technical/market access friction.
+### High first-week attention, low return
 
-### High install, low effective first chat
+单篇内容成立，但系列识别不足。强化MIS编号、固定展签、展厅分类和“下一件藏品”预告。
 
-Interpretation: acquisition is complete, but the new user does not immediately experience the core value.
+## Weekly reporting format
 
-Next action: review onboarding, conversation prompts and first-contact availability with the product team.
+1. 本周发布与版本变化；
+2. 主指标、守护指标和数据来源；
+3. 评论与UGC质量样本；
+4. 样本、预算与观察窗口；
+5. keep / change / stop决定；
+6. 下一轮唯一变量。
 
-### High UGC count, low permission-qualified UGC
-
-Interpretation: the activity is easy to join but does not produce publishable, safe material.
-
-Next action: improve the template and permission explanation instead of chasing raw volume.
-
-## Reporting format
-
-Every weekly review should contain:
-
-1. what was shipped;
-2. what changed from the previous version;
-3. primary and guardrail metrics;
-4. sample and attribution limitations;
-5. comment/UGC quality examples;
-6. a clear keep, change or stop decision;
-7. the next single variable to test.
-
-No chart should display invented curves, percentages or testimonials.
+所有图表都同时标注平台、时间窗、样本与统计口径。

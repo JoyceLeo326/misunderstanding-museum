@@ -1,12 +1,12 @@
 # Content hypotheses
 
-**Status:** To be tested
+**Status:** Experiment backlog · Six hypotheses
 
-## H1 · Story before function
+## H1 · Story before knowledge
 
-Relationship-conflict entries may create more meaningful comments and shares than feature-first explanations.
+Relationship-conflict entries may create more meaningful comments and shares than context-first explanations.
 
-Risk: emotional content can attract attention while weakening product memory.
+Risk: emotional content can attract attention while weakening the IP's knowledge value.
 
 ## H2 · A fixed museum label improves recognition
 
@@ -20,11 +20,11 @@ Risk: an overly designed museum system can feel like advertising and reduce crea
 
 Risk: additional fields can reduce completion, especially on mobile.
 
-## H4 · Product after the turn feels more natural
+## H4 · Museum-label covers improve series recall
 
-Showing Intent after the misunderstanding is established may preserve story engagement while connecting the product to continued conversation.
+The museum label, MIS number and exhibit fields may create stronger series recall than a conflict-only headline.
 
-Risk: late product exposure can reduce recall and landing-page visits.
+Risk: strong visual consistency can reduce immediate tension and open rate.
 
 ## H5 · Different creator roles should not share one script
 
@@ -34,7 +34,7 @@ Risk: role segmentation can fragment brand voice unless the exhibit structure re
 
 ## H6 · Comment quality is a necessary guardrail
 
-A high comment rate alone does not prove content quality. Meaningful comments, permission-qualified submissions and product activation are better indicators.
+A high comment rate alone does not prove content quality. Meaningful comments, permission-qualified submissions and series return are better indicators.
 
 Risk: manual comment labeling requires a clear rubric and sampling discipline.
 
@@ -43,6 +43,6 @@ Risk: manual comment labeling requires a clear rubric and sampling discipline.
 - repeated content tests within comparable time windows;
 - audience and creator segmentation;
 - comment/UGC quality coding;
-- tracked landing and install attribution;
-- product events for first translation and first cross-language conversation;
+- submission start, completion and permission records;
+- follow, series revisit and repeat participation signals;
 - documentation of sample, budget, timing and external events.
