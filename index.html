@@ -31,7 +31,7 @@
       <a href="#exhibit">首件藏品</a>
       <a href="#collection">馆藏目录</a>
       <a href="#lab">解剖室</a>
-      <a href="#donate">捐出一句话</a>
+      <a href="#donate">制作藏品卡</a>
       <a href="#studio">策展室</a>
     </nav>
     <button class="random-trigger" type="button" data-random-exhibit>
@@ -59,7 +59,7 @@
       <div class="context-lens" data-context-lens data-reveal aria-label="字面与语境互动展签">
         <div class="lens-topline">
           <span class="accession">MIS-001</span>
-          <span data-lens-wing>异乡生活展厅</span>
+          <span data-lens-wing>异乡生活展厅 · 编辑复合故事</span>
         </div>
         <div class="lens-switch" role="group" aria-label="选择阅读方式">
           <button type="button" data-lens-mode="literal" aria-pressed="true">只看字面</button>
@@ -100,7 +100,7 @@
       <div class="section-marker" aria-hidden="true"><span>01</span>首件藏品</div>
       <div class="featured-heading" data-reveal>
         <div>
-          <p class="eyebrow">MIS-001 · 异乡生活展厅</p>
+          <p class="eyebrow">MIS-001 · 异乡生活展厅 <span class="provenance-badge">编辑复合故事</span></p>
           <h2 id="exhibit-title">一场关于晚饭的<br>小型误会。</h2>
         </div>
         <p class="heading-note">被准确翻译的句子，也可能带着完全不同的关系含义抵达。</p>
@@ -114,6 +114,7 @@
             <div><dt>字面</dt><dd>Have you eaten?</dd></div>
             <div><dt>误读发生处</dt><dd>关心被听成了饮食调查</dd></div>
             <div><dt>重新抵达</dt><dd>把没说出口的关心补完整</dd></div>
+            <div><dt>内容来源</dt><dd>编辑复合故事</dd></div>
           </dl>
           <p>一种可能的语境，而不是唯一答案。</p>
         </aside>
@@ -136,7 +137,7 @@
       <div class="annotation-prompt" data-reveal>
         <span class="annotation-mark" aria-hidden="true">？</span>
         <div><p>共同注释</p><h3>在你的关系里，“吃了吗？”通常在问什么？</h3></div>
-        <a href="#donate">捐出你的版本 <span aria-hidden="true">→</span></a>
+        <a href="#donate">制作你的版本 <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -170,55 +171,63 @@
       <div class="collection-layout">
         <div class="collection-grid" data-collection-grid>
           <button class="collection-card is-selected" type="button" data-id="MIS-001" data-wing="life" aria-pressed="true" data-reveal>
-            <span class="card-top"><i>MIS-001</i><em>异乡生活</em></span><strong>“吃了吗？”</strong><small>关心 / 问候</small><p>被听成一场饮食调查。</p>
+            <span class="card-top"><i>MIS-001</i><em>异乡生活</em></span><strong>“吃了吗？”</strong><small>关心 / 问候 · 编辑复合故事</small><p>被听成一场饮食调查。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-002" data-wing="relationship" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-002</i><em>关系</em></span><strong>“你先忙吧”</strong><small>体谅 / 失落</small><p>句号以后，还想被再问一句。</p>
+            <span class="card-top"><i>MIS-002</i><em>关系</em></span><strong>“你先忙吧”</strong><small>体谅 / 失落 · 编辑情境示例</small><p>句号以后，还想被再问一句。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-003" data-wing="fandom" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-003</i><em>同好暗号</em></span><strong>“ㅋㅋㅋ”</strong><small>笑声 / 语气</small><p>笑了多少，也是一种关系距离。</p>
+            <span class="card-top"><i>MIS-003</i><em>同好暗号</em></span><strong>“ㅋㅋㅋ”</strong><small>笑声 / 语气 · 编辑情境示例</small><p>笑了多少，也是一种关系距离。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-004" data-wing="internet" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-004</i><em>网络语境</em></span><strong>“改天约”</strong><small>礼貌 / 邀请</small><p>有时是开始，有时已经结束。</p>
+            <span class="card-top"><i>MIS-004</i><em>网络语境</em></span><strong>“改天约”</strong><small>礼貌 / 邀请 · 编辑情境示例</small><p>有时是开始，有时已经结束。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-005" data-wing="relationship" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-005</i><em>关系</em></span><strong>“随便”</strong><small>选择 / 期待</small><p>没有明确选项，不代表没有偏好。</p>
+            <span class="card-top"><i>MIS-005</i><em>关系</em></span><strong>“随便”</strong><small>选择 / 期待 · 编辑情境示例</small><p>没有明确选项，不代表没有偏好。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-006" data-wing="relationship" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-006</i><em>关系</em></span><strong>“我没事”</strong><small>边界 / 求助</small><p>字面关上门，语气却留了一条缝。</p>
+            <span class="card-top"><i>MIS-006</i><em>关系</em></span><strong>“我没事”</strong><small>边界 / 求助 · 编辑情境示例</small><p>字面关上门，语气却留了一条缝。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-007" data-wing="life" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-007</i><em>异乡生活</em></span><strong>“多穿点”</strong><small>天气 / 惦记</small><p>像提醒，也像隔着距离的拥抱。</p>
+            <span class="card-top"><i>MIS-007</i><em>异乡生活</em></span><strong>“多穿点”</strong><small>天气 / 惦记 · 编辑情境示例</small><p>像提醒，也像隔着距离的拥抱。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-008" data-wing="life" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-008</i><em>异乡生活</em></span><strong>“有空来玩”</strong><small>客气 / 约定</small><p>到底需要等邀请，还是可以当真？</p>
+            <span class="card-top"><i>MIS-008</i><em>异乡生活</em></span><strong>“有空来玩”</strong><small>客气 / 约定 · 编辑情境示例</small><p>到底需要等邀请，还是可以当真？</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-009" data-wing="fandom" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-009</i><em>同好暗号</em></span><strong>“入坑”</strong><small>喜欢 / 归属</small><p>不是掉进去，而是找到同伴。</p>
+            <span class="card-top"><i>MIS-009</i><em>同好暗号</em></span><strong>“入坑”</strong><small>喜欢 / 归属 · 编辑情境示例</small><p>不是掉进去，而是找到同伴。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-010" data-wing="fandom" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-010</i><em>同好暗号</em></span><strong>“我担杀疯了”</strong><small>夸赞 / 黑话</small><p>听起来危险，其实只是很喜欢。</p>
+            <span class="card-top"><i>MIS-010</i><em>同好暗号</em></span><strong>“我担杀疯了”</strong><small>夸赞 / 黑话 · 编辑情境示例</small><p>听起来危险，其实只是很喜欢。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-011" data-wing="internet" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-011</i><em>网络语境</em></span><strong>“收到”</strong><small>确认 / 温度</small><p>高效抵达，也可能显得遥远。</p>
+            <span class="card-top"><i>MIS-011</i><em>网络语境</em></span><strong>“收到”</strong><small>确认 / 温度 · 编辑情境示例</small><p>高效抵达，也可能显得遥远。</p>
           </button>
           <button class="collection-card" type="button" data-id="MIS-012" data-wing="internet" aria-pressed="false" data-reveal>
-            <span class="card-top"><i>MIS-012</i><em>网络语境</em></span><strong>“哈哈 / 哈哈哈哈哈”</strong><small>笑声 / 社交</small><p>长度、标点和关系一起改变语气。</p>
+            <span class="card-top"><i>MIS-012</i><em>网络语境</em></span><strong>“哈哈 / 哈哈哈哈哈”</strong><small>笑声 / 社交 · 编辑情境示例</small><p>长度、标点和关系一起改变语气。</p>
           </button>
         </div>
 
-        <aside class="collection-inspector" data-collection-inspector aria-live="polite" data-reveal>
+        <div class="inspector-backdrop" data-inspector-backdrop hidden></div>
+        <aside class="collection-inspector" data-collection-inspector aria-live="polite" aria-labelledby="inspector-title" data-reveal>
+          <button type="button" class="inspector-close" data-close-inspector aria-label="关闭藏品详情">×</button>
           <div class="inspector-stamp"><span data-inspector-number>001</span><small data-inspector-wing>异乡生活展厅</small></div>
           <p class="inspector-kicker">正在查看</p>
-          <h3 data-inspector-original>“吃了吗？”</h3>
+          <p class="inspector-provenance" data-inspector-source>内容来源 · 编辑复合故事</p>
+          <h3 id="inspector-title" data-inspector-original>“吃了吗？”</h3>
+          <div class="inspector-nav" aria-label="切换藏品">
+            <button type="button" data-prev-exhibit><span aria-hidden="true">←</span> 上一件</button>
+            <span data-inspector-position>1 / 12</span>
+            <button type="button" data-next-exhibit>下一件 <span aria-hidden="true">→</span></button>
+          </div>
           <div class="inspector-row"><span>字面听见</span><p data-inspector-literal>你是否已经吃过饭？</p></div>
           <div class="inspector-row"><span>一种语境</span><p data-inspector-context>我在想你，也想知道你今天有没有照顾好自己。</p></div>
           <div class="inspector-row"><span>共同注释</span><p data-inspector-question>在你的关系里，这句话通常是什么意思？</p></div>
-          <div class="context-coordinates" aria-label="编辑语境坐标，仅作阅读提示">
-            <div class="coordinate-head"><span>编辑语境坐标</span><small>仅作阅读提示</small></div>
-            <div class="coordinate-row" data-coordinate="literal"><span>字面清晰度</span><i><b></b></i><em>较清晰</em></div>
-            <div class="coordinate-row" data-coordinate="relation"><span>关系依赖度</span><i><b></b></i><em>较高</em></div>
-            <div class="coordinate-row" data-coordinate="elastic"><span>语境弹性</span><i><b></b></i><em>中等</em></div>
+          <div class="context-coordinates" aria-label="编辑定性坐标，1 表示较弱，5 表示较强">
+            <div class="coordinate-head"><span>编辑定性坐标</span><small>1 弱 · 5 强</small></div>
+            <div class="coordinate-row" data-coordinate="literal"><span>字面直达</span><i><b></b></i><em>4 / 5</em></div>
+            <div class="coordinate-row" data-coordinate="relation"><span>关系依赖</span><i><b></b></i><em>4 / 5</em></div>
+            <div class="coordinate-row" data-coordinate="elastic"><span>语境弹性</span><i><b></b></i><em>3 / 5</em></div>
           </div>
           <button type="button" class="inspector-action" data-open-lab>送进解剖室 <span aria-hidden="true">→</span></button>
         </aside>
@@ -253,10 +262,10 @@
     </section>
 
     <section class="section donate" id="donate" aria-labelledby="donate-title">
-      <div class="section-marker" aria-hidden="true"><span>04</span>捐出一句话</div>
+      <div class="section-marker" aria-hidden="true"><span>04</span>制作藏品卡</div>
       <div class="donate-heading" data-reveal>
         <div>
-          <p class="eyebrow">你的语境，也是馆藏的一部分</p>
+          <p class="eyebrow">把你的语境做成一张卡</p>
           <h2 id="donate-title">把一次误会，<br>变成一张藏品卡。</h2>
         </div>
         <p>不用写完整故事。先留下那句话、两种理解，以及后来真正让彼此靠近的下一句。</p>
@@ -265,7 +274,7 @@
       <div class="donation-layout">
         <form class="donation-form" data-card-form data-reveal>
           <div class="form-intro">
-            <span>藏品登记</span>
+            <span>藏品制作</span>
             <small>草稿只保存在当前设备，不会自动上传。</small>
           </div>
           <label>
@@ -297,7 +306,7 @@
         </form>
 
         <div class="donation-preview-wrap" data-reveal>
-          <p class="preview-label">馆藏卡预览</p>
+          <p class="preview-label">藏品卡实时预览</p>
           <article class="donation-preview" data-card-preview>
             <div class="preview-rail"><span>MIS</span><strong data-preview-number>NEW</strong><small data-preview-wing>关系展厅</small></div>
             <div class="preview-content">
@@ -409,7 +418,7 @@
     <a href="#home"><span aria-hidden="true">⌂</span><small>入口</small></a>
     <a href="#collection"><span aria-hidden="true">▦</span><small>馆藏</small></a>
     <a href="#lab"><span aria-hidden="true">◫</span><small>解剖</small></a>
-    <a href="#donate"><span aria-hidden="true">＋</span><small>捐藏</small></a>
+    <a href="#donate"><span aria-hidden="true">＋</span><small>制卡</small></a>
   </nav>
 </body>
 </html>
