@@ -1,0 +1,19 @@
+{
+  "name": "误会博物馆",
+  "short_name": "误会博物馆",
+  "description": "收藏那些每个字都懂了，却还是误会了的瞬间。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f2e9",
+  "theme_color": "#3e0b18",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
