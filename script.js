@@ -44,10 +44,10 @@
   };
 
   var labSteps = [
-    { stage: '切片 01 · 原话', quote: '“你先忙吧。”', copy: '短短五个字，信息完整，语气却没有被写出来。它可以是体谅，也可以是失落，还可能只是结束对话。', question: '如果不看前后文，你会把它读成哪一种情绪？' },
-    { stage: '切片 02 · 字面', quote: 'Take your time.', copy: '直译顺畅，行动指令也很清楚：你可以先去忙。但字面没有携带停顿、回复速度和此前发生过的对话。', question: '翻译保住了信息，却漏掉了哪些关系线索？' },
-    { stage: '切片 03 · 语境', quote: '体谅，还是失落？', copy: '同一句话放进不同关系，会拥有不同重量。也许对方真的想给你空间，也许是在等待一句“怎么了”，两种理解都需要前后文来确认。', question: '哪些语气、时间和关系背景会改变你的判断？' },
-    { stage: '切片 04 · 下一句', quote: '“我忙完来找你。\n你是不是有点不开心？”', copy: '好的下一句不急着宣布自己猜对了，而是同时保留体谅与询问：先回应字面，再轻轻确认语境。', question: '你还能补出哪一句，让两种理解都有继续说下去的空间？' }
+    { stage: '观察 01 · 原话', quote: '“你先忙吧。”', copy: '短短五个字，信息完整，语气却留了白。它可能是体谅，也可能藏着一点失落，还可能只是在温和地结束对话。', question: '如果暂时不看前后文，你会先听见哪一种情绪？' },
+    { stage: '观察 02 · 字面', quote: 'Take your time.', copy: '直译清楚地传达了行动：你可以先去忙。但停顿、回复速度和此前的对话，还没有一起抵达。', question: '除了字面信息，你还会留意哪些细微信号？' },
+    { stage: '观察 03 · 语境', quote: '体谅，还是失落？', copy: '同一句话回到不同关系里，会拥有不同重量。也许对方真的想留出空间，也许是在等待一句“怎么了”；答案需要由前后文慢慢照亮。', question: '哪些语气、时机和关系背景，会改变你的判断？' },
+    { stage: '观察 04 · 下一句', quote: '“我忙完来找你。\n你是不是有点不开心？”', copy: '更好的下一句，不急着宣布自己猜对了。先回应字面，再轻轻确认感受，让体谅和关心都能被接住。', question: '你会补上哪一句，让彼此都更容易继续说下去？' }
   ];
 
   function list(selector, scope) {
@@ -58,6 +58,71 @@
     buttons.forEach(function (button) {
       button.setAttribute('aria-pressed', button === active ? 'true' : 'false');
     });
+  }
+
+  function setupHeroSequence() {
+    var heroCopy = document.querySelector('[data-hero-sequence]');
+    if (!heroCopy) return;
+    list('[data-hero-reveal]', heroCopy).forEach(function (item, index) {
+      item.style.setProperty('--hero-index', String(index));
+    });
+    if (reducedMotion) {
+      heroCopy.classList.add('is-entered');
+      return;
+    }
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () { heroCopy.classList.add('is-entered'); });
+    });
+  }
+
+  function setupTextReveal() {
+    var headings = list('[data-text-reveal]');
+    if (!headings.length) return;
+
+    headings.forEach(function (heading) {
+      var label = heading.textContent.replace(/\s+/g, ' ').trim();
+      var lines = [];
+      var current = '';
+
+      Array.prototype.slice.call(heading.childNodes).forEach(function (node) {
+        if (node.nodeName === 'BR') {
+          if (current.trim()) lines.push(current.trim());
+          current = '';
+          return;
+        }
+        current += node.textContent || '';
+      });
+      if (current.trim()) lines.push(current.trim());
+      if (!lines.length) lines.push(label);
+
+      heading.setAttribute('aria-label', label);
+      heading.textContent = '';
+      lines.forEach(function (line, index) {
+        var outer = document.createElement('span');
+        var inner = document.createElement('span');
+        outer.className = 'text-reveal-line';
+        outer.setAttribute('aria-hidden', 'true');
+        outer.style.setProperty('--line-index', String(index));
+        inner.textContent = line;
+        outer.appendChild(inner);
+        heading.appendChild(outer);
+      });
+    });
+
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+      headings.forEach(function (heading) { heading.classList.add('is-text-visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-text-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+    headings.forEach(function (heading) { observer.observe(heading); });
   }
 
   function setupReveal() {
@@ -82,7 +147,9 @@
 
       window.setTimeout(function () {
         items.forEach(function (item) {
-          if (!item.classList.contains('is-visible')) item.classList.add('is-visible');
+          if (item.classList.contains('is-visible')) return;
+          var rect = item.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 1.15 && rect.bottom > -100) item.classList.add('is-visible');
         });
       }, 2200);
     } catch (error) {
@@ -552,6 +619,8 @@
 
   function init() {
     root.classList.add('enhanced');
+    setupHeroSequence();
+    setupTextReveal();
     setupReveal();
     setupScrollState();
     setupNavigationState();
@@ -569,6 +638,9 @@
       item.classList.remove('reveal-pending');
       item.classList.add('is-visible');
     });
+    var heroCopy = document.querySelector('[data-hero-sequence]');
+    if (heroCopy) heroCopy.classList.add('is-entered');
+    list('[data-text-reveal]').forEach(function (heading) { heading.classList.add('is-text-visible'); });
     root.classList.add('enhancement-failed');
   }
 }());
