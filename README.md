@@ -7,7 +7,6 @@
 ## 访问
 
 - Vercel：<https://misunderstanding-museum.vercel.app/>
-- GitHub Pages 备用入口：<https://joyceleo326.github.io/misunderstanding-museum/>
 - GitHub：<https://github.com/JoyceLeo326/misunderstanding-museum>
 - 四页策展档案：[`assets/misunderstanding-museum-case-study.pdf`](assets/misunderstanding-museum-case-study.pdf)
 
@@ -64,7 +63,7 @@ python3 -m http.server 8000
 - Semantic HTML、原生 CSS 与 Vanilla JavaScript；
 - 不依赖外部字体、前端框架、分析脚本、Cookie、数据库或后端；
 - 表单仅在当前设备制作藏品卡和保存草稿；
-- Vercel 与 GitHub Pages 均可直接托管。
+- Vercel 可直接托管。
 
 ## 策展文档
 
