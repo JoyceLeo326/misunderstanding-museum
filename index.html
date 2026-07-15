@@ -2,16 +2,20 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="误会博物馆：围绕跨文化误会与关系理解建立的内容IP，包含四个内容展厅、12张选题卡、UGC策展机制、KOC协作框架与增长实验。">
-  <meta name="author" content="刘佳锐">
-  <meta name="theme-color" content="#3b0714">
-  <meta property="og:title" content="误会博物馆｜跨文化内容IP与增长系统">
-  <meta property="og:description" content="收藏那些每个字都懂了，却还是误会了的瞬间。">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="误会博物馆：收藏那些每个字都懂了，却还是误会了的瞬间。参观12件跨文化话语藏品，也可以在本地生成自己的藏品卡。">
+  <meta name="theme-color" content="#3e0b18">
+  <meta name="color-scheme" content="light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta property="og:title" content="误会博物馆｜字面抵达之后">
+  <meta property="og:description" content="语言可以被翻译，关系需要被理解。">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/meta-og-cover.png">
-  <title>误会博物馆｜跨文化内容IP与增长系统</title>
+  <title>误会博物馆｜字面抵达之后</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
@@ -19,419 +23,402 @@
   <a class="skip-link" href="#main">跳到主要内容</a>
 
   <header class="site-header" data-header>
-    <a class="brand" href="#home" aria-label="返回首页">
-      <span class="brand-mark" aria-hidden="true"><i></i></span>
-      <span>误会博物馆</span>
+    <a class="brand" href="#home" aria-label="误会博物馆首页">
+      <span class="brand-seal" aria-hidden="true"><i>误</i><i>会</i></span>
+      <span class="brand-name">误会博物馆</span>
     </a>
-    <nav class="site-nav" aria-label="主要导航">
-      <a href="#thesis">品牌命题</a>
-      <a href="#rooms">四个展厅</a>
+    <nav class="desktop-nav" aria-label="主要导航">
       <a href="#exhibit">首件藏品</a>
-      <a href="#donate">UGC机制</a>
-      <a href="#testing">测试框架</a>
+      <a href="#collection">馆藏目录</a>
+      <a href="#lab">解剖室</a>
+      <a href="#donate">制作藏品卡</a>
+      <a href="#studio">策展室</a>
     </nav>
-    <a class="header-action" href="assets/misunderstanding-museum-case-study.pdf">4页案例 PDF ↗</a>
+    <button class="random-trigger" type="button" data-random-exhibit>
+      <span aria-hidden="true">↻</span> 抽一件藏品
+    </button>
   </header>
   <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
 
   <main id="main">
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="hero-copy" data-reveal>
-        <p class="eyebrow">CROSS-CULTURAL CONTENT ARCHIVE</p>
-        <h1 id="hero-title"><span class="hero-title-line">误会</span><span class="hero-title-line">博物馆</span></h1>
+        <p class="kicker"><span>线上展览</span><span>第 01 季</span></p>
+        <h1 id="hero-title" aria-label="误会博物馆">
+          <span class="title-pair"><b>误</b><i aria-hidden="true"><em>字面</em><span></span><em>语境</em></i><b>会</b></span>
+          <span class="title-museum">博物馆</span>
+        </h1>
         <p class="hero-thesis">语言可以被翻译，<br>关系需要被理解。</p>
-        <p class="hero-intro">一座收藏跨文化误会的小型线上博物馆。这里保存那些“每个字都听懂了，却还是理解错了”的瞬间，也记录人们怎样通过下一句话重新靠近彼此。</p>
+        <p class="hero-intro">这里收藏那些“每个字都听懂了，却还是理解错了”的瞬间。每件藏品都从一句原话出发，沿着字面、语境与关系，寻找真正抵达彼此的下一句话。</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#exhibit">参观第一件藏品</a>
-          <a class="button button-ghost" href="#donate">捐出一件藏品</a>
+          <a class="button button-primary" href="#exhibit">从第一件藏品开始</a>
+          <a class="button button-quiet" href="#collection">打开馆藏目录</a>
         </div>
       </div>
 
-      <div class="hero-art" aria-label="字面翻译与真实语境的概念示意" data-reveal data-tilt data-exhibit-stage>
-        <div class="accession-rail" aria-hidden="true">
-          <span>MIS</span><b data-exhibit-number>001</b><small data-exhibit-wing>LIFE ABROAD WING</small>
+      <div class="context-lens" data-context-lens data-reveal aria-label="字面与语境互动展签">
+        <div class="lens-topline">
+          <span class="accession">MIS-001</span>
+          <span data-lens-wing>异乡生活展厅 · 编辑复合故事</span>
         </div>
-        <div class="translation-stage">
-          <div class="museum-label">
-            <span>ORIGINAL LINE</span>
-            <strong data-exhibit-original>“吃了吗？”</strong>
-          </div>
-          <div class="translation-path" aria-hidden="true">
-            <span class="path-dot"></span><span class="path-line"></span><span class="path-gate">译</span><span class="path-line"></span><span class="path-dot"></span>
-          </div>
-          <div class="museum-label museum-label-right">
-            <span>LITERAL TRANSLATION</span>
-            <strong data-exhibit-literal>Have you eaten?</strong>
-          </div>
-          <div class="context-note">
-            <span>WHAT I MEANT</span>
-            <p data-exhibit-context>今天过得怎么样？<br>有没有好好照顾自己？</p>
-          </div>
-          <p class="stage-caption">字面已经抵达，语境还在路上。</p>
+        <div class="lens-switch" role="group" aria-label="选择阅读方式">
+          <button type="button" data-lens-mode="literal" aria-pressed="true">只看字面</button>
+          <button type="button" data-lens-mode="context" aria-pressed="false">补上语境</button>
         </div>
+        <div class="lens-artifact">
+          <p class="artifact-label">当时的原话</p>
+          <strong data-lens-original>“吃了吗？”</strong>
+          <div class="translation-line" aria-hidden="true"><span></span><i>译</i><span></span></div>
+          <div class="literal-reading" data-lens-literal>
+            <p>字面翻译</p>
+            <strong>Have you eaten?</strong>
+          </div>
+          <div class="context-reading" data-lens-context hidden>
+            <p>一句可能的语境</p>
+            <strong>“今天过得怎么样？<br>有没有好好照顾自己？”</strong>
+          </div>
+        </div>
+        <div class="lens-picker" aria-label="切换展签">
+          <button type="button" data-lens-index="0" aria-pressed="true"><span>01</span>吃了吗？</button>
+          <button type="button" data-lens-index="1" aria-pressed="false"><span>02</span>你先忙吧</button>
+          <button type="button" data-lens-index="2" aria-pressed="false"><span>03</span>ㅋㅋㅋ</button>
+          <button type="button" data-lens-index="3" aria-pressed="false"><span>04</span>改天约</button>
+        </div>
+        <p class="lens-caption">字面已经抵达，语境还在路上。</p>
       </div>
 
-      <div class="hero-deliverables" aria-label="项目交付物" data-reveal>
-        <div><strong>01</strong><span>内容母IP</span></div>
-        <div><strong>04</strong><span>固定内容展厅</span></div>
-        <div><strong>12</strong><span>首批选题卡</span></div>
-        <div><strong>01</strong><span>UGC共创机制</span></div>
-        <div><strong>04</strong><span>单变量实验</span></div>
-      </div>
-      <div class="phrase-marquee" aria-hidden="true">
-        <div class="phrase-track">
-          <span>MIS-001 “吃了吗？”</span><i>→</i>
-          <span>MIS-002 “你先忙吧”</span><i>→</i>
-          <span>MIS-003 “ㅋㅋㅋ”</span><i>→</i>
-          <span>MIS-004 “改天约”</span><i>→</i>
-          <span>MIS-001 “吃了吗？”</span><i>→</i>
-          <span>MIS-002 “你先忙吧”</span><i>→</i>
-          <span>MIS-003 “ㅋㅋㅋ”</span><i>→</i>
-          <span>MIS-004 “改天约”</span><i>→</i>
-        </div>
+      <div class="museum-map" data-reveal aria-label="参观路线">
+        <div><span>01</span><strong>听见一句话</strong><small>从原话进入</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>02</span><strong>看见两种理解</strong><small>拆开字面与语境</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>03</span><strong>补上下一句话</strong><small>让关系继续发生</small></div>
       </div>
     </section>
 
-    <section class="section thesis" id="thesis" aria-labelledby="thesis-title">
-      <div class="section-index" aria-hidden="true">01 / THESIS</div>
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">BRAND PROPOSITION</p>
-        <h2 id="thesis-title">为什么是一座<br>“误会博物馆”？</h2>
-      </div>
-      <div class="thesis-grid">
-        <article class="thesis-lead" data-reveal>
-          <p>跨语言聊天的困难，并不总是某个单词没有被翻出来。</p>
-          <p>更多时候，字面已经送达，成长经历、社交习惯和关系语境却没有一起抵达。</p>
-        </article>
-        <article class="logic-card" data-reveal>
-          <span class="logic-label">内容入口</span>
-          <h3>从一句话进入</h3>
-          <p>不从宽泛的文化差异讲起，而是从一句原话、一次误读和一个具体关系瞬间进入。</p>
-        </article>
-        <article class="logic-card" data-reveal>
-          <span class="logic-label">编辑结构</span>
-          <h3>把误会拆开</h3>
-          <p>用“原话—对方听成—后来才知道—共同注释”把情绪故事沉淀为可连续策展的内容。</p>
-        </article>
-        <article class="logic-card" data-reveal>
-          <span class="logic-label">用户动作</span>
-          <h3>捐出一句话</h3>
-          <p>用户分享的不是功能评价，而是“原话、误解、语境和后来怎样讲明白”。</p>
-        </article>
-      </div>
-
-      <div class="ip-system" data-reveal>
+    <section class="section featured" id="exhibit" aria-labelledby="exhibit-title">
+      <div class="section-marker" aria-hidden="true"><span>01</span>首件藏品</div>
+      <div class="featured-heading" data-reveal>
         <div>
-          <span>MOTHER IP</span>
-          <strong>误会博物馆</strong>
-          <p>负责母IP、内容识别与长期栏目资产。</p>
+          <p class="eyebrow">MIS-001 · 异乡生活展厅 <span class="provenance-badge">编辑复合故事</span></p>
+          <h2 id="exhibit-title">一场关于晚饭的<br>小型误会。</h2>
         </div>
-        <div class="ip-arrow" aria-hidden="true">→</div>
-        <div>
-          <span>SERIES FORMAT</span>
-          <strong>MIS-001 → MIS-012</strong>
-          <p>每件藏品拥有编号、展签和共同注释。</p>
-        </div>
-        <div class="ip-arrow" aria-hidden="true">→</div>
-        <div>
-          <span>CONTENT LOOP</span>
-          <strong>收藏 → 注释 → 再策展</strong>
-          <p>评论与投稿回流选题库，形成下一轮内容。</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section rooms" id="rooms" aria-labelledby="rooms-title">
-      <div class="section-index" aria-hidden="true">02 / COLLECTION</div>
-      <div class="section-heading horizontal" data-reveal>
-        <div>
-          <p class="eyebrow">CONTENT ARCHITECTURE</p>
-          <h2 id="rooms-title">同一句话，<br>进入四个展厅。</h2>
-        </div>
-        <p>每个展厅对应一组人群、一种情绪张力和一种内容任务。栏目结构固定，故事来自具体的人。</p>
+        <p class="heading-note">被准确翻译的句子，也可能带着完全不同的关系含义抵达。</p>
       </div>
 
-      <div class="room-grid">
-        <article class="room-card room-pink" data-reveal data-tilt>
-          <div class="room-number">WING 01</div>
-          <h3>关系展厅</h3>
-          <p class="room-en">RELATIONSHIP WING</p>
-          <p>收藏跨国情侣和跨文化家庭中，那些字面很简单、关系阅读难度很高的话。</p>
-          <ul>
-            <li>“你忙吧”，他真的去忙了</li>
-            <li>“随便”，到底是不是随便</li>
-            <li>“我没事”，为什么谁都没信</li>
-          </ul>
-          <span class="room-goal">目标：评论 / 分享</span>
-        </article>
-
-        <article class="room-card room-blue" data-reveal data-tilt>
-          <div class="room-number">WING 02</div>
-          <h3>异乡生活展厅</h3>
-          <p class="room-en">LIFE ABROAD WING</p>
-          <p>收藏留学、合租、工作和海外日常中，被不同生活习惯重新解释的话。</p>
-          <ul>
-            <li>“吃了吗”不是饮食调查</li>
-            <li>“多喝热水”像一份故障排查</li>
-            <li>“改天约”究竟是哪一天</li>
-          </ul>
-          <span class="room-goal">目标：搜索 / 收藏</span>
-        </article>
-
-        <article class="room-card room-lilac" data-reveal data-tilt>
-          <div class="room-number">WING 03</div>
-          <h3>同好暗号展厅</h3>
-          <p class="room-en">FANDOM WING</p>
-          <p>收藏K-pop、追星、游戏与兴趣社群里，只有同好才能立刻听懂的缩写、笑声和黑话。</p>
-          <ul>
-            <li>“ㅋㅋㅋ”到底笑没笑</li>
-            <li>“我担杀疯了”发生了什么</li>
-            <li>彩虹屁需要多少条文化注释</li>
-          </ul>
-          <span class="room-goal">目标：圈层扩散</span>
-        </article>
-
-        <article class="room-card room-green" data-reveal data-tilt>
-          <div class="room-number">WING 04</div>
-          <h3>网络语境展厅</h3>
-          <p class="room-en">INTERNET CONTEXT WING</p>
-          <p>收藏一个梗从海外平台、微博或豆瓣迁移到小红书后，语气和意义怎样改变。</p>
-          <ul>
-            <li>同一个表情像三种态度</li>
-            <li>海外热梗丢了哪层意思</li>
-            <li>礼貌回复为何像阴阳怪气</li>
-          </ul>
-          <span class="room-goal">目标：热点 / 品牌心智</span>
-        </article>
-      </div>
-
-      <div class="editorial-system" data-reveal>
-        <h3>每件藏品都使用同一套编辑结构</h3>
-        <ol>
-          <li><span>原话</span><p>当时说了什么</p></li>
-          <li><span>对方听成</span><p>对方怎样理解</p></li>
-          <li><span>后来才知道</span><p>误会来自什么语境</p></li>
-          <li><span>共同注释</span><p>不同用户留下自己的理解</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="section exhibit" id="exhibit" aria-labelledby="exhibit-title">
-      <div class="section-index light" aria-hidden="true">03 / HERO EXHIBIT</div>
-      <div class="exhibit-header" data-reveal>
-        <div>
-          <p class="eyebrow">EDITORIAL COMPOSITE · MIS-001</p>
-          <span class="exhibit-code">MIS-001 / 海外生活展厅</span>
-        </div>
-        <h2 id="exhibit-title">“吃了吗？”<br><span>一句被正确翻译，<br>却被错误理解的关心。</span></h2>
-      </div>
-
-      <div class="exhibit-layout">
-        <aside class="exhibit-labels" data-reveal aria-label="藏品标签">
-          <div><span>原话</span><strong>吃了吗？</strong></div>
-          <div><span>我想表达</span><strong>我在想你。今天还好吗？别饿着。</strong></div>
-          <div><span>对方听成</span><strong>为什么你每天都要调查我的晚饭？</strong></div>
-          <div><span>后来才知道</span><strong>询问吃饭在不同成长经验里承担着不同的关系功能。</strong></div>
+      <div class="featured-grid">
+        <aside class="object-label" data-reveal>
+          <div class="object-number">001</div>
+          <dl>
+            <div><dt>原话</dt><dd>吃了吗？</dd></div>
+            <div><dt>字面</dt><dd>Have you eaten?</dd></div>
+            <div><dt>误读发生处</dt><dd>关心被听成了饮食调查</dd></div>
+            <div><dt>重新抵达</dt><dd>把没说出口的关心补完整</dd></div>
+            <div><dt>内容来源</dt><dd>编辑复合故事</dd></div>
+          </dl>
+          <p>一种可能的语境，而不是唯一答案。</p>
         </aside>
 
-        <article class="story-card" data-reveal>
+        <article class="story" data-reveal>
           <p class="story-lede">交往第三周，他特别认真地问我：“为什么你每天都要问我有没有吃饭？”</p>
           <p>我愣了一下。因为在我的语言里，“吃了吗”有时是“我在想你”，有时是“今天还好吗”，有时只是很笨拙的一句“别饿着”。</p>
           <p>但在他的经验里，这句话只有一个意思：你为什么又来调查我的晚饭？</p>
-          <div class="chat-stack" aria-label="对话内容示意">
+          <div class="chat-scene" aria-label="对话场景">
             <span class="chat mine">我：吃了吗？</span>
-            <span class="chat translated">直译：Have you eaten?</span>
+            <span class="chat system">直译：Have you eaten?</span>
             <span class="chat theirs">他：Yes. Pasta. Normal portion.</span>
           </div>
-          <p>那天我们顺着这句直译继续聊了很久。我终于补上之前没说出口的半句话：</p>
-          <blockquote>“我不是查岗。我只是想知道，你今天有没有好好照顾自己。”</blockquote>
-          <p>字面翻译没有错，但真正的理解仍要由两个人在下一句话里一起完成。</p>
-          <p class="story-close">翻译把一句话送到对方那里，理解从下一句话开始。</p>
+          <p>那天我们顺着这句直译聊了很久。我终于补上之前没说出口的半句话：</p>
+          <blockquote>“我不是查岗。我只是想知道，<br>你今天有没有好好照顾自己。”</blockquote>
+          <p>翻译把一句话送到对方那里，理解从下一句话开始。</p>
         </article>
       </div>
 
-      <div class="xhs-anatomy" data-reveal>
+      <div class="annotation-prompt" data-reveal>
+        <span class="annotation-mark" aria-hidden="true">？</span>
+        <div><p>共同注释</p><h3>在你的关系里，“吃了吗？”通常在问什么？</h3></div>
+        <a href="#donate">制作你的版本 <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="section collection" id="collection" aria-labelledby="collection-title">
+      <div class="section-marker" aria-hidden="true"><span>02</span>馆藏目录</div>
+      <div class="collection-heading" data-reveal>
         <div>
-          <span>01</span><strong>反常识封面</strong><p>字面翻对了，关系理解却出了错。</p>
+          <p class="eyebrow">12 件首批馆藏 · 4 个展厅</p>
+          <h2 id="collection-title">一句话，<br>不止一种抵达方式。</h2>
         </div>
+        <p>选择展厅，或随手抽取一件藏品。所有解释都只是一种可能，欢迎带着自己的语境继续注释。</p>
+      </div>
+
+      <div class="collection-toolbar" data-reveal>
+        <div class="filter-chips" role="group" aria-label="按展厅筛选">
+          <button type="button" data-filter="all" aria-pressed="true">全部 <span>12</span></button>
+          <button type="button" data-filter="relationship" aria-pressed="false">关系 <span>3</span></button>
+          <button type="button" data-filter="life" aria-pressed="false">异乡生活 <span>3</span></button>
+          <button type="button" data-filter="fandom" aria-pressed="false">同好暗号 <span>3</span></button>
+          <button type="button" data-filter="internet" aria-pressed="false">网络语境 <span>3</span></button>
+        </div>
+        <div class="collection-tools">
+          <div class="visit-meter" data-visit-meter aria-live="polite">
+            <span class="visit-ring" aria-hidden="true"><i data-visit-ring></i><b data-visit-count>1</b></span>
+            <span><strong>本次参观</strong><small data-visit-label>已阅 1 / 12</small></span>
+          </div>
+          <button class="shuffle-button" type="button" data-random-exhibit>↻ 随机抽取</button>
+        </div>
+      </div>
+
+      <div class="collection-layout">
+        <div class="collection-grid" data-collection-grid>
+          <button class="collection-card is-selected" type="button" data-id="MIS-001" data-wing="life" aria-pressed="true" data-reveal>
+            <span class="card-top"><i>MIS-001</i><em>异乡生活</em></span><strong>“吃了吗？”</strong><small>关心 / 问候 · 编辑复合故事</small><p>被听成一场饮食调查。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-002" data-wing="relationship" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-002</i><em>关系</em></span><strong>“你先忙吧”</strong><small>体谅 / 失落 · 编辑情境示例</small><p>句号以后，还想被再问一句。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-003" data-wing="fandom" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-003</i><em>同好暗号</em></span><strong>“ㅋㅋㅋ”</strong><small>笑声 / 语气 · 编辑情境示例</small><p>笑了多少，也是一种关系距离。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-004" data-wing="internet" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-004</i><em>网络语境</em></span><strong>“改天约”</strong><small>礼貌 / 邀请 · 编辑情境示例</small><p>有时是开始，有时已经结束。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-005" data-wing="relationship" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-005</i><em>关系</em></span><strong>“随便”</strong><small>选择 / 期待 · 编辑情境示例</small><p>没有明确选项，不代表没有偏好。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-006" data-wing="relationship" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-006</i><em>关系</em></span><strong>“我没事”</strong><small>边界 / 求助 · 编辑情境示例</small><p>字面关上门，语气却留了一条缝。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-007" data-wing="life" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-007</i><em>异乡生活</em></span><strong>“多穿点”</strong><small>天气 / 惦记 · 编辑情境示例</small><p>像提醒，也像隔着距离的拥抱。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-008" data-wing="life" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-008</i><em>异乡生活</em></span><strong>“有空来玩”</strong><small>客气 / 约定 · 编辑情境示例</small><p>到底需要等邀请，还是可以当真？</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-009" data-wing="fandom" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-009</i><em>同好暗号</em></span><strong>“入坑”</strong><small>喜欢 / 归属 · 编辑情境示例</small><p>不是掉进去，而是找到同伴。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-010" data-wing="fandom" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-010</i><em>同好暗号</em></span><strong>“我担杀疯了”</strong><small>夸赞 / 黑话 · 编辑情境示例</small><p>听起来危险，其实只是很喜欢。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-011" data-wing="internet" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-011</i><em>网络语境</em></span><strong>“收到”</strong><small>确认 / 温度 · 编辑情境示例</small><p>高效抵达，也可能显得遥远。</p>
+          </button>
+          <button class="collection-card" type="button" data-id="MIS-012" data-wing="internet" aria-pressed="false" data-reveal>
+            <span class="card-top"><i>MIS-012</i><em>网络语境</em></span><strong>“哈哈 / 哈哈哈哈哈”</strong><small>笑声 / 社交 · 编辑情境示例</small><p>长度、标点和关系一起改变语气。</p>
+          </button>
+        </div>
+
+        <div class="inspector-backdrop" data-inspector-backdrop hidden></div>
+        <aside class="collection-inspector" data-collection-inspector aria-live="polite" aria-labelledby="inspector-title" data-reveal>
+          <button type="button" class="inspector-close" data-close-inspector aria-label="关闭藏品详情">×</button>
+          <div class="inspector-stamp"><span data-inspector-number>001</span><small data-inspector-wing>异乡生活展厅</small></div>
+          <p class="inspector-kicker">正在查看</p>
+          <p class="inspector-provenance" data-inspector-source>内容来源 · 编辑复合故事</p>
+          <h3 id="inspector-title" data-inspector-original>“吃了吗？”</h3>
+          <div class="inspector-nav" aria-label="切换藏品">
+            <button type="button" data-prev-exhibit><span aria-hidden="true">←</span> 上一件</button>
+            <span data-inspector-position>1 / 12</span>
+            <button type="button" data-next-exhibit>下一件 <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="inspector-row"><span>字面听见</span><p data-inspector-literal>你是否已经吃过饭？</p></div>
+          <div class="inspector-row"><span>一种语境</span><p data-inspector-context>我在想你，也想知道你今天有没有照顾好自己。</p></div>
+          <div class="inspector-row"><span>共同注释</span><p data-inspector-question>在你的关系里，这句话通常是什么意思？</p></div>
+          <div class="context-coordinates" aria-label="编辑定性坐标，1 表示较弱，5 表示较强">
+            <div class="coordinate-head"><span>编辑定性坐标</span><small>1 弱 · 5 强</small></div>
+            <div class="coordinate-row" data-coordinate="literal"><span>字面直达</span><i><b></b></i><em>4 / 5</em></div>
+            <div class="coordinate-row" data-coordinate="relation"><span>关系依赖</span><i><b></b></i><em>4 / 5</em></div>
+            <div class="coordinate-row" data-coordinate="elastic"><span>语境弹性</span><i><b></b></i><em>3 / 5</em></div>
+          </div>
+          <button type="button" class="inspector-action" data-open-lab>送进解剖室 <span aria-hidden="true">→</span></button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section lab" id="lab" aria-labelledby="lab-title">
+      <div class="section-marker light" aria-hidden="true"><span>03</span>藏品解剖室</div>
+      <div class="lab-heading" data-reveal>
         <div>
-          <span>02</span><strong>具体冲突</strong><p>不用宽泛的“文化差异”，只讲一句具体的话。</p>
+          <p class="eyebrow">MIS-002 · 关系展厅</p>
+          <h2 id="lab-title">把一句“你先忙吧”，<br>拆成四层来看。</h2>
         </div>
-        <div>
-          <span>03</span><strong>语境转折</strong><p>从字面差异转向成长经验和关系表达。</p>
+        <p>点击四枚切片，观察一句话怎样从字面信息，逐渐露出语气、关系与下一步行动。</p>
+      </div>
+
+      <div class="lab-workbench" data-reveal>
+        <div class="lab-tabs" role="tablist" aria-label="藏品解剖步骤">
+          <button type="button" role="tab" id="lab-tab-1" aria-controls="lab-panel" aria-selected="true" data-lab-step="0"><span>01</span>原话</button>
+          <button type="button" role="tab" id="lab-tab-2" aria-controls="lab-panel" aria-selected="false" data-lab-step="1"><span>02</span>字面</button>
+          <button type="button" role="tab" id="lab-tab-3" aria-controls="lab-panel" aria-selected="false" data-lab-step="2"><span>03</span>语境</button>
+          <button type="button" role="tab" id="lab-tab-4" aria-controls="lab-panel" aria-selected="false" data-lab-step="3"><span>04</span>下一句</button>
         </div>
-        <div>
-          <span>04</span><strong>可投稿CTA</strong><p>评论直接成为下一期选题，而不是停在点赞。</p>
+        <div class="lab-panel" id="lab-panel" role="tabpanel" aria-labelledby="lab-tab-1">
+          <span class="lab-stage" data-lab-stage>切片 01 · 原话</span>
+          <blockquote data-lab-quote>“你先忙吧。”</blockquote>
+          <p data-lab-copy>短短五个字，信息完整，语气却没有被写出来。它可以是体谅，也可以是失落，还可能只是结束对话。</p>
+          <div class="lab-question"><span>观察问题</span><strong data-lab-question>如果不看前后文，你会把它读成哪一种情绪？</strong></div>
         </div>
+        <div class="lab-scale" aria-hidden="true"><span>字面</span><i></i><i></i><i></i><i></i><span>关系</span></div>
       </div>
     </section>
 
     <section class="section donate" id="donate" aria-labelledby="donate-title">
-      <div class="section-index" aria-hidden="true">04 / PARTICIPATION</div>
-      <div class="section-heading horizontal" data-reveal>
+      <div class="section-marker" aria-hidden="true"><span>04</span>制作藏品卡</div>
+      <div class="donate-heading" data-reveal>
         <div>
-          <p class="eyebrow">UGC PARTICIPATION DESIGN</p>
-          <h2 id="donate-title">捐出一件<br>误会藏品。</h2>
+          <p class="eyebrow">把你的语境做成一张卡</p>
+          <h2 id="donate-title">把一次误会，<br>变成一张藏品卡。</h2>
         </div>
-        <p>不要求用户先写完整故事，只需要还记得那句话，以及后来怎样才讲明白。</p>
+        <p>不用写完整故事。先留下那句话、两种理解，以及后来真正让彼此靠近的下一句。</p>
       </div>
 
       <div class="donation-layout">
         <form class="donation-form" data-card-form data-reveal>
-          <div class="form-banner">
-            <strong>藏品征集卡</strong>
-            <span>填写6项，生成标准藏品结构。</span>
+          <div class="form-intro">
+            <span>藏品制作</span>
+            <small>草稿只保存在当前设备，不会自动上传。</small>
           </div>
-          <label>藏品名称<input name="title" placeholder="例：一句被当成查岗的“吃了吗”" required></label>
+          <label>
+            <span>放进哪个展厅</span>
+            <select name="wing">
+              <option value="关系展厅">关系展厅</option>
+              <option value="异乡生活展厅">异乡生活展厅</option>
+              <option value="同好暗号展厅">同好暗号展厅</option>
+              <option value="网络语境展厅">网络语境展厅</option>
+            </select>
+          </label>
+          <label>
+            <span>当时的原话</span>
+            <input name="original" maxlength="40" placeholder="例：你先忙吧" required autocomplete="off">
+          </label>
           <div class="field-pair">
-            <label>当时的原话<input name="original" placeholder="原话是什么？" required></label>
-            <label>涉及语言<input name="language" placeholder="例：中文 / 英文"></label>
+            <label><span>我真正想表达</span><textarea name="meaning" rows="4" maxlength="120" placeholder="那句话背后真正想说什么？" required></textarea></label>
+            <label><span>对方当时听成</span><textarea name="misread" rows="4" maxlength="120" placeholder="误会发生在哪里？" required></textarea></label>
           </div>
-          <label>我真正想表达<textarea name="meaning" rows="3" placeholder="那句话背后真正想说什么？" required></textarea></label>
-          <label>对方当时怎样理解<textarea name="misread" rows="3" placeholder="误会发生在哪里？" required></textarea></label>
-          <label>后来怎样解释清楚<textarea name="resolution" rows="3" placeholder="你们后来又说了哪一句？"></textarea></label>
-          <label class="check"><input type="checkbox" required><span>我已确认故事与相关素材可用于匿名策展。</span></label>
-          <button class="button button-primary" type="submit">生成藏品卡</button>
-          <p class="form-status" data-form-status aria-live="polite"></p>
+          <label>
+            <span>后来补上的下一句</span>
+            <textarea name="resolution" rows="3" maxlength="140" placeholder="你们后来怎样讲明白？"></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">生成藏品卡</button>
+            <button class="button button-quiet" type="button" data-clear-card>清空</button>
+          </div>
+          <p class="form-status" data-form-status aria-live="polite">填写时，右侧藏品卡会同步更新。</p>
         </form>
 
-        <div class="curation-process" data-reveal>
-          <p class="eyebrow">CURATION, NOT AUTO-PUBLISHING</p>
-          <h3>投稿不是终点，<br>编辑判断才是。</h3>
-          <ol>
-            <li><span>01</span><div><strong>授权检查</strong><p>确认投稿者有权分享故事、聊天与素材。</p></div></li>
-            <li><span>02</span><div><strong>隐私处理</strong><p>隐藏姓名、账号、头像、地点与敏感时间。</p></div></li>
-            <li><span>03</span><div><strong>事实确认</strong><p>不把单一经历概括成一个国家或文化的性格。</p></div></li>
-            <li><span>04</span><div><strong>匿名策展</strong><p>保留个人口吻，统一为藏品卡并邀请共同注释。</p></div></li>
-            <li><span>05</span><div><strong>回到选题库</strong><p>高频误会变成下一期系列内容与KOC Brief。</p></div></li>
-          </ol>
-          <button class="text-button" type="button" data-copy-template>复制投稿模板</button>
+        <div class="donation-preview-wrap" data-reveal>
+          <p class="preview-label">藏品卡实时预览</p>
+          <article class="donation-preview" data-card-preview>
+            <div class="preview-rail"><span>MIS</span><strong data-preview-number>NEW</strong><small data-preview-wing>关系展厅</small></div>
+            <div class="preview-content">
+              <span class="preview-kicker">一件等待注释的藏品</span>
+              <h3 data-preview-original>“把那句话写在这里”</h3>
+              <dl>
+                <div><dt>我想表达</dt><dd data-preview-meaning>真正想说的话，会出现在这里。</dd></div>
+                <div><dt>对方听成</dt><dd data-preview-misread>另一种理解，会出现在这里。</dd></div>
+                <div><dt>下一句话</dt><dd data-preview-resolution>后来怎样重新靠近彼此？</dd></div>
+              </dl>
+              <p>每个字都懂了，不代表已经理解。</p>
+            </div>
+          </article>
+          <button class="copy-card" type="button" data-copy-card>复制这张藏品卡</button>
           <p class="copy-status" data-copy-status aria-live="polite"></p>
         </div>
       </div>
     </section>
 
-    <section class="section creators" id="creators" aria-labelledby="creators-title">
-      <div class="section-index" aria-hidden="true">05 / CREATOR RELAY</div>
-      <div class="section-heading" data-reveal>
-          <p class="eyebrow">KOC COLLABORATION FRAMEWORK</p>
-          <h2 id="creators-title">不同人，负责不同的可信度。</h2>
-        <p class="section-intro">以不同角色区分可信度来源。Brief只统一信息结构，创作者保留真实生活经验和个人表达口吻。</p>
+    <section class="section studio" id="studio" aria-labelledby="studio-title">
+      <div class="section-marker" aria-hidden="true"><span>05</span>策展室</div>
+      <div class="studio-heading" data-reveal>
+        <div>
+          <p class="eyebrow">展览背后的编辑系统</p>
+          <h2 id="studio-title">一座博物馆，<br>怎样持续长出新藏品？</h2>
+        </div>
+        <p>把一次性的故事，沉淀成可持续收集、编辑、共同注释与复盘的内容结构。</p>
       </div>
 
-      <div class="creator-map">
-        <article data-reveal><span>关系真实感</span><h3>跨国情侣 / 家庭KOC</h3><p>从一句真实原话出发，讲清冲突、误读和后来怎样重新解释。</p><small>不把私密冲突做成猎奇。</small></article>
-        <article data-reveal><span>生活语境</span><h3>留学生 / 海外华人</h3><p>提供合租、校园、职场和日常礼貌中的具体场景。</p><small>不概括“外国人都怎样”。</small></article>
-        <article data-reveal><span>圈层语言</span><h3>K-pop / 双语同好</h3><p>解释笑声、缩写和梗怎样在不同平台改变语气。</p><small>不像一堂语言课。</small></article>
-        <article data-reveal><span>语境知识</span><h3>语言 / 文化创作者</h3><p>补充文化背景，邀请不同地区用户共同注释。</p><small>不宣布唯一正确答案。</small></article>
-      </div>
-
-      <div class="brief-grid" data-reveal>
-        <div>
-          <p class="eyebrow">ONE-SENTENCE BRIEF</p>
-          <blockquote>从一句你真正经历过的跨文化误会出发，把“为什么会误会”和“后来怎样继续聊”讲完整。</blockquote>
-        </div>
-        <div>
-          <h3>必须包含</h3>
-          <ul><li>一句真实原话</li><li>双方当时不同的理解</li><li>后来怎样解释清楚</li><li>邀请粉丝分享经历的问题</li></ul>
-        </div>
-        <div>
-          <h3>共同注释方式</h3>
-          <p>结尾提出一个具体问题，让不同地区、语言和关系身份的用户补充自身语境，不宣布唯一答案。</p>
-        </div>
+      <div class="studio-grid">
+        <details open data-reveal>
+          <summary><span>01</span><div><strong>内容结构</strong><small>一句原话如何成为一件藏品</small></div><i aria-hidden="true"></i></summary>
+          <div class="detail-body">
+            <ol class="editorial-flow">
+              <li><span>原话</span><p>保留当时真正说出口的句子。</p></li>
+              <li><span>两种理解</span><p>并置表达者与接收者的阅读方式。</p></li>
+              <li><span>语境转折</span><p>找到误会背后的经验、关系和平台语气。</p></li>
+              <li><span>共同注释</span><p>邀请更多人补充自己的版本，不宣布唯一答案。</p></li>
+            </ol>
+          </div>
+        </details>
+        <details data-reveal>
+          <summary><span>02</span><div><strong>共同策展</strong><small>让投稿成为下一轮内容供给</small></div><i aria-hidden="true"></i></summary>
+          <div class="detail-body curation-grid">
+            <div><b>征集</b><p>用“一句话＋两种理解”降低表达门槛。</p></div>
+            <div><b>确认</b><p>核对分享权限，隐去姓名、账号、地点和敏感时间。</p></div>
+            <div><b>编辑</b><p>保留个人口吻，同时补齐语境与共同注释问题。</p></div>
+            <div><b>回流</b><p>把高频误会送回四个展厅，形成下一轮馆藏主题。</p></div>
+          </div>
+        </details>
+        <details data-reveal>
+          <summary><span>03</span><div><strong>观察与复盘</strong><small>不用漂亮数字替代真正的问题</small></div><i aria-hidden="true"></i></summary>
+          <div class="detail-body experiment-cards">
+            <article><span>是否停下</span><strong>故事入口 / 知识入口</strong><p>比较哪种开场更能让人读完，而不同时改变封面与正文。</p></article>
+            <article><span>是否共鸣</span><strong>收藏 / 有效评论</strong><p>区分“有用”和“想回应”，判断下一期应补知识还是补关系。</p></article>
+            <article><span>是否参与</span><strong>开始填写 / 完成藏品卡</strong><p>如果启动高、完成低，优先缩短流程与解释隐私，而不是继续加流量。</p></article>
+          </div>
+        </details>
       </div>
     </section>
 
-    <section class="section testing" id="testing" aria-labelledby="testing-title">
-      <div class="section-index" aria-hidden="true">06 / EXPERIMENT</div>
-      <div class="testing-heading" data-reveal>
-        <div>
-          <p class="eyebrow">EXPERIMENT DESIGN</p>
-          <h2 id="testing-title">每轮测试，<br>都对应下一步动作。</h2>
-        </div>
-        <p>4组单变量实验已经预设变量、主指标与判断问题，实际发布后可直接按同一口径回填并形成下一轮动作。</p>
+    <section class="section charter" id="charter" aria-labelledby="charter-title">
+      <div class="section-marker light" aria-hidden="true"><span>06</span>馆藏公约</div>
+      <div class="charter-heading" data-reveal>
+        <p class="eyebrow">误会值得被理解，脆弱不该被消费</p>
+        <h2 id="charter-title">收藏故事之前，<br>先尊重故事里的人。</h2>
       </div>
-
-      <div class="experiment-table-wrap" data-reveal>
-        <table class="experiment-table">
-          <thead><tr><th>测试</th><th>A / B变量</th><th>主指标</th><th>要回答的问题</th></tr></thead>
-          <tbody>
-            <tr><td>内容入口</td><td>关系冲突 / 文化知识</td><td>打开率、有效评论</td><td>故事还是知识更能让人停下</td></tr>
-            <tr><td>封面结构</td><td>博物馆展签 / 强冲突大字</td><td>打开率、收藏率</td><td>系列识别与即时吸引怎样平衡</td></tr>
-            <tr><td>创作者</td><td>情侣KOC / 语言KOC</td><td>CPE、有效评论率</td><td>真实故事还是专业解释更能引发补充</td></tr>
-            <tr><td>参与入口</td><td>评论捐藏品 / 私信提交</td><td>有效UGC启动率、完成率</td><td>哪条路径更适合收集完整故事</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="funnel" aria-label="内容增长漏斗" data-reveal>
-        <div><span>看见</span><strong>打开率 / 3秒留存</strong><small>内容是否让人停下</small></div>
-        <div><span>共鸣</span><strong>完读 / 有效评论 / 收藏</strong><small>故事是否值得回应</small></div>
-        <div><span>参与</span><strong>UGC启动 / 投稿完成</strong><small>用户是否愿意贡献语境</small></div>
-        <div><span>回访</span><strong>关注 / 系列回看 / 再投稿</strong><small>IP是否形成持续期待</small></div>
-      </div>
-
-      <div class="diagnosis" data-reveal>
-        <h3>数字不是结论，下一步动作才是。</h3>
-        <div><strong>打开高、收藏低</strong><p>封面赢了，内容价值没跟上。</p></div>
-        <div><strong>评论高、投稿低</strong><p>故事有共鸣，但参与入口不够具体。</p></div>
-        <div><strong>启动高、完成低</strong><p>投稿意愿存在，流程或隐私说明仍有阻力。</p></div>
-      </div>
-    </section>
-
-    <section class="section ethics" id="ethics" aria-labelledby="ethics-title">
-      <div class="section-index light" aria-hidden="true">07 / BOUNDARIES</div>
-      <div class="section-heading horizontal light" data-reveal>
-        <div>
-          <p class="eyebrow">CONTENT SAFETY</p>
-          <h2 id="ethics-title">可以收藏误会，<br>不能消费脆弱。</h2>
-        </div>
-        <p>跨文化内容越有情绪，越需要清楚地区分素材来源、个人经验、编辑样稿和授权用户故事。</p>
-      </div>
-      <ol class="ethics-list">
-        <li data-reveal><span>01</span><p>每件藏品明确素材来源、授权状态与编辑方式。</p></li>
-        <li data-reveal><span>02</span><p>不把单一故事概括成国籍、种族或文化的固定性格。</p></li>
-        <li data-reveal><span>03</span><p>私人聊天、照片和关系故事必须获得相关人员授权。</p></li>
-        <li data-reveal><span>04</span><p>真实投稿优先匿名化，删除账号、位置与敏感时间信息。</p></li>
-        <li data-reveal><span>05</span><p>不使用虚构用户证言、达人合作记录或业务结果。</p></li>
-        <li data-reveal><span>06</span><p>AI生成视觉或虚构复合故事必须明确标注。</p></li>
-        <li data-reveal><span>07</span><p>实际收集UGC前需要独立隐私说明、删除渠道与审核机制。</p></li>
-        <li data-reveal><span>08</span><p>发布前确认：这是在解释差异，还是在制造刻板印象？</p></li>
+      <ol class="charter-list">
+        <li data-reveal><span>01</span><strong>尊重故事本人</strong><p>聊天、照片与关系细节，在分享前获得相关人员同意。</p></li>
+        <li data-reveal><span>02</span><strong>个体不代表群体</strong><p>不把一次经历概括成某个国家、文化或群体的固定性格。</p></li>
+        <li data-reveal><span>03</span><strong>隐去可识别信息</strong><p>删除姓名、账号、头像、位置与不必要的敏感时间。</p></li>
+        <li data-reveal><span>04</span><strong>允许修正与撤回</strong><p>共同注释可以补充、改写，也应保留停止展示的权利。</p></li>
       </ol>
     </section>
 
-    <section class="section about" id="about" aria-labelledby="about-title">
-      <div class="section-index" aria-hidden="true">08 / OUTPUT SYSTEM</div>
-      <div class="about-grid">
-        <div data-reveal>
-          <p class="eyebrow">DELIVERABLE INVENTORY</p>
-          <h2 id="about-title">把创意，拆成<br>可执行的增长资产。</h2>
+    <section class="section archive" id="archive" aria-labelledby="archive-title">
+      <div class="archive-grid" data-reveal>
+        <div>
+          <p class="eyebrow">策展档案</p>
+          <h2 id="archive-title">继续翻阅这座馆。</h2>
         </div>
-        <div class="about-copy" data-reveal>
-          <p>围绕“误会博物馆”母IP，完成从人群洞察、栏目结构与首发脚本，到UGC策展、KOC协作和增长实验的完整拆解。</p>
-          <div class="about-actions">
-            <a class="button button-primary" href="assets/misunderstanding-museum-case-study.pdf">查看4页案例PDF</a>
-            <a class="button button-ghost" href="docs/README.md">阅读完整项目文档</a>
-          </div>
+        <p>想了解四个展厅、UGC共创路径、内容观察与安全边界，可以进入完整策展档案。</p>
+        <div class="archive-actions">
+          <a class="button button-primary" href="assets/misunderstanding-museum-case-study.pdf">打开 4 页案例 PDF</a>
+          <a class="button button-quiet" href="docs/README.md">阅读项目文档</a>
         </div>
       </div>
-      <dl class="status-grid" aria-label="项目交付数据" data-reveal>
-        <div><dt>Hero内容脚本</dt><dd><strong>7</strong><span>页</span></dd><p>MIS-001七页叙事结构</p></div>
-        <div><dt>UGC策展流程</dt><dd><strong>5</strong><span>步</span></dd><p>从授权检查到选题回流</p></div>
-        <div><dt>KOC内容角色</dt><dd><strong>4</strong><span>类</span></dd><p>关系、生活、圈层与语境</p></div>
-        <div><dt>KOC筛选维度</dt><dd><strong>6</strong><span>维</span></dd><p>人群匹配到内容安全</p></div>
-        <div><dt>内容安全边界</dt><dd><strong>8</strong><span>项</span></dd><p>来源、隐私与文化表达</p></div>
-        <div><dt>完整方法文档</dt><dd><strong>6</strong><span>份</span></dd><p>策略、内容、协作与测量</p></div>
-      </dl>
+      <div class="archive-facts" data-reveal>
+        <div><strong>04</strong><span>固定展厅</span></div>
+        <div><strong>12</strong><span>首批馆藏</span></div>
+        <div><strong>04</strong><span>编辑切片</span></div>
+        <div><strong>01</strong><span>本地生成器</span></div>
+      </div>
+      <div class="visit-receipt" data-visit-receipt data-reveal>
+        <span class="receipt-label">本次参观回执</span>
+        <strong><i data-receipt-count>01</i><small>/ 12 件</small></strong>
+        <p data-receipt-copy>你已经看过第一件藏品。继续翻阅，语境会慢慢连成一张地图。</p>
+        <a href="#collection">继续参观 <span aria-hidden="true">→</span></a>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div>
-      <strong>误会博物馆</strong>
-      <p>语言可以被翻译，关系需要被理解。</p>
-    </div>
-    <a href="#home">回到顶部 ↑</a>
+    <div class="footer-brand"><span class="brand-seal" aria-hidden="true"><i>误</i><i>会</i></span><div><strong>误会博物馆</strong><p>语言可以被翻译，关系需要被理解。</p></div></div>
+    <a href="#home">回到入口 <span aria-hidden="true">↑</span></a>
   </footer>
+
+  <nav class="mobile-nav" aria-label="移动端主要导航">
+    <a href="#home"><span aria-hidden="true">⌂</span><small>入口</small></a>
+    <a href="#collection"><span aria-hidden="true">▦</span><small>馆藏</small></a>
+    <a href="#lab"><span aria-hidden="true">◫</span><small>解剖</small></a>
+    <a href="#donate"><span aria-hidden="true">＋</span><small>制卡</small></a>
+  </nav>
 </body>
 </html>
