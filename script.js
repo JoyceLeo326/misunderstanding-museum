@@ -11,36 +11,36 @@
 
   var lensItems = [
     {
-      id: 'MIS-001', wing: '异乡生活展厅', original: '“吃了吗？”',
+      id: 'MIS-001', wing: '异乡生活展厅', source: '编辑复合故事', original: '“吃了吗？”',
       literal: 'Have you eaten?', context: '“今天过得怎么样？\n有没有好好照顾自己？”'
     },
     {
-      id: 'MIS-002', wing: '关系展厅', original: '“你先忙吧”',
+      id: 'MIS-002', wing: '关系展厅', source: '编辑情境示例', original: '“你先忙吧”',
       literal: 'Take your time.', context: '“我有一点失落，\n也想让你再问一句。”'
     },
     {
-      id: 'MIS-003', wing: '同好暗号展厅', original: '“ㅋㅋㅋ”',
+      id: 'MIS-003', wing: '同好暗号展厅', source: '编辑情境示例', original: '“ㅋㅋㅋ”',
       literal: 'Hahaha', context: '“笑声的长短，\n也在表达关系和语气。”'
     },
     {
-      id: 'MIS-004', wing: '网络语境展厅', original: '“改天约”',
+      id: 'MIS-004', wing: '网络语境展厅', source: '编辑情境示例', original: '“改天约”',
       literal: 'Another day.', context: '“有时是认真邀请，\n有时只是礼貌收尾。”'
     }
   ];
 
   var exhibits = {
-    'MIS-001': { number: '001', wing: '异乡生活展厅', original: '“吃了吗？”', literal: '你是否已经吃过饭？', context: '我在想你，也想知道你今天有没有照顾好自己。', question: '在你的关系里，这句话通常是什么意思？', coordinates: [[78, '较清晰'], [76, '较高'], [64, '中等']] },
-    'MIS-002': { number: '002', wing: '关系展厅', original: '“你先忙吧”', literal: '请先处理你的事情。', context: '我理解你很忙，但此刻也许有一点失落，想让你再问一句。', question: '你会把这句话读成体谅、结束，还是等待？', coordinates: [[72, '较清晰'], [88, '很高'], [86, '很高']] },
-    'MIS-003': { number: '003', wing: '同好暗号展厅', original: '“ㅋㅋㅋ”', literal: '一串表示笑声的韩文字母。', context: '数量、前后文和关系距离，一起决定这声笑有多真。', question: '你常用的文字笑声是什么？它的长度有区别吗？', coordinates: [[52, '中等'], [74, '较高'], [82, '很高']] },
-    'MIS-004': { number: '004', wing: '网络语境展厅', original: '“改天约”', literal: '换一个日期见面。', context: '它可能是一份还没定日期的邀请，也可能是一种温和的告别。', question: '什么信号会让你相信“改天”真的会来？', coordinates: [[80, '较清晰'], [55, '中等'], [91, '很高']] },
-    'MIS-005': { number: '005', wing: '关系展厅', original: '“随便”', literal: '任何选项都可以。', context: '没有说出明确偏好，不代表完全没有期待；语气可能正在等待被看见。', question: '你说“随便”时，是真的都可以吗？', coordinates: [[86, '很清晰'], [90, '很高'], [88, '很高']] },
-    'MIS-006': { number: '006', wing: '关系展厅', original: '“我没事”', literal: '我现在没有问题。', context: '它可能是在确认边界，也可能是还没准备好把需要说出来。', question: '怎样的下一句话，既关心又不会越界？', coordinates: [[91, '很清晰'], [93, '很高'], [94, '很高']] },
-    'MIS-007': { number: '007', wing: '异乡生活展厅', original: '“多穿点”', literal: '增加衣物。', context: '天气提醒之外，它也可能是一种隔着距离、无法亲手照顾的惦记。', question: '你的家人会用哪句生活提醒表达想念？', coordinates: [[82, '很清晰'], [80, '较高'], [58, '中等']] },
-    'MIS-008': { number: '008', wing: '异乡生活展厅', original: '“有空来玩”', literal: '有时间可以来拜访。', context: '在不同社交习惯里，它可能是具体邀请，也可能只是友善的对话结尾。', question: '你会等待第二次邀请，还是直接确认时间？', coordinates: [[84, '很清晰'], [63, '中等'], [87, '很高']] },
-    'MIS-009': { number: '009', wing: '同好暗号展厅', original: '“入坑”', literal: '掉进一个坑里。', context: '它描述的不是危险，而是从喜欢一个作品开始，进入一群人的共同语言。', question: '哪件作品让你第一次找到“同坑”的人？', coordinates: [[22, '很低'], [76, '较高'], [69, '较高']] },
-    'MIS-010': { number: '010', wing: '同好暗号展厅', original: '“我担杀疯了”', literal: '我支持的人正在疯狂杀戮。', context: '在圈层语境里，这是高浓度的夸赞：喜欢的人刚刚完成了非常亮眼的表现。', question: '你所在的兴趣圈还有哪些“听起来很危险”的夸奖？', coordinates: [[12, '很低'], [82, '很高'], [74, '较高']] },
-    'MIS-011': { number: '011', wing: '网络语境展厅', original: '“收到”', literal: '信息已接收。', context: '在工作里它高效明确，在亲密聊天里却可能因为过于完整而显得有距离。', question: '哪一种回复对你来说既有效率又有温度？', coordinates: [[95, '很清晰'], [51, '中等'], [68, '较高']] },
-    'MIS-012': { number: '012', wing: '网络语境展厅', original: '“哈哈 / 哈哈哈哈哈”', literal: '不同长度的笑声。', context: '字数、标点、平台和关系共同调节笑声温度；多一个“哈”也可能多一层真诚。', question: '你的聊天里，几个“哈”才算真的笑了？', coordinates: [[38, '较低'], [67, '较高'], [83, '很高']] }
+    'MIS-001': { number: '001', wing: '异乡生活展厅', source: '编辑复合故事', original: '“吃了吗？”', literal: '你是否已经吃过饭？', context: '我在想你，也想知道你今天有没有照顾好自己。', question: '在你的关系里，这句话通常是什么意思？', coordinates: [4, 4, 3] },
+    'MIS-002': { number: '002', wing: '关系展厅', source: '编辑情境示例', original: '“你先忙吧”', literal: '请先处理你的事情。', context: '我理解你很忙，但此刻也许有一点失落，想让你再问一句。', question: '你会把这句话读成体谅、结束，还是等待？', coordinates: [4, 5, 5] },
+    'MIS-003': { number: '003', wing: '同好暗号展厅', source: '编辑情境示例', original: '“ㅋㅋㅋ”', literal: '一串表示笑声的韩文字母。', context: '数量、前后文和关系距离，一起决定这声笑有多真。', question: '你常用的文字笑声是什么？它的长度有区别吗？', coordinates: [3, 4, 4] },
+    'MIS-004': { number: '004', wing: '网络语境展厅', source: '编辑情境示例', original: '“改天约”', literal: '换一个日期见面。', context: '它可能是一份还没定日期的邀请，也可能是一种温和的告别。', question: '什么信号会让你相信“改天”真的会来？', coordinates: [4, 3, 5] },
+    'MIS-005': { number: '005', wing: '关系展厅', source: '编辑情境示例', original: '“随便”', literal: '任何选项都可以。', context: '没有说出明确偏好，不代表完全没有期待；语气可能正在等待被看见。', question: '你说“随便”时，是真的都可以吗？', coordinates: [4, 5, 4] },
+    'MIS-006': { number: '006', wing: '关系展厅', source: '编辑情境示例', original: '“我没事”', literal: '我现在没有问题。', context: '它可能是在确认边界，也可能是还没准备好把需要说出来。', question: '怎样的下一句话，既关心又不会越界？', coordinates: [5, 5, 5] },
+    'MIS-007': { number: '007', wing: '异乡生活展厅', source: '编辑情境示例', original: '“多穿点”', literal: '增加衣物。', context: '天气提醒之外，它也可能是一种隔着距离、无法亲手照顾的惦记。', question: '你的家人会用哪句生活提醒表达想念？', coordinates: [4, 4, 3] },
+    'MIS-008': { number: '008', wing: '异乡生活展厅', source: '编辑情境示例', original: '“有空来玩”', literal: '有时间可以来拜访。', context: '在不同社交习惯里，它可能是具体邀请，也可能只是友善的对话结尾。', question: '你会等待第二次邀请，还是直接确认时间？', coordinates: [4, 3, 4] },
+    'MIS-009': { number: '009', wing: '同好暗号展厅', source: '编辑情境示例', original: '“入坑”', literal: '掉进一个坑里。', context: '它描述的不是危险，而是从喜欢一个作品开始，进入一群人的共同语言。', question: '哪件作品让你第一次找到“同坑”的人？', coordinates: [1, 4, 3] },
+    'MIS-010': { number: '010', wing: '同好暗号展厅', source: '编辑情境示例', original: '“我担杀疯了”', literal: '我支持的人正在疯狂杀戮。', context: '在圈层语境里，这是高浓度的夸赞：喜欢的人刚刚完成了非常亮眼的表现。', question: '你所在的兴趣圈还有哪些“听起来很危险”的夸奖？', coordinates: [1, 4, 4] },
+    'MIS-011': { number: '011', wing: '网络语境展厅', source: '编辑情境示例', original: '“收到”', literal: '信息已接收。', context: '在工作里它高效明确，在亲密聊天里却可能因为过于完整而显得有距离。', question: '哪一种回复对你来说既有效率又有温度？', coordinates: [5, 3, 3] },
+    'MIS-012': { number: '012', wing: '网络语境展厅', source: '编辑情境示例', original: '“哈哈 / 哈哈哈哈哈”', literal: '不同长度的笑声。', context: '字数、标点、平台和关系共同调节笑声温度；多一个“哈”也可能多一层真诚。', question: '你的聊天里，几个“哈”才算真的笑了？', coordinates: [2, 3, 4] }
   };
 
   var labSteps = [
@@ -174,7 +174,7 @@
       var item = lensItems[index];
       if (!item) return;
       if (accession) accession.textContent = item.id;
-      if (wing) wing.textContent = item.wing;
+      if (wing) wing.textContent = item.wing + ' · ' + item.source;
       if (original) original.textContent = item.original;
       if (literalText) literalText.textContent = item.literal;
       if (contextText) contextText.textContent = item.context;
@@ -199,11 +199,17 @@
 
     var number = inspector.querySelector('[data-inspector-number]');
     var wing = inspector.querySelector('[data-inspector-wing]');
+    var source = inspector.querySelector('[data-inspector-source]');
     var original = inspector.querySelector('[data-inspector-original]');
     var literal = inspector.querySelector('[data-inspector-literal]');
     var context = inspector.querySelector('[data-inspector-context]');
     var question = inspector.querySelector('[data-inspector-question]');
     var coordinateRows = list('[data-coordinate]', inspector);
+    var backdrop = document.querySelector('[data-inspector-backdrop]');
+    var closeInspectorButton = inspector.querySelector('[data-close-inspector]');
+    var previousButton = inspector.querySelector('[data-prev-exhibit]');
+    var nextButton = inspector.querySelector('[data-next-exhibit]');
+    var position = inspector.querySelector('[data-inspector-position]');
     var visitMeter = document.querySelector('[data-visit-meter]');
     var visitCount = document.querySelector('[data-visit-count]');
     var visitLabel = document.querySelector('[data-visit-label]');
@@ -211,6 +217,7 @@
     var receiptCopy = document.querySelector('[data-receipt-copy]');
     var visitStorageKey = 'misunderstanding-museum-visit-v2';
     var visited = { 'MIS-001': true };
+    var lastInspectorTrigger = null;
 
     try {
       var savedVisit = JSON.parse(sessionStorage.getItem(visitStorageKey) || '[]');
@@ -221,12 +228,45 @@
 
     function updateCoordinates(item) {
       coordinateRows.forEach(function (row, index) {
-        var coordinate = item.coordinates && item.coordinates[index] ? item.coordinates[index] : [50, '中等'];
+        var level = item.coordinates && item.coordinates[index] ? Number(item.coordinates[index]) : 3;
+        level = Math.max(1, Math.min(5, level));
         var bar = row.querySelector('b');
         var label = row.querySelector('em');
-        if (bar) bar.style.setProperty('--coordinate-value', String(coordinate[0]) + '%');
-        if (label) label.textContent = coordinate[1];
+        var name = row.querySelector('span');
+        if (bar) bar.style.setProperty('--coordinate-level', String(level));
+        if (label) label.textContent = String(level) + ' / 5';
+        row.setAttribute('aria-label', (name ? name.textContent : '编辑判读') + ' ' + String(level) + ' / 5');
       });
+    }
+
+    function mobileInspectorActive() {
+      return window.innerWidth < 760;
+    }
+
+    function openInspector(trigger) {
+      if (!mobileInspectorActive()) return;
+      lastInspectorTrigger = trigger || lastInspectorTrigger;
+      if (backdrop) {
+        backdrop.hidden = false;
+        window.requestAnimationFrame(function () { backdrop.classList.add('is-visible'); });
+      }
+      inspector.classList.add('is-open');
+      inspector.setAttribute('role', 'dialog');
+      inspector.setAttribute('aria-modal', 'true');
+      document.body.classList.add('inspector-open');
+      if (closeInspectorButton) window.setTimeout(function () { closeInspectorButton.focus(); }, reducedMotion ? 0 : 180);
+    }
+
+    function closeInspector(returnFocus) {
+      inspector.classList.remove('is-open');
+      inspector.removeAttribute('role');
+      inspector.removeAttribute('aria-modal');
+      document.body.classList.remove('inspector-open');
+      if (backdrop) {
+        backdrop.classList.remove('is-visible');
+        window.setTimeout(function () { backdrop.hidden = true; }, reducedMotion ? 0 : 240);
+      }
+      if (returnFocus && lastInspectorTrigger) lastInspectorTrigger.focus();
     }
 
     function updateVisit(id) {
@@ -239,7 +279,7 @@
       if (visitLabel) visitLabel.textContent = '已阅 ' + String(count) + ' / ' + String(cards.length);
       if (receiptCount) receiptCount.textContent = count < 10 ? '0' + String(count) : String(count);
       if (receiptCopy) {
-        if (count >= cards.length) receiptCopy.textContent = '十二件藏品已经连成一张完整语境地图。下一次，也可以捐出你自己的那句话。';
+        if (count >= cards.length) receiptCopy.textContent = '十二件藏品已经连成一张完整语境地图。下一次，也可以制作你自己的藏品卡。';
         else if (count >= 8) receiptCopy.textContent = '你已经走进大多数展厅。再看几件，会发现误会并不只发生在翻译里。';
         else if (count >= 4) receiptCopy.textContent = '你的参观路径正在展开：有些误会来自语言，有些来自关系里的期待。';
         else receiptCopy.textContent = '你已经看过第一批藏品。继续翻阅，语境会慢慢连成一张地图。';
@@ -259,13 +299,27 @@
       });
       number.textContent = item.number;
       wing.textContent = item.wing;
+      if (source) source.textContent = '内容来源 · ' + item.source;
       original.textContent = item.original;
       literal.textContent = item.literal;
       context.textContent = item.context;
       question.textContent = item.question;
       updateCoordinates(item);
       updateVisit(id);
-      if (shouldScroll) inspector.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+      if (position) position.textContent = String(cards.indexOf(card) + 1) + ' / ' + String(cards.length);
+      if (shouldScroll) {
+        if (mobileInspectorActive()) openInspector(card);
+        else inspector.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+      }
+    }
+
+    function moveSelection(direction) {
+      var visibleCards = cards.filter(function (card) { return !card.hidden; });
+      if (!visibleCards.length) return;
+      var selected = visibleCards.filter(function (card) { return card.getAttribute('data-id') === selectedExhibitId; })[0];
+      var currentIndex = Math.max(0, visibleCards.indexOf(selected));
+      var nextIndex = (currentIndex + direction + visibleCards.length) % visibleCards.length;
+      selectCard(visibleCards[nextIndex], false);
     }
 
     function applyFilter(value, activeButton) {
@@ -299,8 +353,20 @@
 
     var openLab = inspector.querySelector('[data-open-lab]');
     if (openLab) openLab.addEventListener('click', function () {
+      closeInspector(false);
       var lab = document.querySelector('#lab');
       if (lab) lab.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+
+    if (previousButton) previousButton.addEventListener('click', function () { moveSelection(-1); });
+    if (nextButton) nextButton.addEventListener('click', function () { moveSelection(1); });
+    if (closeInspectorButton) closeInspectorButton.addEventListener('click', function () { closeInspector(true); });
+    if (backdrop) backdrop.addEventListener('click', function () { closeInspector(true); });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && inspector.classList.contains('is-open')) closeInspector(true);
+    });
+    window.addEventListener('resize', function () {
+      if (!mobileInspectorActive() && inspector.classList.contains('is-open')) closeInspector(false);
     });
 
     updateCoordinates(exhibits[selectedExhibitId]);
