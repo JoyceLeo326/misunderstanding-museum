@@ -2,18 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/assets/meta-og-cover.png",
-      "destination": "https://raw.githubusercontent.com/JoyceLeo326/misunderstanding-museum/main/assets/meta-og-cover.png",
-      "permanent": false
-    },
-    {
-      "source": "/assets/misunderstanding-museum-case-study.pdf",
-      "destination": "https://raw.githubusercontent.com/JoyceLeo326/misunderstanding-museum/main/assets/misunderstanding-museum-case-study.pdf",
-      "permanent": false
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
