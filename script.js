@@ -364,6 +364,24 @@
     if (backdrop) backdrop.addEventListener('click', function () { closeInspector(true); });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && inspector.classList.contains('is-open')) closeInspector(true);
+      if (event.key !== 'Tab' || !inspector.classList.contains('is-open')) return;
+      var focusable = list('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])', inspector).filter(function (element) {
+        return !element.hidden && element.getClientRects().length > 0;
+      });
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+    document.addEventListener('focusin', function (event) {
+      if (!inspector.classList.contains('is-open') || inspector.contains(event.target)) return;
+      if (closeInspectorButton) closeInspectorButton.focus();
     });
     window.addEventListener('resize', function () {
       if (!mobileInspectorActive() && inspector.classList.contains('is-open')) closeInspector(false);
