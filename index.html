@@ -17,6 +17,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
+  <script src="mission.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -29,6 +30,7 @@
     </a>
     <nav class="desktop-nav" aria-label="主要导航">
       <a href="#exhibit">首件藏品</a>
+      <a href="#route">我的路线</a>
       <a href="#collection">馆藏目录</a>
       <a href="#lab">语境观察室</a>
       <a href="#donate">制作藏品卡</a>
@@ -148,8 +150,98 @@
       </div>
     </section>
 
+    <section class="section mission" id="route" aria-labelledby="mission-title" data-visitor-mission>
+      <div class="section-marker light" aria-hidden="true"><span>02</span>参观线索</div>
+      <div class="mission-heading" data-reveal>
+        <div>
+          <p class="eyebrow">顾宁 · 周日晚饭前 · 一次没说清的关心</p>
+          <h2 id="mission-title" data-text-reveal>带一段关系进馆，<br>让路线回应你。</h2>
+        </div>
+        <p>同一件藏品，从说话者、倾听者与调解者的位置看，会通向不同的下一句。留下这次对话的关系与目标，馆内会为你重排三件先看藏品。</p>
+      </div>
+
+      <div class="mission-layout">
+        <form class="mission-form" data-mission-form data-reveal>
+          <div class="mission-form-head">
+            <span>我的参观线索</span>
+            <small>选择只保存在当前设备，可随时改写。</small>
+          </div>
+          <div class="mission-fields">
+            <label>
+              <span>怎样称呼你</span>
+              <input name="visitorName" value="顾宁" maxlength="20" autocomplete="nickname">
+            </label>
+            <label>
+              <span>这次对话发生在</span>
+              <select name="relationship">
+                <option value="partner">亲密关系 · 伴侣</option>
+                <option value="colleague">工作关系 · 同事</option>
+                <option value="foreign-friend">跨文化关系 · 异乡朋友</option>
+                <option value="fandom-friend">同好关系 · 同好</option>
+              </select>
+            </label>
+            <label>
+              <span>我站在谁的位置</span>
+              <select name="perspective">
+                <option value="speaker">说出这句话的人</option>
+                <option value="listener">听见这句话的人</option>
+                <option value="mediator">旁观调解的人</option>
+              </select>
+            </label>
+            <label>
+              <span>我希望这次对话</span>
+              <select name="goal">
+                <option value="care">确认关心</option>
+                <option value="boundary">保留边界</option>
+                <option value="repair">修复误读</option>
+              </select>
+            </label>
+            <label class="mission-moment">
+              <span>准备在什么时候开口</span>
+              <input name="moment" value="周日晚饭前" maxlength="30" autocomplete="off">
+            </label>
+          </div>
+          <p class="mission-privacy"><span aria-hidden="true">⌁</span> 你的称呼、选择与记录不会离开这个浏览器。</p>
+        </form>
+
+        <article class="mission-passport" data-reveal aria-live="polite">
+          <div class="passport-topline"><span>VISIT / 01</span><small data-mission-wing>关系展厅优先</small></div>
+          <p class="passport-story" data-mission-story>顾宁准备在周日晚饭前，和伴侣处理一次没有说清的对话。</p>
+          <dl class="mission-decision">
+            <div><dt>卡住的地方</dt><dd data-mission-conflict>你知道自己的善意，却看不见它抵达对方时变成了什么。</dd></div>
+            <div><dt>这次的选择</dt><dd data-mission-choice>先回应字面，再说清关心，最后用一个可拒绝的问题确认。</dd></div>
+            <div><dt>期待的变化</dt><dd data-mission-outcome>让关心被听见，同时给对方留下选择是否继续说的空间。</dd></div>
+            <div><dt>回来复盘</dt><dd data-mission-review>对方回应的是事实、感受，还是边界？据此决定下一次先问什么。</dd></div>
+          </dl>
+          <div class="personal-route">
+            <div><span>为你先看</span><small>选择变化时，路线也会变化</small></div>
+            <div class="route-buttons" data-personal-route>
+              <button type="button" data-route-id="MIS-001"><i>01</i><strong>“吃了吗？”</strong><small>异乡生活展厅</small></button>
+              <button type="button" data-route-id="MIS-002"><i>02</i><strong>“你先忙吧”</strong><small>关系展厅</small></button>
+              <button type="button" data-route-id="MIS-006"><i>03</i><strong>“我没事”</strong><small>关系展厅</small></button>
+            </div>
+          </div>
+          <div class="next-sentence">
+            <span>可以先说</span>
+            <blockquote data-next-sentence>“我不是在追问结果，只是有点惦记你。你愿意告诉我今天过得怎么样吗？”</blockquote>
+            <p>带着这个问题看展：<strong data-mission-question>如果不急着解释自己，你能先确认对方听见了什么吗？</strong></p>
+          </div>
+          <label class="reflection-field">
+            <span>看完后，我真正想说</span>
+            <textarea rows="3" maxlength="240" data-reflection-note placeholder="把准备带回真实对话的一句话写在这里。"></textarea>
+          </label>
+          <div class="mission-actions">
+            <button class="button button-primary" type="button" data-start-route>从第一件开始</button>
+            <button class="button button-quiet" type="button" data-save-reflection>保存这句话</button>
+            <button class="button button-quiet" type="button" data-download-receipt>下载参观回执</button>
+          </div>
+          <p class="mission-status" data-mission-status>路线会随着关系、视角与目标即时变化。</p>
+        </article>
+      </div>
+    </section>
+
     <section class="section collection" id="collection" aria-labelledby="collection-title">
-      <div class="section-marker" aria-hidden="true"><span>02</span>馆藏目录</div>
+      <div class="section-marker" aria-hidden="true"><span>03</span>馆藏目录</div>
       <div class="collection-heading" data-reveal>
         <div>
           <p class="eyebrow">12 件首批馆藏 · 4 个展厅</p>
@@ -242,7 +334,7 @@
     </section>
 
     <section class="section lab" id="lab" aria-labelledby="lab-title">
-      <div class="section-marker light" aria-hidden="true"><span>03</span>语境观察室</div>
+      <div class="section-marker light" aria-hidden="true"><span>04</span>语境观察室</div>
       <div class="lab-heading" data-reveal>
         <div>
           <p class="eyebrow">MIS-002 · 关系展厅</p>
@@ -269,7 +361,7 @@
     </section>
 
     <section class="section donate" id="donate" aria-labelledby="donate-title">
-      <div class="section-marker" aria-hidden="true"><span>04</span>制作藏品卡</div>
+      <div class="section-marker" aria-hidden="true"><span>05</span>制作藏品卡</div>
       <div class="donate-heading" data-reveal>
         <div>
           <p class="eyebrow">把你的语境做成一张卡</p>
@@ -327,14 +419,17 @@
               <p>每个字都懂了，不代表已经理解。</p>
             </div>
           </article>
-          <button class="copy-card" type="button" data-copy-card>复制这张藏品卡</button>
+          <div class="card-export-actions">
+            <button class="copy-card" type="button" data-copy-card>复制这张藏品卡</button>
+            <button class="copy-card" type="button" data-download-card>下载 Markdown</button>
+          </div>
           <p class="copy-status" data-copy-status aria-live="polite"></p>
         </div>
       </div>
     </section>
 
     <section class="section studio" id="studio" aria-labelledby="studio-title">
-      <div class="section-marker" aria-hidden="true"><span>05</span>策展室</div>
+      <div class="section-marker" aria-hidden="true"><span>06</span>策展室</div>
       <div class="studio-heading" data-reveal>
         <div>
           <p class="eyebrow">展览背后的编辑系统</p>
@@ -376,7 +471,7 @@
     </section>
 
     <section class="section charter" id="charter" aria-labelledby="charter-title">
-      <div class="section-marker light" aria-hidden="true"><span>06</span>馆藏公约</div>
+      <div class="section-marker light" aria-hidden="true"><span>07</span>馆藏公约</div>
       <div class="charter-heading" data-reveal>
         <p class="eyebrow">误会值得被理解，脆弱不该被消费</p>
         <h2 id="charter-title" data-text-reveal>收藏故事之前，<br>先尊重故事里的人。</h2>

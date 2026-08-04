@@ -257,6 +257,7 @@
   }
 
   var selectedExhibitId = 'MIS-001';
+  var activeVisitMission = null;
 
   function setupCollection() {
     var cards = list('.collection-card');
@@ -285,6 +286,7 @@
     var visitStorageKey = 'misunderstanding-museum-visit-v2';
     var visited = { 'MIS-001': true };
     var lastInspectorTrigger = null;
+    var missionQuestion = '';
 
     try {
       var savedVisit = JSON.parse(sessionStorage.getItem(visitStorageKey) || '[]');
@@ -352,6 +354,7 @@
         else receiptCopy.textContent = '你已经看过第一批藏品。继续翻阅，语境会慢慢连成一张地图。';
       }
       try { sessionStorage.setItem(visitStorageKey, JSON.stringify(ids)); } catch (error) { /* Optional. */ }
+      document.dispatchEvent(new CustomEvent('museum:visit-change', { detail: { visitedIds: ids.slice() } }));
     }
 
     function selectCard(card, shouldScroll) {
@@ -370,7 +373,7 @@
       original.textContent = item.original;
       literal.textContent = item.literal;
       context.textContent = item.context;
-      question.textContent = item.question;
+      question.textContent = item.question + (missionQuestion ? ' ' + missionQuestion : '');
       updateCoordinates(item);
       updateVisit(id);
       if (position) position.textContent = String(cards.indexOf(card) + 1) + ' / ' + String(cards.length);
@@ -406,6 +409,25 @@
     });
     filters.forEach(function (button) {
       button.addEventListener('click', function () { applyFilter(button.getAttribute('data-filter'), button); });
+    });
+
+    document.addEventListener('museum:open-exhibit', function (event) {
+      var id = event.detail && event.detail.id;
+      var card = cards.filter(function (candidate) { return candidate.getAttribute('data-id') === id; })[0];
+      if (!card) return;
+      var allFilter = filters.filter(function (filter) { return filter.getAttribute('data-filter') === 'all'; })[0];
+      if (allFilter) applyFilter('all', allFilter);
+      selectCard(card, Boolean(event.detail && event.detail.scroll));
+      if (!mobileInspectorActive() && event.detail && event.detail.scroll) {
+        var collection = document.querySelector('#collection');
+        if (collection) collection.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+
+    document.addEventListener('museum:mission-change', function (event) {
+      missionQuestion = event.detail && event.detail.observationQuestion ? event.detail.observationQuestion : '';
+      var item = exhibits[selectedExhibitId];
+      if (item) question.textContent = item.question + (missionQuestion ? ' ' + missionQuestion : '');
     });
 
     list('[data-random-exhibit]').forEach(function (button) {
@@ -511,6 +533,18 @@
     callback(succeeded);
   }
 
+  function downloadText(filename, text, mimeType) {
+    var blob = new Blob([text], { type: (mimeType || 'text/plain') + ';charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+  }
+
   function setupCardGenerator() {
     var form = document.querySelector('[data-card-form]');
     var preview = document.querySelector('[data-card-preview]');
@@ -534,6 +568,7 @@
     var copyStatus = document.querySelector('[data-copy-status]');
     var clearButton = form.querySelector('[data-clear-card]');
     var copyButton = document.querySelector('[data-copy-card]');
+    var downloadButton = document.querySelector('[data-download-card]');
     var storageKey = 'misunderstanding-museum-draft-v2';
 
     function value(field, fallback) {
@@ -571,6 +606,27 @@
       } catch (error) { /* Ignore malformed or unavailable storage. */ }
     }
 
+    function cardText() {
+      return [
+        '# 误会博物馆｜' + value(fields.wing, '关系展厅'),
+        '',
+        '- 当时的原话：' + value(fields.original, '未填写'),
+        '- 我真正想表达：' + value(fields.meaning, '未填写'),
+        '- 对方当时听成：' + value(fields.misread, '未填写'),
+        '- 后来补上的下一句：' + value(fields.resolution, '未填写'),
+        '',
+        '> 共同注释：在你的关系里，这句话通常是什么意思？',
+        ''
+      ].join('\n');
+    }
+
+    function applyMission(mission) {
+      if (!mission) return;
+      if (!fields.original.value && !fields.meaning.value && !fields.misread.value) fields.wing.value = mission.recommendedWing;
+      fields.resolution.placeholder = '例如：' + mission.nextSentence;
+      updatePreview(false);
+    }
+
     Object.keys(fields).forEach(function (key) {
       fields[key].addEventListener(key === 'wing' ? 'change' : 'input', function () { updatePreview(true); });
     });
@@ -593,21 +649,167 @@
     });
 
     if (copyButton) copyButton.addEventListener('click', function () {
-      var text = [
-        '误会博物馆｜' + value(fields.wing, '关系展厅'),
-        '当时的原话：' + value(fields.original, '未填写'),
-        '我真正想表达：' + value(fields.meaning, '未填写'),
-        '对方当时听成：' + value(fields.misread, '未填写'),
-        '后来补上的下一句：' + value(fields.resolution, '未填写'),
-        '共同注释：在你的关系里，这句话通常是什么意思？'
-      ].join('\n');
-      copyText(text, function (ok) {
+      copyText(cardText(), function (ok) {
         if (copyStatus) copyStatus.textContent = ok ? '藏品卡文字已复制。' : '当前浏览器未允许复制，请长按表单内容手动复制。';
       });
     });
 
+    if (downloadButton) downloadButton.addEventListener('click', function () {
+      downloadText('误会博物馆-藏品卡.md', cardText(), 'text/markdown');
+      if (copyStatus) copyStatus.textContent = '藏品卡已下载为 Markdown 文件。';
+    });
+
+    document.addEventListener('museum:mission-change', function (event) { applyMission(event.detail); });
+
     loadDraft();
+    applyMission(activeVisitMission);
     updatePreview(false);
+  }
+
+  function setupVisitorMission() {
+    var section = document.querySelector('[data-visitor-mission]');
+    var form = document.querySelector('[data-mission-form]');
+    var engine = window.MuseumMission;
+    if (!section || !form || !engine) return;
+
+    var fields = {
+      name: form.elements.visitorName,
+      relationship: form.elements.relationship,
+      perspective: form.elements.perspective,
+      goal: form.elements.goal,
+      moment: form.elements.moment
+    };
+    var outputs = {
+      story: section.querySelector('[data-mission-story]'),
+      wing: section.querySelector('[data-mission-wing]'),
+      conflict: section.querySelector('[data-mission-conflict]'),
+      choice: section.querySelector('[data-mission-choice]'),
+      outcome: section.querySelector('[data-mission-outcome]'),
+      review: section.querySelector('[data-mission-review]'),
+      nextSentence: section.querySelector('[data-next-sentence]'),
+      question: section.querySelector('[data-mission-question]')
+    };
+    var route = section.querySelector('[data-personal-route]');
+    var note = section.querySelector('[data-reflection-note]');
+    var status = section.querySelector('[data-mission-status]');
+    var saveButton = section.querySelector('[data-save-reflection]');
+    var downloadButton = section.querySelector('[data-download-receipt]');
+    var startButton = section.querySelector('[data-start-route]');
+    var profileStorageKey = 'misunderstanding-museum-profile-v3';
+    var noteStorageKey = 'misunderstanding-museum-reflection-v3';
+    var visitStorageKey = 'misunderstanding-museum-visit-v2';
+    var visitedIds = [];
+
+    function readVisited() {
+      try {
+        var saved = JSON.parse(sessionStorage.getItem(visitStorageKey) || '[]');
+        return Array.isArray(saved) ? saved.filter(function (id) { return Boolean(exhibits[id]); }) : [];
+      } catch (error) { return []; }
+    }
+
+    function profileFromFields() {
+      return {
+        name: fields.name.value,
+        relationship: fields.relationship.value,
+        perspective: fields.perspective.value,
+        goal: fields.goal.value,
+        moment: fields.moment.value
+      };
+    }
+
+    function storeProfile(profile) {
+      try { localStorage.setItem(profileStorageKey, JSON.stringify(profile)); } catch (error) { /* Optional. */ }
+    }
+
+    function renderRoute(mission) {
+      var buttons = list('button', route);
+      mission.recommendedIds.forEach(function (id, index) {
+        var button = buttons[index];
+        var item = exhibits[id];
+        if (!button || !item) return;
+        button.setAttribute('data-route-id', id);
+        button.querySelector('i').textContent = index < 9 ? '0' + String(index + 1) : String(index + 1);
+        button.querySelector('strong').textContent = item.original;
+        button.querySelector('small').textContent = item.wing;
+      });
+      list('.collection-card').forEach(function (card) {
+        var rank = mission.recommendedIds.indexOf(card.getAttribute('data-id'));
+        card.classList.toggle('is-recommended', rank >= 0);
+        if (rank >= 0) card.setAttribute('data-recommendation-rank', String(rank + 1));
+        else card.removeAttribute('data-recommendation-rank');
+      });
+    }
+
+    function render(save) {
+      var mission = engine.createVisitMission(profileFromFields());
+      activeVisitMission = mission;
+      outputs.story.textContent = mission.story;
+      outputs.wing.textContent = mission.recommendedWing + '优先';
+      outputs.conflict.textContent = mission.conflict;
+      outputs.choice.textContent = mission.choice;
+      outputs.outcome.textContent = mission.outcome;
+      outputs.review.textContent = mission.reviewPrompt;
+      outputs.nextSentence.textContent = mission.nextSentence;
+      outputs.question.textContent = mission.observationQuestion;
+      renderRoute(mission);
+      if (save) storeProfile(mission.profile);
+      document.dispatchEvent(new CustomEvent('museum:mission-change', { detail: mission }));
+      if (status && save) status.textContent = '参观路线已按你的关系、视角与目标更新。';
+    }
+
+    function loadSaved() {
+      try {
+        var profile = JSON.parse(localStorage.getItem(profileStorageKey) || 'null');
+        if (profile) {
+          var normalized = engine.normalizeProfile(profile);
+          fields.name.value = normalized.name;
+          fields.relationship.value = normalized.relationship;
+          fields.perspective.value = normalized.perspective;
+          fields.goal.value = normalized.goal;
+          fields.moment.value = normalized.moment;
+        }
+        var savedNote = localStorage.getItem(noteStorageKey);
+        if (savedNote) note.value = savedNote;
+      } catch (error) { /* Local restoration is optional. */ }
+    }
+
+    Object.keys(fields).forEach(function (key) {
+      fields[key].addEventListener(key === 'name' || key === 'moment' ? 'input' : 'change', function () { render(true); });
+    });
+
+    route.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-route-id]');
+      if (!button) return;
+      document.dispatchEvent(new CustomEvent('museum:open-exhibit', { detail: { id: button.getAttribute('data-route-id'), scroll: true } }));
+    });
+
+    if (startButton) startButton.addEventListener('click', function () {
+      if (!activeVisitMission) return;
+      document.dispatchEvent(new CustomEvent('museum:open-exhibit', { detail: { id: activeVisitMission.recommendedIds[0], scroll: true } }));
+    });
+
+    if (saveButton) saveButton.addEventListener('click', function () {
+      try { localStorage.setItem(noteStorageKey, note.value.trim()); } catch (error) { /* Optional. */ }
+      if (status) status.textContent = note.value.trim() ? '这句话已保存在当前设备，可以继续修改。' : '记录已清空。';
+    });
+
+    if (downloadButton) downloadButton.addEventListener('click', function () {
+      var receipt = engine.buildVisitReceipt({
+        profile: activeVisitMission ? activeVisitMission.profile : profileFromFields(),
+        visitedIds: visitedIds,
+        note: note.value
+      });
+      downloadText('误会博物馆-' + (activeVisitMission ? activeVisitMission.profile.name : '参观者') + '-参观回执.md', receipt, 'text/markdown');
+      if (status) status.textContent = '参观回执已下载，包含你的选择、路线、记录与复盘提示。';
+    });
+
+    document.addEventListener('museum:visit-change', function (event) {
+      visitedIds = event.detail && Array.isArray(event.detail.visitedIds) ? event.detail.visitedIds.slice() : visitedIds;
+    });
+
+    loadSaved();
+    visitedIds = readVisited();
+    render(false);
   }
 
   function registerOfflineCache() {
@@ -628,6 +830,7 @@
     setupCollection();
     setupLab();
     setupCardGenerator();
+    setupVisitorMission();
     registerOfflineCache();
   }
 
