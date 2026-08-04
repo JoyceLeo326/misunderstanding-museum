@@ -51,3 +51,8 @@ test('publish workflow verifies source and generated artifacts before deploy', (
   assert.match(workflow, /--dir dist/);
   assert.match(workflow, /deploy-pages/);
 });
+
+test('Vercel serves the same verified static artifact as GitHub Pages', () => {
+  const config = JSON.parse(read('vercel.json'));
+  assert.equal(config.outputDirectory, 'dist');
+});
