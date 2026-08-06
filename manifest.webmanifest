@@ -10,7 +10,7 @@
   "theme_color": "#3e0b18",
   "icons": [
     {
-      "src": "assets/favicon.svg",
+      "src": "assets/brand/museum-mark.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

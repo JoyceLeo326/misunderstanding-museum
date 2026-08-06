@@ -8,6 +8,7 @@ const files = [
   'index.html',
   'styles.css',
   'mission.js',
+  'visual-core.js',
   'script.js',
   'manifest.webmanifest',
   'sw.js',

@@ -10,6 +10,8 @@
 4. [UGC and KOC playbook](04-ugc-koc-playbook.md) — 投稿、授权、策展、创作者分工和Brief。
 5. [Measurement plan](05-measurement-plan.md) — 首月排期、单变量测试、指标与判断规则。
 6. [Content safety](06-content-safety.md) — 来源、隐私、文化敏感与发布清单。
+7. [Visual identity](07-visual-identity.md) — 标志、门廊隐喻、色彩、图像与响应式使用规则。
+8. [Story asset manifest](08-story-asset-manifest.md) — 12 组两联画的叙事职责、来源说明与文件清单。
 
 ## Status legend
 
