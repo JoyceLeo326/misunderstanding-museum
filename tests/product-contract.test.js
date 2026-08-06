@@ -16,6 +16,7 @@ test('the visit mission is usable before the collection and has causal inputs', 
   assert.match(html, /name="goal"/);
   assert.match(html, /data-personal-route/);
   assert.match(html, /data-next-sentence/);
+  assert.match(html, /name="feedback"/);
 });
 
 test('the result can be saved and exported without an account or backend', () => {

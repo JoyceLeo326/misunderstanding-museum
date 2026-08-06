@@ -73,3 +73,43 @@ test('invalid profile values fall back to safe, complete defaults', () => {
   assert.equal(result.profile.goal, 'care');
   assert.equal(result.recommendedIds.length, 3);
 });
+
+test('a real conversation reflection changes the next visit route and next sentence', () => {
+  const base = {
+    name: '顾宁',
+    relationship: 'partner',
+    perspective: 'speaker',
+    goal: 'care',
+    moment: '周日晚饭前'
+  };
+  const firstVisit = mission.createVisitMission(base);
+  const feltPressured = mission.createVisitMission({ ...base, feedback: 'pressured' });
+  const stillUnclear = mission.createVisitMission({ ...base, feedback: 'unclear' });
+
+  assert.equal(firstVisit.recommendedIds[0], 'MIS-001');
+  assert.equal(feltPressured.recommendedIds[0], 'MIS-006');
+  assert.equal(stillUnclear.recommendedIds[0], 'MIS-002');
+  assert.notEqual(firstVisit.nextSentence, feltPressured.nextSentence);
+  assert.notEqual(feltPressured.nextSentence, stillUnclear.nextSentence);
+  assert.match(feltPressured.feedbackSummary, /边界|空间/);
+  assert.match(stillUnclear.feedbackSummary, /确认|理解/);
+});
+
+test('visit receipt includes the feedback that shaped the next round', () => {
+  const receipt = mission.buildVisitReceipt({
+    profile: {
+      name: '顾宁',
+      relationship: 'partner',
+      perspective: 'speaker',
+      goal: 'care',
+      feedback: 'pressured',
+      moment: '周日晚饭前'
+    },
+    visitedIds: ['MIS-001'],
+    note: '下次先问是否愿意继续。'
+  });
+
+  assert.match(receipt, /对话反馈/);
+  assert.match(receipt, /需要更多空间/);
+  assert.match(receipt, /MIS-006/);
+});

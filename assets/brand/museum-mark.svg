@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">误会博物馆标志</title>
+  <desc id="desc">两个错位展签相叠，在中间形成可以走向彼此的门</desc>
+  <rect width="64" height="64" rx="14" fill="#fffdf8"/>
+  <path d="M9 12h33a5 5 0 0 1 5 5v21a5 5 0 0 1-5 5H24l-9 8v-8H9a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5Z" fill="#3e0b18"/>
+  <path d="M22 21h33a5 5 0 0 1 5 5v21a5 5 0 0 1-5 5h-6v7l-8-7H22a5 5 0 0 1-5-5V26a5 5 0 0 1 5-5Z" fill="#506a78" fill-opacity=".94"/>
+  <path d="M25 27h18v25H25z" fill="#f8f2e9"/>
+  <path d="M29 32h10v20H29z" fill="#a8753d"/>
+  <circle cx="38" cy="42" r="1.5" fill="#3e0b18"/>
+</svg>

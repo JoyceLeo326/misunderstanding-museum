@@ -14,10 +14,11 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/meta-og-cover.png">
   <title>误会博物馆｜字面抵达之后</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/brand/museum-mark.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <script src="mission.js" defer></script>
+  <script src="visual-core.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -25,7 +26,7 @@
 
   <header class="site-header" data-header>
     <a class="brand" href="#home" aria-label="误会博物馆首页">
-      <span class="brand-seal" aria-hidden="true"><i>误</i><i>会</i></span>
+      <img class="brand-mark" src="assets/brand/museum-mark.svg" alt="" width="36" height="36">
       <span class="brand-name">误会博物馆</span>
     </a>
     <nav class="desktop-nav" aria-label="主要导航">
@@ -74,6 +75,10 @@
           <button type="button" data-lens-mode="literal" aria-pressed="true">只看字面</button>
           <button type="button" data-lens-mode="context" aria-pressed="false">补上语境</button>
         </div>
+        <figure class="lens-scene" data-lens-scene>
+          <img src="assets/story/mis-001-misread.webp" alt="餐桌旁，一位来访者把“吃了吗”理解成需要精确回答的饮食询问，另一人想表达的关心停在两人之间。" width="1440" height="960" fetchpriority="high" decoding="async">
+          <figcaption><strong data-lens-scene-label>误读发生处</strong><span data-lens-scene-caption>字面回答得很完整，关心却没有被听见。</span></figcaption>
+        </figure>
         <div class="lens-artifact">
           <p class="artifact-label">当时的原话</p>
           <strong data-lens-original>“吃了吗？”</strong>
@@ -113,6 +118,17 @@
           <h2 id="exhibit-title" data-text-reveal>一场关于晚饭的<br>小型误会。</h2>
         </div>
         <p class="heading-note">被准确翻译的句子，也可能带着完全不同的关系含义抵达。</p>
+      </div>
+
+      <div class="featured-diptych" data-reveal aria-label="吃了吗的误读与补足语境两联画">
+        <figure>
+          <img src="assets/story/mis-001-misread.webp" alt="餐桌旁，一位来访者把“吃了吗”理解成需要精确回答的饮食询问，另一人想表达的关心停在两人之间。" width="1440" height="960" loading="lazy" decoding="async">
+          <figcaption><span>01 · 字面抵达</span><strong>他回答了晚饭，却没听见她在问近况。</strong></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/story/mis-001-context.webp" alt="两个人在餐桌旁放松交谈，把关于晚饭的询问补充成对彼此近况与照顾的关心。" width="1440" height="960" loading="lazy" decoding="async">
+          <figcaption><span>02 · 补上语境</span><strong>她说清惦记，他终于知道该回应什么。</strong></figcaption>
+        </figure>
       </div>
 
       <div class="featured-grid">
@@ -200,6 +216,16 @@
               <span>准备在什么时候开口</span>
               <input name="moment" value="周日晚饭前" maxlength="30" autocomplete="off">
             </label>
+            <label class="mission-feedback">
+              <span>如果已经试过，对方怎样回应</span>
+              <select name="feedback">
+                <option value="none">还没带进真实对话</option>
+                <option value="understood">对方更理解我的意思</option>
+                <option value="unclear">我们还是没说清</option>
+                <option value="pressured">对方需要更多空间</option>
+                <option value="concrete">下一句需要更具体</option>
+              </select>
+            </label>
           </div>
           <p class="mission-privacy"><span aria-hidden="true">⌁</span> 你的称呼、选择与记录不会离开这个浏览器。</p>
         </form>
@@ -212,6 +238,7 @@
             <div><dt>这次的选择</dt><dd data-mission-choice>先回应字面，再说清关心，最后用一个可拒绝的问题确认。</dd></div>
             <div><dt>期待的变化</dt><dd data-mission-outcome>让关心被听见，同时给对方留下选择是否继续说的空间。</dd></div>
             <div><dt>回来复盘</dt><dd data-mission-review>对方回应的是事实、感受，还是边界？据此决定下一次先问什么。</dd></div>
+            <div class="mission-feedback-output"><dt>下一轮依据</dt><dd data-mission-feedback>先按这次关系与目标出发；回来后再用真实回应调整下一轮。</dd></div>
           </dl>
           <div class="personal-route">
             <div><span>为你先看</span><small>选择变化时，路线也会变化</small></div>
@@ -319,6 +346,14 @@
             <span data-inspector-position>1 / 12</span>
             <button type="button" data-next-exhibit>下一件 <span aria-hidden="true">→</span></button>
           </div>
+          <div class="inspector-visual-switch" role="group" aria-label="切换这件藏品的误读与语境插画">
+            <button type="button" data-inspector-visual-mode="misread" aria-pressed="true">误读发生</button>
+            <button type="button" data-inspector-visual-mode="context" aria-pressed="false">补上语境</button>
+          </div>
+          <figure class="inspector-scene" data-inspector-scene>
+            <img src="assets/story/mis-001-misread.webp" alt="餐桌旁，一位来访者把“吃了吗”理解成需要精确回答的饮食询问，另一人想表达的关心停在两人之间。" width="1440" height="960" loading="lazy" decoding="async">
+            <figcaption><strong data-inspector-scene-label>误读发生处</strong><span data-inspector-scene-caption>字面回答得很完整，关心却没有被听见。</span><small data-inspector-scene-provenance>编辑插画 · 人物与场景均为虚构复合</small></figcaption>
+          </figure>
           <div class="inspector-row"><span>字面听见</span><p data-inspector-literal>你是否已经吃过饭？</p></div>
           <div class="inspector-row"><span>一种语境</span><p data-inspector-context>我在想你，也想知道你今天有没有照顾好自己。</p></div>
           <div class="inspector-row"><span>共同注释</span><p data-inspector-question>在你的关系里，这句话通常是什么意思？</p></div>
@@ -512,7 +547,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="footer-brand"><span class="brand-seal" aria-hidden="true"><i>误</i><i>会</i></span><div><strong>误会博物馆</strong><p>语言可以被翻译，关系需要被理解。</p></div></div>
+    <div class="footer-brand"><img class="brand-mark" src="assets/brand/museum-mark.svg" alt="" width="36" height="36"><div><strong>误会博物馆</strong><p>语言可以被翻译，关系需要被理解。</p></div></div>
     <a href="#home">回到入口 <span aria-hidden="true">↑</span></a>
   </footer>
 

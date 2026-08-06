@@ -43,6 +43,8 @@
     'MIS-012': { number: '012', wing: '网络语境展厅', source: '编辑情境示例', original: '“哈哈 / 哈哈哈哈哈”', literal: '不同长度的笑声。', context: '字数、标点、平台和关系共同调节笑声温度；多一个“哈”也可能多一层真诚。', question: '你的聊天里，几个“哈”才算真的笑了？', coordinates: [2, 3, 4] }
   };
 
+  var visualEngine = window.MuseumVisuals;
+
   var labSteps = [
     { stage: '观察 01 · 原话', quote: '“你先忙吧。”', copy: '短短五个字，信息完整，语气却留了白。它可能是体谅，也可能藏着一点失落，还可能只是在温和地结束对话。', question: '如果暂时不看前后文，你会先听见哪一种情绪？' },
     { stage: '观察 02 · 字面', quote: 'Take your time.', copy: '直译清楚地传达了行动：你可以先去忙。但停顿、回复速度和此前的对话，还没有一起抵达。', question: '除了字面信息，你还会留意哪些细微信号？' },
@@ -228,24 +230,44 @@
     var literalText = literalBox ? literalBox.querySelector('strong') : null;
     var contextBox = lens.querySelector('[data-lens-context]');
     var contextText = contextBox ? contextBox.querySelector('strong') : null;
+    var scene = lens.querySelector('[data-lens-scene]');
+    var sceneImage = scene ? scene.querySelector('img') : null;
+    var sceneLabel = scene ? scene.querySelector('[data-lens-scene-label]') : null;
+    var sceneCaption = scene ? scene.querySelector('[data-lens-scene-caption]') : null;
+    var activeIndex = 0;
+    var activePhase = 'misread';
+
+    function updateScene() {
+      if (!visualEngine || !sceneImage) return;
+      var item = lensItems[activeIndex] || lensItems[0];
+      var visual = visualEngine.getExhibitVisual(item.id, activePhase);
+      sceneImage.src = visual.asset;
+      sceneImage.alt = visual.alt;
+      if (sceneLabel) sceneLabel.textContent = activePhase === 'context' ? '补上语境' : '误读发生处';
+      if (sceneCaption) sceneCaption.textContent = visual.caption;
+    }
 
     function setMode(mode, activeButton) {
       var showContext = mode === 'context';
+      activePhase = showContext ? 'context' : 'misread';
       lens.classList.toggle('is-context', showContext);
       if (literalBox) literalBox.hidden = showContext;
       if (contextBox) contextBox.hidden = !showContext;
       setPressed(modeButtons, activeButton);
+      updateScene();
     }
 
     function setItem(index, activeButton) {
       var item = lensItems[index];
       if (!item) return;
+      activeIndex = index;
       if (accession) accession.textContent = item.id;
       if (wing) wing.textContent = item.wing + ' · ' + item.source;
       if (original) original.textContent = item.original;
       if (literalText) literalText.textContent = item.literal;
       if (contextText) contextText.textContent = item.context;
       setPressed(itemButtons, activeButton);
+      updateScene();
     }
 
     modeButtons.forEach(function (button) {
@@ -278,6 +300,12 @@
     var previousButton = inspector.querySelector('[data-prev-exhibit]');
     var nextButton = inspector.querySelector('[data-next-exhibit]');
     var position = inspector.querySelector('[data-inspector-position]');
+    var inspectorScene = inspector.querySelector('[data-inspector-scene]');
+    var inspectorSceneImage = inspectorScene ? inspectorScene.querySelector('img') : null;
+    var inspectorSceneLabel = inspectorScene ? inspectorScene.querySelector('[data-inspector-scene-label]') : null;
+    var inspectorSceneCaption = inspectorScene ? inspectorScene.querySelector('[data-inspector-scene-caption]') : null;
+    var inspectorSceneProvenance = inspectorScene ? inspectorScene.querySelector('[data-inspector-scene-provenance]') : null;
+    var inspectorVisualButtons = list('[data-inspector-visual-mode]', inspector);
     var visitMeter = document.querySelector('[data-visit-meter]');
     var visitCount = document.querySelector('[data-visit-count]');
     var visitLabel = document.querySelector('[data-visit-label]');
@@ -287,6 +315,48 @@
     var visited = { 'MIS-001': true };
     var lastInspectorTrigger = null;
     var missionQuestion = '';
+    var inspectorVisualPhase = 'misread';
+
+    function hydrateCardVisuals() {
+      if (!visualEngine) return;
+      cards.forEach(function (card) {
+        if (card.querySelector('.card-scene')) return;
+        var id = card.getAttribute('data-id');
+        var visual = visualEngine.getExhibitVisual(id, 'misread');
+        var frame = document.createElement('span');
+        var image = document.createElement('img');
+        var label = document.createElement('span');
+        frame.className = 'card-scene';
+        image.src = visual.asset;
+        image.alt = visual.alt;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        image.width = 1440;
+        image.height = 960;
+        label.textContent = '从误读进入';
+        frame.appendChild(image);
+        frame.appendChild(label);
+        var top = card.querySelector('.card-top');
+        if (top) top.insertAdjacentElement('afterend', frame);
+        else card.prepend(frame);
+      });
+    }
+
+    function renderInspectorVisual(id, phase) {
+      if (!visualEngine || !inspectorSceneImage) return;
+      inspectorVisualPhase = phase === 'context' ? 'context' : 'misread';
+      var visual = visualEngine.getExhibitVisual(id, inspectorVisualPhase);
+      inspectorSceneImage.src = visual.asset;
+      inspectorSceneImage.alt = visual.alt;
+      if (inspectorSceneLabel) inspectorSceneLabel.textContent = inspectorVisualPhase === 'context' ? '补上语境' : '误读发生处';
+      if (inspectorSceneCaption) inspectorSceneCaption.textContent = visual.caption;
+      if (inspectorSceneProvenance) inspectorSceneProvenance.textContent = visual.provenance;
+      inspectorVisualButtons.forEach(function (button) {
+        button.setAttribute('aria-pressed', button.getAttribute('data-inspector-visual-mode') === inspectorVisualPhase ? 'true' : 'false');
+      });
+    }
+
+    hydrateCardVisuals();
 
     try {
       var savedVisit = JSON.parse(sessionStorage.getItem(visitStorageKey) || '[]');
@@ -374,6 +444,7 @@
       literal.textContent = item.literal;
       context.textContent = item.context;
       question.textContent = item.question + (missionQuestion ? ' ' + missionQuestion : '');
+      renderInspectorVisual(id, 'misread');
       updateCoordinates(item);
       updateVisit(id);
       if (position) position.textContent = String(cards.indexOf(card) + 1) + ' / ' + String(cards.length);
@@ -409,6 +480,11 @@
     });
     filters.forEach(function (button) {
       button.addEventListener('click', function () { applyFilter(button.getAttribute('data-filter'), button); });
+    });
+    inspectorVisualButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        renderInspectorVisual(selectedExhibitId, button.getAttribute('data-inspector-visual-mode'));
+      });
     });
 
     document.addEventListener('museum:open-exhibit', function (event) {
@@ -677,6 +753,7 @@
       relationship: form.elements.relationship,
       perspective: form.elements.perspective,
       goal: form.elements.goal,
+      feedback: form.elements.feedback,
       moment: form.elements.moment
     };
     var outputs = {
@@ -686,6 +763,7 @@
       choice: section.querySelector('[data-mission-choice]'),
       outcome: section.querySelector('[data-mission-outcome]'),
       review: section.querySelector('[data-mission-review]'),
+      feedback: section.querySelector('[data-mission-feedback]'),
       nextSentence: section.querySelector('[data-next-sentence]'),
       question: section.querySelector('[data-mission-question]')
     };
@@ -713,6 +791,7 @@
         relationship: fields.relationship.value,
         perspective: fields.perspective.value,
         goal: fields.goal.value,
+        feedback: fields.feedback.value,
         moment: fields.moment.value
       };
     }
@@ -749,12 +828,13 @@
       outputs.choice.textContent = mission.choice;
       outputs.outcome.textContent = mission.outcome;
       outputs.review.textContent = mission.reviewPrompt;
+      outputs.feedback.textContent = mission.feedbackSummary;
       outputs.nextSentence.textContent = mission.nextSentence;
       outputs.question.textContent = mission.observationQuestion;
       renderRoute(mission);
       if (save) storeProfile(mission.profile);
       document.dispatchEvent(new CustomEvent('museum:mission-change', { detail: mission }));
-      if (status && save) status.textContent = '参观路线已按你的关系、视角与目标更新。';
+      if (status && save) status.textContent = mission.profile.feedback === 'none' ? '参观路线已按你的关系、视角与目标更新。' : '真实回应已改变下一轮路线、下一句与复盘重点。';
     }
 
     function loadSaved() {
@@ -766,6 +846,7 @@
           fields.relationship.value = normalized.relationship;
           fields.perspective.value = normalized.perspective;
           fields.goal.value = normalized.goal;
+          fields.feedback.value = normalized.feedback;
           fields.moment.value = normalized.moment;
         }
         var savedNote = localStorage.getItem(noteStorageKey);

@@ -1,7 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#fcf7f0"/>
-  <rect x="62" y="58" width="172" height="42" fill="none" stroke="#3b0714" stroke-width="2"/>
-  <text x="82" y="85" fill="#3b0714" font-family="monospace" font-size="15" font-weight="700" letter-spacing="2">MIS / ARCHIVE</text>
+  <g transform="translate(62 48)">
+    <rect width="58" height="58" rx="12" fill="#fffdf8"/>
+    <path d="M8 9h30a5 5 0 0 1 5 5v19a5 5 0 0 1-5 5H22l-8 7v-7H8a5 5 0 0 1-5-5V14a5 5 0 0 1 5-5Z" fill="#3e0b18"/>
+    <path d="M20 18h30a5 5 0 0 1 5 5v19a5 5 0 0 1-5 5h-5v6l-7-6H20a5 5 0 0 1-5-5V23a5 5 0 0 1 5-5Z" fill="#506a78"/>
+    <path d="M24 24h16v23H24z" fill="#f8f2e9"/><path d="M28 29h8v18h-8z" fill="#a8753d"/>
+  </g>
+  <text x="136" y="82" fill="#3b0714" font-family="Songti SC, STSong, serif" font-size="24" font-weight="900">误会博物馆</text>
+  <text x="136" y="103" fill="#716469" font-family="monospace" font-size="13" font-weight="700" letter-spacing="1">MUSEUM OF MISUNDERSTANDINGS</text>
   <text x="62" y="205" fill="#3b0714" font-family="Songti SC, STSong, serif" font-size="78" font-weight="900">误会</text>
   <text x="140" y="300" fill="#3b0714" font-family="Songti SC, STSong, serif" font-size="104" font-weight="900">博物馆</text>
   <text x="65" y="353" fill="#251b1e" font-family="PingFang SC, sans-serif" font-size="28" font-weight="700">语言可以被翻译，关系需要被理解。</text>
@@ -14,5 +20,5 @@
   <rect x="638" y="396" width="476" height="105" fill="#e5eff7"/>
   <text x="665" y="435" fill="#716469" font-family="monospace" font-size="15">LITERAL TRANSLATION</text>
   <text x="665" y="477" fill="#3b0714" font-family="Avenir Next, sans-serif" font-size="31" font-weight="700">Have you eaten?</text>
-  <text x="65" y="573" fill="#681f33" font-family="monospace" font-size="18">CONTENT IP · UGC CURATION · GROWTH EXPERIMENTS</text>
+  <text x="65" y="573" fill="#681f33" font-family="PingFang SC, sans-serif" font-size="18" font-weight="700">12 件藏品 · 24 张两联画 · 从误读走向理解</text>
 </svg>
