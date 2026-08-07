@@ -1,6 +1,6 @@
 {
   "name": "misunderstanding-museum",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "build": "node scripts/build-static.mjs",

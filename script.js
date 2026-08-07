@@ -754,7 +754,8 @@
       perspective: form.elements.perspective,
       goal: form.elements.goal,
       feedback: form.elements.feedback,
-      moment: form.elements.moment
+      moment: form.elements.moment,
+      eventLine: form.elements.eventLine
     };
     var outputs = {
       story: section.querySelector('[data-mission-story]'),
@@ -765,7 +766,10 @@
       review: section.querySelector('[data-mission-review]'),
       feedback: section.querySelector('[data-mission-feedback]'),
       nextSentence: section.querySelector('[data-next-sentence]'),
-      question: section.querySelector('[data-mission-question]')
+      question: section.querySelector('[data-mission-question]'),
+      speaker: section.querySelector('[data-perspective-speaker]'),
+      listener: section.querySelector('[data-perspective-listener]'),
+      shared: section.querySelector('[data-perspective-shared]')
     };
     var route = section.querySelector('[data-personal-route]');
     var note = section.querySelector('[data-reflection-note]');
@@ -773,10 +777,20 @@
     var saveButton = section.querySelector('[data-save-reflection]');
     var downloadButton = section.querySelector('[data-download-receipt]');
     var startButton = section.querySelector('[data-start-route]');
+    var candidates = section.querySelector('[data-strategy-candidates]');
+    var confirmation = section.querySelector('[data-human-confirmation]');
+    var confirmationTitle = section.querySelector('[data-confirmation-title]');
+    var confirmationSentence = section.querySelector('[data-confirmation-sentence]');
+    var confirmationTradeoff = section.querySelector('[data-confirmation-tradeoff]');
+    var confirmationStatus = section.querySelector('[data-confirmation-status]');
+    var confirmButton = section.querySelector('[data-confirm-strategy]');
     var profileStorageKey = 'misunderstanding-museum-profile-v3';
     var noteStorageKey = 'misunderstanding-museum-reflection-v3';
     var visitStorageKey = 'misunderstanding-museum-visit-v2';
     var visitedIds = [];
+    var activeCandidateId = '';
+    var confirmedCandidateId = '';
+    var confirmedAt = '';
 
     function readVisited() {
       try {
@@ -792,7 +806,8 @@
         perspective: fields.perspective.value,
         goal: fields.goal.value,
         feedback: fields.feedback.value,
-        moment: fields.moment.value
+        moment: fields.moment.value,
+        eventLine: fields.eventLine.value
       };
     }
 
@@ -819,6 +834,64 @@
       });
     }
 
+    function findStrategy(id) {
+      if (!activeVisitMission || !Array.isArray(activeVisitMission.strategies)) return null;
+      return activeVisitMission.strategies.filter(function (strategy) { return strategy.id === id; })[0] || activeVisitMission.strategies[0];
+    }
+
+    function renderConfirmation(strategy) {
+      if (!strategy) return;
+      if (confirmationTitle) confirmationTitle.textContent = strategy.label + ' · ' + strategy.title;
+      if (confirmationSentence) confirmationSentence.textContent = strategy.sentence;
+      if (confirmationTradeoff) confirmationTradeoff.textContent = '你将承担的取舍：' + strategy.tradeoff;
+      outputs.nextSentence.textContent = strategy.sentence;
+      if (confirmation) confirmation.classList.toggle('is-confirmed', confirmedCandidateId === strategy.id);
+      if (downloadButton) downloadButton.disabled = confirmedCandidateId !== strategy.id;
+      if (confirmButton) confirmButton.textContent = confirmedCandidateId === strategy.id ? '已确认这条路径' : '确认采用这条路径';
+      if (confirmationStatus) confirmationStatus.textContent = confirmedCandidateId === strategy.id ? '确认完成。沟通档案已可下载；更改任何线索后需要重新确认。' : '尚未确认。你仍可以切换候选路径。';
+    }
+
+    function chooseStrategy(id, preserveConfirmation) {
+      var strategy = findStrategy(id);
+      if (!strategy) return;
+      activeCandidateId = strategy.id;
+      if (!preserveConfirmation) {
+        confirmedCandidateId = '';
+        confirmedAt = '';
+      }
+      list('.strategy-card', candidates).forEach(function (card) {
+        var selected = card.getAttribute('data-strategy-id') === strategy.id;
+        card.classList.toggle('is-selected', selected);
+        card.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      renderConfirmation(strategy);
+    }
+
+    function renderStrategies(mission) {
+      if (!candidates || !Array.isArray(mission.strategies)) return;
+      var cards = list('.strategy-card', candidates);
+      mission.strategies.forEach(function (strategy, index) {
+        var card = cards[index];
+        if (!card) return;
+        var visual = window.MuseumVisuals ? window.MuseumVisuals.getExhibitVisual(strategy.exhibitId, strategy.phase) : null;
+        card.setAttribute('data-strategy-id', strategy.id);
+        card.querySelector('figcaption').textContent = '路线 0' + String(index + 1) + ' · ' + strategy.exhibitId;
+        card.querySelector('[data-candidate-label]').textContent = strategy.label;
+        card.querySelector('[data-candidate-title]').textContent = strategy.title;
+        card.querySelector('[data-candidate-fit]').textContent = strategy.fit;
+        card.querySelector('[data-candidate-tradeoff]').textContent = '取舍 · ' + strategy.tradeoff;
+        if (visual) {
+          var image = card.querySelector('img');
+          image.src = visual.asset;
+          image.alt = visual.alt;
+        }
+      });
+      activeCandidateId = mission.strategies[0].id;
+      confirmedCandidateId = '';
+      confirmedAt = '';
+      chooseStrategy(activeCandidateId, true);
+    }
+
     function render(save) {
       var mission = engine.createVisitMission(profileFromFields());
       activeVisitMission = mission;
@@ -831,7 +904,11 @@
       outputs.feedback.textContent = mission.feedbackSummary;
       outputs.nextSentence.textContent = mission.nextSentence;
       outputs.question.textContent = mission.observationQuestion;
+      outputs.speaker.textContent = mission.perspectives.speaker;
+      outputs.listener.textContent = mission.perspectives.listener;
+      outputs.shared.textContent = mission.perspectives.shared;
       renderRoute(mission);
+      renderStrategies(mission);
       if (save) storeProfile(mission.profile);
       document.dispatchEvent(new CustomEvent('museum:mission-change', { detail: mission }));
       if (status && save) status.textContent = mission.profile.feedback === 'none' ? '参观路线已按你的关系、视角与目标更新。' : '真实回应已改变下一轮路线、下一句与复盘重点。';
@@ -848,6 +925,7 @@
           fields.goal.value = normalized.goal;
           fields.feedback.value = normalized.feedback;
           fields.moment.value = normalized.moment;
+          fields.eventLine.value = normalized.eventLine;
         }
         var savedNote = localStorage.getItem(noteStorageKey);
         if (savedNote) note.value = savedNote;
@@ -855,7 +933,23 @@
     }
 
     Object.keys(fields).forEach(function (key) {
-      fields[key].addEventListener(key === 'name' || key === 'moment' ? 'input' : 'change', function () { render(true); });
+      fields[key].addEventListener(key === 'name' || key === 'moment' || key === 'eventLine' ? 'input' : 'change', function () { render(true); });
+    });
+
+    if (candidates) candidates.addEventListener('click', function (event) {
+      var card = event.target.closest('[data-strategy-id]');
+      if (!card) return;
+      chooseStrategy(card.getAttribute('data-strategy-id'), false);
+      if (status) status.textContent = '候选路径已切换。请查看取舍，再由你确认是否采用。';
+    });
+
+    if (confirmButton) confirmButton.addEventListener('click', function () {
+      var strategy = findStrategy(activeCandidateId);
+      if (!strategy) return;
+      confirmedCandidateId = strategy.id;
+      confirmedAt = new Date().toLocaleString('zh-CN', { hour12: false });
+      renderConfirmation(strategy);
+      if (status) status.textContent = '已确认“' + strategy.label + '”。现在可以下载包含事件、多视角、取舍、下一句与复盘的沟通档案。';
     });
 
     route.addEventListener('click', function (event) {
@@ -875,13 +969,19 @@
     });
 
     if (downloadButton) downloadButton.addEventListener('click', function () {
-      var receipt = engine.buildVisitReceipt({
+      if (!confirmedCandidateId) {
+        if (status) status.textContent = '请先比较候选路径并确认一条，再下载沟通档案。';
+        return;
+      }
+      var receipt = engine.buildReconciliationArchive({
         profile: activeVisitMission ? activeVisitMission.profile : profileFromFields(),
         visitedIds: visitedIds,
-        note: note.value
+        note: note.value,
+        candidateId: confirmedCandidateId,
+        confirmedAt: confirmedAt
       });
-      downloadText('误会博物馆-' + (activeVisitMission ? activeVisitMission.profile.name : '参观者') + '-参观回执.md', receipt, 'text/markdown');
-      if (status) status.textContent = '参观回执已下载，包含你的选择、路线、记录与复盘提示。';
+      downloadText('误会博物馆-' + (activeVisitMission ? activeVisitMission.profile.name : '参观者') + '-沟通与和解档案.md', receipt, 'text/markdown');
+      if (status) status.textContent = '沟通档案已下载，包含事件底稿、多视角、人的确认、取舍与下一轮复盘。';
     });
 
     document.addEventListener('museum:visit-change', function (event) {
