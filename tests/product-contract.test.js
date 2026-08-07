@@ -22,6 +22,8 @@ test('the visit mission is usable before the collection and has causal inputs', 
   assert.match(html, /data-perspective-speaker/);
   assert.match(html, /data-strategy-candidates/);
   assert.match(html, /data-confirm-strategy/);
+  assert.match(html, /data-version-proposal/);
+  assert.match(html, /data-decision-history/);
 });
 
 test('the result can be saved and exported without an account or backend', () => {
@@ -34,7 +36,17 @@ test('the result can be saved and exported without an account or backend', () =>
   assert.match(script, /localStorage/);
   assert.match(script, /URL\.createObjectURL/);
   assert.match(script, /buildReconciliationArchive/);
+  assert.match(script, /decisionHistory/);
+  assert.match(script, /diffMissions/);
   assert.doesNotMatch(script, /fetch\s*\(.*api/i);
+});
+
+test('product copy avoids implementation-status narration', () => {
+  const html = read('index.html');
+  const script = read('script.js');
+  const visibleCopy = html + '\n' + script;
+  assert.doesNotMatch(visibleCopy, /选择只保存在当前设备|不会离开这个浏览器|本地生成器|已清空本地草稿|当前浏览器未允许复制/);
+  assert.doesNotMatch(script, /真实回应已改变下一轮路线、下一句与复盘重点/);
 });
 
 test('runtime remains local-first and dependencies are self-hosted', () => {
@@ -63,4 +75,18 @@ test('publish workflow verifies source and generated artifacts before deploy', (
 test('Vercel serves the same verified static artifact as GitHub Pages', () => {
   const config = JSON.parse(read('vercel.json'));
   assert.equal(config.outputDirectory, 'dist');
+});
+
+test('production CSP keeps runtime dependencies on the same origin', () => {
+  const config = JSON.parse(read('vercel.json'));
+  const globalHeaders = config.headers.find(({ source }) => source === '/(.*)').headers;
+  const csp = globalHeaders.find(({ key }) => key === 'Content-Security-Policy').value;
+
+  assert.match(csp, /default-src 'self'/);
+  assert.match(csp, /script-src 'self'/);
+  assert.match(csp, /img-src 'self' data:/);
+  assert.match(csp, /connect-src 'self'/);
+  assert.match(csp, /object-src 'none'/);
+  assert.match(csp, /frame-ancestors 'none'/);
+  assert.doesNotMatch(csp, /https?:\/\//);
 });

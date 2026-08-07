@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="误会博物馆：收藏那些每个字都懂了，却还是误会了的瞬间。参观12件跨文化话语藏品，也可以在本地生成自己的藏品卡。">
+  <meta name="description" content="误会博物馆：收藏那些每个字都懂了，却还是误会了的瞬间。参观12件跨文化话语藏品，也可以制作自己的藏品卡。">
   <meta name="theme-color" content="#3e0b18">
   <meta name="color-scheme" content="light">
   <meta name="mobile-web-app-capable" content="yes">
@@ -180,7 +180,7 @@
         <form class="mission-form" data-mission-form data-reveal>
           <div class="mission-form-head">
             <span>我的参观线索</span>
-            <small>选择只保存在当前设备，可随时改写。</small>
+            <small>先写清事实，再决定下一句话。</small>
           </div>
           <div class="mission-fields">
             <label>
@@ -222,7 +222,7 @@
               <small>只写可确认的原话、动作与停顿，先不替对方判断动机。</small>
             </label>
             <label class="mission-feedback">
-              <span>如果已经试过，对方怎样回应</span>
+              <span>带回真实对话后，对方怎样回应</span>
               <select name="feedback">
                 <option value="none">还没带进真实对话</option>
                 <option value="understood">对方更理解我的意思</option>
@@ -230,9 +230,10 @@
                 <option value="pressured">对方需要更多空间</option>
                 <option value="concrete">下一句需要更具体</option>
               </select>
+              <small>真实回应会形成下一版本提案，不会覆盖已经确认的选择。</small>
             </label>
           </div>
-          <p class="mission-privacy"><span aria-hidden="true">⌁</span> 你的称呼、选择与记录不会离开这个浏览器。</p>
+          <p class="mission-privacy"><span aria-hidden="true">⌁</span> 只写你愿意带进这次沟通的内容。</p>
         </form>
 
         <article class="mission-passport" data-reveal aria-live="polite">
@@ -337,6 +338,20 @@
             <button class="button button-primary" type="button" data-confirm-strategy>确认采用这条路径</button>
             <p role="status" data-confirmation-status>尚未确认。你仍可以切换候选路径。</p>
           </div>
+        </div>
+
+        <div class="decision-ledger" data-decision-ledger>
+          <header>
+            <div><span>DECISION HISTORY</span><strong>每次确认，都留下理由。</strong></div>
+            <p>反馈先成为提案，只有再次确认才会进入下一版本。</p>
+          </header>
+          <div class="version-proposal" data-version-proposal hidden>
+            <div><span data-proposal-version>V2 · 等待确认</span><strong>这一轮实际会改变什么</strong></div>
+            <ul data-proposal-diff><li>等待新的关系线索或真实回应。</li></ul>
+          </div>
+          <ol class="decision-history" data-decision-history>
+            <li class="is-empty"><span>尚无版本</span><p>确认第一条路径后，这里会留下 V1 的方案、取舍与下一句。</p></li>
+          </ol>
         </div>
       </section>
     </section>
@@ -483,7 +498,7 @@
         <form class="donation-form" data-card-form data-reveal>
           <div class="form-intro">
             <span>藏品制作</span>
-            <small>草稿只保存在当前设备，不会自动上传。</small>
+            <small>从原话到下一句，边写边看。</small>
           </div>
           <label>
             <span>放进哪个展厅</span>
@@ -508,7 +523,7 @@
           </label>
           <div class="form-actions">
             <button class="button button-primary" type="submit">生成藏品卡</button>
-            <button class="button button-quiet" type="button" data-clear-card>清空</button>
+            <button class="button button-quiet" type="button" data-clear-card>重新填写</button>
           </div>
           <p class="form-status" data-form-status aria-live="polite">填写时，右侧藏品卡会同步更新。</p>
         </form>
@@ -609,7 +624,7 @@
         <div><strong>04</strong><span>固定展厅</span></div>
         <div><strong>12</strong><span>首批馆藏</span></div>
         <div><strong>04</strong><span>观察层次</span></div>
-        <div><strong>01</strong><span>本地生成器</span></div>
+        <div><strong>01</strong><span>藏品卡制作</span></div>
       </div>
       <div class="visit-receipt" data-visit-receipt data-reveal>
         <span class="receipt-label">本次参观回执</span>

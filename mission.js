@@ -216,6 +216,29 @@
     });
   }
 
+  function sameList(left, right) {
+    return Array.isArray(left) && Array.isArray(right) && left.length === right.length && left.every(function (value, index) { return value === right[index]; });
+  }
+
+  function diffMissions(previousInput, nextInput) {
+    var previous = createVisitMission(previousInput);
+    var next = createVisitMission(nextInput);
+    var changes = [];
+    if (previous.profile.name !== next.profile.name) changes.push('档案称呼从“' + previous.profile.name + '”改为“' + next.profile.name + '”');
+    if (previous.profile.moment !== next.profile.moment) changes.push('准备开口的时机从“' + previous.profile.moment + '”改为“' + next.profile.moment + '”');
+    if (previous.relationshipLabel !== next.relationshipLabel) changes.push('关系从“' + previous.relationshipLabel + '”改为“' + next.relationshipLabel + '”');
+    if (previous.perspectiveLabel !== next.perspectiveLabel) changes.push('观察位置从“' + previous.perspectiveLabel + '”改为“' + next.perspectiveLabel + '”');
+    if (previous.goalLabel !== next.goalLabel) changes.push('对话目标从“' + previous.goalLabel + '”改为“' + next.goalLabel + '”');
+    if (previous.profile.eventLine !== next.profile.eventLine) changes.push('事件底稿已经改写');
+    if (previous.feedbackLabel !== next.feedbackLabel) changes.push('真实回应从“' + previous.feedbackLabel + '”更新为“' + next.feedbackLabel + '”');
+    if (!sameList(previous.recommendedIds, next.recommendedIds)) changes.push('优先馆藏从 ' + previous.recommendedIds.join(' → ') + ' 调整为 ' + next.recommendedIds.join(' → '));
+    if (previous.nextSentence !== next.nextSentence) changes.push('建议的下一句话已经改写');
+    if (previous.reviewPrompt !== next.reviewPrompt) changes.push('复盘问题已经改写');
+    if (!sameList(previous.strategies.map(function (item) { return item.id; }), next.strategies.map(function (item) { return item.id; }))) changes.push('三条候选路径的优先顺序已经调整');
+    if (!sameList(previous.strategies.map(function (item) { return item.exhibitId + ':' + item.phase; }), next.strategies.map(function (item) { return item.exhibitId + ':' + item.phase; }))) changes.push('候选路径对应的故事证据图已经调整');
+    return changes;
+  }
+
   function createVisitMission(input) {
     var profile = normalizeProfile(input);
     var relationship = RELATIONSHIPS[profile.relationship];
@@ -298,6 +321,36 @@
     }) : [];
     var note = oneLine(value.note, '尚未记录真实回应；对话后再回来补充。', 240);
     var confirmedAt = oneLine(value.confirmedAt, '本次会话内已由使用者确认', 40);
+    var rawHistory = Array.isArray(value.history) ? value.history.slice(-8) : [];
+    var decisions = rawHistory.map(function (entry, index) {
+      var entryValue = entry && typeof entry === 'object' ? entry : {};
+      var entryMission = createVisitMission(entryValue.profile);
+      var entryCandidate = entryMission.strategies.filter(function (strategy) { return strategy.id === entryValue.candidateId; })[0] || entryMission.strategies[0];
+      return {
+        version: index + 1,
+        mission: entryMission,
+        candidate: entryCandidate,
+        confirmedAt: oneLine(entryValue.confirmedAt, '已确认', 40)
+      };
+    });
+    if (!decisions.length || decisions[decisions.length - 1].candidate.id !== selected.id || JSON.stringify(decisions[decisions.length - 1].mission.profile) !== JSON.stringify(mission.profile)) {
+      decisions.push({ version: decisions.length + 1, mission: mission, candidate: selected, confirmedAt: confirmedAt });
+    }
+    var historyLines = [];
+    decisions.forEach(function (decision, index) {
+      historyLines.push('### V' + String(decision.version) + ' · ' + decision.candidate.label);
+      historyLines.push('- 确认时间：' + decision.confirmedAt);
+      historyLines.push('- 真实回应：' + decision.mission.feedbackLabel);
+      historyLines.push('- 已确认方案：' + decision.candidate.title);
+      historyLines.push('- 下一句话：' + decision.candidate.sentence);
+      historyLines.push('- 取舍：' + decision.candidate.tradeoff);
+      if (index > 0) {
+        var differences = diffMissions(decisions[index - 1].mission.profile, decision.mission.profile);
+        if (decisions[index - 1].candidate.id !== decision.candidate.id) differences.push('人工选择从“' + decisions[index - 1].candidate.label + '”改为“' + decision.candidate.label + '”');
+        historyLines.push('- 相比 V' + String(index) + '：' + (differences.length ? differences.join('；') : '输入与方案没有结构性变化'));
+      }
+      historyLines.push('');
+    });
     return [
       '# 误会博物馆｜沟通与和解档案',
       '',
@@ -322,6 +375,8 @@
       '## 准备说出的下一句',
       selected.sentence,
       '',
+      '## 决策版本',
+      historyLines.join('\n'),
       '## 参观依据',
       '- 推荐馆藏：' + mission.recommendedIds.join(' → '),
       '- 已阅馆藏：' + (visited.length ? visited.join('、') : '尚未开始'),
@@ -346,6 +401,7 @@
     STRATEGIES: STRATEGIES,
     normalizeProfile: normalizeProfile,
     createVisitMission: createVisitMission,
+    diffMissions: diffMissions,
     buildVisitReceipt: buildVisitReceipt,
     buildReconciliationArchive: buildReconciliationArchive
   };

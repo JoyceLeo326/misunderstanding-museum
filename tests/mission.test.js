@@ -158,3 +158,63 @@ test('reconciliation archive preserves event, perspectives, human choice, tradeo
   assert.match(archive, /下一轮依据/);
   assert.match(archive, /MIS-002/);
 });
+
+test('feedback diff only reports fields that actually changed', () => {
+  const base = {
+    name: '顾宁', relationship: 'colleague', perspective: 'speaker', goal: 'care',
+    feedback: 'none', moment: '今晚', eventLine: '我回复“收到”，对方没有继续说。'
+  };
+  const changed = mission.diffMissions(base, { ...base, feedback: 'understood' });
+  const unchanged = mission.diffMissions(base, base);
+
+  assert.equal(unchanged.length, 0);
+  assert.ok(changed.some((item) => item.includes('真实回应')));
+  assert.ok(changed.some((item) => item.includes('下一句话')));
+  assert.ok(!changed.some((item) => item.includes('优先馆藏')), 'colleague/care keeps the same first route for understood feedback');
+});
+
+test('every feedback combination reports route, sentence, review, order and visuals from real diffs', () => {
+  const same = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+  for (const relationship of Object.keys(mission.RELATIONSHIPS)) {
+    for (const perspective of Object.keys(mission.PERSPECTIVES)) {
+      for (const goal of Object.keys(mission.GOALS)) {
+        const baseProfile = { relationship, perspective, goal, feedback: 'none' };
+        const base = mission.createVisitMission(baseProfile);
+        for (const feedback of Object.keys(mission.FEEDBACKS).filter((key) => key !== 'none')) {
+          const nextProfile = { ...baseProfile, feedback };
+          const next = mission.createVisitMission(nextProfile);
+          const diff = mission.diffMissions(baseProfile, nextProfile);
+          const has = (fragment) => diff.some((line) => line.includes(fragment));
+          assert.equal(has('优先馆藏'), !same(base.recommendedIds, next.recommendedIds), `${relationship}/${perspective}/${goal}/${feedback} route`);
+          assert.equal(has('下一句话'), base.nextSentence !== next.nextSentence, `${relationship}/${perspective}/${goal}/${feedback} sentence`);
+          assert.equal(has('复盘问题'), base.reviewPrompt !== next.reviewPrompt, `${relationship}/${perspective}/${goal}/${feedback} review`);
+          assert.equal(has('候选路径的优先顺序'), !same(base.strategies.map((item) => item.id), next.strategies.map((item) => item.id)), `${relationship}/${perspective}/${goal}/${feedback} order`);
+          assert.equal(has('故事证据图'), !same(base.strategies.map((item) => item.exhibitId + ':' + item.phase), next.strategies.map((item) => item.exhibitId + ':' + item.phase)), `${relationship}/${perspective}/${goal}/${feedback} visuals`);
+        }
+      }
+    }
+  }
+});
+
+test('V2 archive contains both confirmed decisions and their factual delta', () => {
+  const v1 = {
+    name: '顾宁', relationship: 'partner', perspective: 'speaker', goal: 'care',
+    feedback: 'none', moment: '今晚', eventLine: '我问“吃了吗”，对方只回答了晚饭。'
+  };
+  const v2 = { ...v1, feedback: 'pressured' };
+  const archive = mission.buildReconciliationArchive({
+    profile: v2,
+    candidateId: 'space',
+    confirmedAt: '2026/8/7 22:00:00',
+    history: [
+      { profile: v1, candidateId: 'clarify', confirmedAt: '2026/8/7 21:00:00' },
+      { profile: v2, candidateId: 'space', confirmedAt: '2026/8/7 22:00:00' }
+    ]
+  });
+
+  assert.match(archive, /### V1 · 直接澄清/);
+  assert.match(archive, /### V2 · 留出边界/);
+  assert.match(archive, /相比 V1/);
+  assert.match(archive, /真实回应从/);
+  assert.match(archive, /人工选择从/);
+});

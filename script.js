@@ -720,13 +720,13 @@
       form.reset();
       try { localStorage.removeItem(storageKey); } catch (error) { /* Optional. */ }
       updatePreview(false);
-      status.textContent = '已清空本地草稿。';
+      status.textContent = '一张新的空白藏品卡已经准备好。';
       if (copyStatus) copyStatus.textContent = '';
     });
 
     if (copyButton) copyButton.addEventListener('click', function () {
       copyText(cardText(), function (ok) {
-        if (copyStatus) copyStatus.textContent = ok ? '藏品卡文字已复制。' : '当前浏览器未允许复制，请长按表单内容手动复制。';
+        if (copyStatus) copyStatus.textContent = ok ? '藏品卡文字已复制。' : '复制没有完成。可选中文本后手动复制。';
       });
     });
 
@@ -784,10 +784,16 @@
     var confirmationTradeoff = section.querySelector('[data-confirmation-tradeoff]');
     var confirmationStatus = section.querySelector('[data-confirmation-status]');
     var confirmButton = section.querySelector('[data-confirm-strategy]');
+    var versionProposal = section.querySelector('[data-version-proposal]');
+    var proposalVersion = section.querySelector('[data-proposal-version]');
+    var proposalDiff = section.querySelector('[data-proposal-diff]');
+    var decisionHistoryList = section.querySelector('[data-decision-history]');
     var profileStorageKey = 'misunderstanding-museum-profile-v3';
     var noteStorageKey = 'misunderstanding-museum-reflection-v3';
     var visitStorageKey = 'misunderstanding-museum-visit-v2';
+    var decisionStorageKey = 'misunderstanding-museum-decisions-v1';
     var visitedIds = [];
+    var decisionHistory = [];
     var activeCandidateId = '';
     var confirmedCandidateId = '';
     var confirmedAt = '';
@@ -813,6 +819,124 @@
 
     function storeProfile(profile) {
       try { localStorage.setItem(profileStorageKey, JSON.stringify(profile)); } catch (error) { /* Optional. */ }
+    }
+
+    function decisionSignature(profile, candidateId) {
+      return JSON.stringify(engine.normalizeProfile(profile)) + '|' + String(candidateId || '');
+    }
+
+    function lastDecision() {
+      return decisionHistory.length ? decisionHistory[decisionHistory.length - 1] : null;
+    }
+
+    function storeDecisions() {
+      try { localStorage.setItem(decisionStorageKey, JSON.stringify(decisionHistory.slice(-8))); } catch (error) { /* Optional. */ }
+    }
+
+    function loadDecisions() {
+      try {
+        var saved = JSON.parse(localStorage.getItem(decisionStorageKey) || '[]');
+        if (!Array.isArray(saved)) return;
+        decisionHistory = saved.slice(-8).map(function (entry) {
+          var profile = engine.normalizeProfile(entry && entry.profile);
+          var mission = engine.createVisitMission(profile);
+          var requested = entry && typeof entry.candidateId === 'string' ? entry.candidateId : '';
+          var candidate = mission.strategies.filter(function (strategy) { return strategy.id === requested; })[0] || mission.strategies[0];
+          return {
+            profile: profile,
+            candidateId: candidate.id,
+            confirmedAt: entry && typeof entry.confirmedAt === 'string' ? entry.confirmedAt.slice(0, 40) : '已确认'
+          };
+        });
+      } catch (error) { decisionHistory = []; }
+    }
+
+    function proposalChanges() {
+      var previous = lastDecision();
+      if (!previous || !activeVisitMission) return [];
+      var changes = engine.diffMissions(previous.profile, activeVisitMission.profile);
+      if (previous.candidateId !== activeCandidateId) {
+        var previousMission = engine.createVisitMission(previous.profile);
+        var previousStrategy = previousMission.strategies.filter(function (strategy) { return strategy.id === previous.candidateId; })[0];
+        var activeStrategy = findStrategy(activeCandidateId);
+        changes.push('待确认方案从“' + (previousStrategy ? previousStrategy.label : '上一方案') + '”切换到“' + (activeStrategy ? activeStrategy.label : '当前方案') + '”');
+      }
+      return changes;
+    }
+
+    function appendHistoryLine(decision, index) {
+      if (!decisionHistoryList) return;
+      var mission = engine.createVisitMission(decision.profile);
+      var strategy = mission.strategies.filter(function (item) { return item.id === decision.candidateId; })[0] || mission.strategies[0];
+      var item = document.createElement('li');
+      var top = document.createElement('div');
+      var version = document.createElement('span');
+      var time = document.createElement('small');
+      var title = document.createElement('strong');
+      var copy = document.createElement('p');
+      version.textContent = 'V' + String(index + 1) + ' · ' + mission.feedbackLabel;
+      time.textContent = decision.confirmedAt;
+      title.textContent = strategy.label + ' · ' + strategy.title;
+      copy.textContent = strategy.sentence + ' 取舍：' + strategy.tradeoff;
+      top.appendChild(version);
+      top.appendChild(time);
+      item.appendChild(top);
+      item.appendChild(title);
+      item.appendChild(copy);
+      if (index > 0) {
+        var previous = decisionHistory[index - 1];
+        var changes = engine.diffMissions(previous.profile, decision.profile);
+        if (previous.candidateId !== decision.candidateId) changes.push('人工重新选择了方案');
+        var delta = document.createElement('em');
+        delta.textContent = '相比 V' + String(index) + '：' + (changes.length ? changes.join('；') : '输入与方案没有结构性变化');
+        item.appendChild(delta);
+      }
+      decisionHistoryList.appendChild(item);
+    }
+
+    function renderDecisionLedger() {
+      var previous = lastDecision();
+      var currentSignature = activeVisitMission ? decisionSignature(activeVisitMission.profile, activeCandidateId) : '';
+      var previousSignature = previous ? decisionSignature(previous.profile, previous.candidateId) : '';
+      var isConfirmed = Boolean(previous && currentSignature === previousSignature);
+      if (isConfirmed) {
+        confirmedCandidateId = previous.candidateId;
+        confirmedAt = previous.confirmedAt;
+      } else {
+        confirmedCandidateId = '';
+        confirmedAt = '';
+      }
+      renderConfirmation(findStrategy(activeCandidateId));
+
+      if (decisionHistoryList) {
+        decisionHistoryList.textContent = '';
+        if (!decisionHistory.length) {
+          var empty = document.createElement('li');
+          var emptyTitle = document.createElement('span');
+          var emptyCopy = document.createElement('p');
+          empty.className = 'is-empty';
+          emptyTitle.textContent = '尚无版本';
+          emptyCopy.textContent = '确认第一条路径后，这里会留下 V1 的方案、取舍与下一句。';
+          empty.appendChild(emptyTitle);
+          empty.appendChild(emptyCopy);
+          decisionHistoryList.appendChild(empty);
+        } else decisionHistory.forEach(appendHistoryLine);
+      }
+
+      var changes = proposalChanges();
+      var hasProposal = Boolean(previous && !isConfirmed);
+      if (versionProposal) versionProposal.hidden = !hasProposal;
+      if (proposalVersion && hasProposal) proposalVersion.textContent = 'V' + String(decisionHistory.length + 1) + ' · 等待确认';
+      if (proposalDiff && hasProposal) {
+        proposalDiff.textContent = '';
+        if (!changes.length) changes.push('输入或方案尚未产生可见的结构性差异');
+        changes.forEach(function (change) {
+          var item = document.createElement('li');
+          item.textContent = change;
+          proposalDiff.appendChild(item);
+        });
+      }
+      return { confirmed: isConfirmed, proposal: hasProposal, changes: changes };
     }
 
     function renderRoute(mission) {
@@ -911,7 +1035,16 @@
       renderStrategies(mission);
       if (save) storeProfile(mission.profile);
       document.dispatchEvent(new CustomEvent('museum:mission-change', { detail: mission }));
-      if (status && save) status.textContent = mission.profile.feedback === 'none' ? '参观路线已按你的关系、视角与目标更新。' : '真实回应已改变下一轮路线、下一句与复盘重点。';
+      var ledgerState = renderDecisionLedger();
+      if (status && save) {
+        if (ledgerState.proposal) {
+          status.textContent = '已形成 V' + String(decisionHistory.length + 1) + ' 提案：' + ledgerState.changes.join('；') + '。再次确认前，上一版本保持不变。';
+        } else if (ledgerState.confirmed) {
+          status.textContent = '当前线索与已确认版本一致，可以继续使用或下载档案。';
+        } else {
+          status.textContent = '已根据这次关系、视角与目标生成候选路径；比较取舍后再确认。';
+        }
+      }
     }
 
     function loadSaved() {
@@ -940,16 +1073,28 @@
       var card = event.target.closest('[data-strategy-id]');
       if (!card) return;
       chooseStrategy(card.getAttribute('data-strategy-id'), false);
-      if (status) status.textContent = '候选路径已切换。请查看取舍，再由你确认是否采用。';
+      var ledgerState = renderDecisionLedger();
+      if (status) status.textContent = ledgerState.proposal ? '新的人工选择已进入 V' + String(decisionHistory.length + 1) + ' 提案，上一版本尚未被替换。' : '候选路径已切换。请查看取舍，再由你确认是否采用。';
     });
 
     if (confirmButton) confirmButton.addEventListener('click', function () {
       var strategy = findStrategy(activeCandidateId);
       if (!strategy) return;
+      var previous = lastDecision();
+      var signature = decisionSignature(activeVisitMission.profile, strategy.id);
+      if (!previous || signature !== decisionSignature(previous.profile, previous.candidateId)) {
+        confirmedAt = new Date().toLocaleString('zh-CN', { hour12: false });
+        decisionHistory.push({
+          profile: engine.normalizeProfile(activeVisitMission.profile),
+          candidateId: strategy.id,
+          confirmedAt: confirmedAt
+        });
+        decisionHistory = decisionHistory.slice(-8);
+        storeDecisions();
+      } else confirmedAt = previous.confirmedAt;
       confirmedCandidateId = strategy.id;
-      confirmedAt = new Date().toLocaleString('zh-CN', { hour12: false });
-      renderConfirmation(strategy);
-      if (status) status.textContent = '已确认“' + strategy.label + '”。现在可以下载包含事件、多视角、取舍、下一句与复盘的沟通档案。';
+      renderDecisionLedger();
+      if (status) status.textContent = 'V' + String(decisionHistory.length) + ' 已确认“' + strategy.label + '”。档案会同时保留此前版本和本次决定。';
     });
 
     route.addEventListener('click', function (event) {
@@ -965,7 +1110,7 @@
 
     if (saveButton) saveButton.addEventListener('click', function () {
       try { localStorage.setItem(noteStorageKey, note.value.trim()); } catch (error) { /* Optional. */ }
-      if (status) status.textContent = note.value.trim() ? '这句话已保存在当前设备，可以继续修改。' : '记录已清空。';
+      if (status) status.textContent = note.value.trim() ? '这句话已加入本次沟通档案，可以继续修改。' : '这句话已从本次档案移除。';
     });
 
     if (downloadButton) downloadButton.addEventListener('click', function () {
@@ -978,7 +1123,8 @@
         visitedIds: visitedIds,
         note: note.value,
         candidateId: confirmedCandidateId,
-        confirmedAt: confirmedAt
+        confirmedAt: confirmedAt,
+        history: decisionHistory
       });
       downloadText('误会博物馆-' + (activeVisitMission ? activeVisitMission.profile.name : '参观者') + '-沟通与和解档案.md', receipt, 'text/markdown');
       if (status) status.textContent = '沟通档案已下载，包含事件底稿、多视角、人的确认、取舍与下一轮复盘。';
@@ -989,6 +1135,7 @@
     });
 
     loadSaved();
+    loadDecisions();
     visitedIds = readVisited();
     render(false);
   }
