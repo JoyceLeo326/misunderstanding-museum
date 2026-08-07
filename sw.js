@@ -1,4 +1,4 @@
-var CACHE_NAME = 'misunderstanding-museum-v11';
+var CACHE_NAME = 'misunderstanding-museum-v12';
 var CORE_ASSETS = ['./', './index.html', './styles.css', './mission.js', './visual-core.js', './script.js', './manifest.webmanifest', './assets/brand/museum-mark.svg', './assets/story/mis-001-misread.webp'];
 
 self.addEventListener('install', function (event) {
