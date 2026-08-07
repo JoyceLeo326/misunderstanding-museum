@@ -113,3 +113,48 @@ test('visit receipt includes the feedback that shaped the next round', () => {
   assert.match(receipt, /需要更多空间/);
   assert.match(receipt, /MIS-006/);
 });
+
+test('perspective, goal and feedback reorder genuinely different candidate strategies', () => {
+  const speakerCare = mission.createVisitMission({
+    relationship: 'partner', perspective: 'speaker', goal: 'care', feedback: 'none'
+  });
+  const listenerCare = mission.createVisitMission({
+    relationship: 'partner', perspective: 'listener', goal: 'care', feedback: 'none'
+  });
+  const pressured = mission.createVisitMission({
+    relationship: 'partner', perspective: 'speaker', goal: 'care', feedback: 'pressured'
+  });
+
+  assert.deepEqual(speakerCare.strategies.map((item) => item.id), ['clarify', 'mirror', 'space']);
+  assert.deepEqual(listenerCare.strategies.map((item) => item.id), ['mirror', 'space', 'clarify']);
+  assert.deepEqual(pressured.strategies.map((item) => item.id), ['space', 'mirror', 'clarify']);
+  assert.equal(new Set(speakerCare.strategies.map((item) => item.tradeoff)).size, 3);
+  assert.notEqual(speakerCare.perspectives.shared, listenerCare.perspectives.shared);
+});
+
+test('reconciliation archive preserves event, perspectives, human choice, tradeoff and next round', () => {
+  const archive = mission.buildReconciliationArchive({
+    profile: {
+      name: '顾宁',
+      relationship: 'partner',
+      perspective: 'listener',
+      goal: 'repair',
+      feedback: 'unclear',
+      moment: '今晚九点',
+      eventLine: '我听见“你先忙吧”后结束了通话，对方沉默了很久。'
+    },
+    candidateId: 'mirror',
+    confirmedAt: '2026/8/7 21:00:00',
+    visitedIds: ['MIS-002'],
+    note: '对方说先复述让她感觉终于被听见。'
+  });
+
+  assert.match(archive, /沟通与和解档案/);
+  assert.match(archive, /我听见“你先忙吧”/);
+  assert.match(archive, /三种视角/);
+  assert.match(archive, /双向复述/);
+  assert.match(archive, /需要承担的取舍/);
+  assert.match(archive, /2026\/8\/7 21:00:00/);
+  assert.match(archive, /下一轮依据/);
+  assert.match(archive, /MIS-002/);
+});

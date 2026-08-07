@@ -17,6 +17,11 @@ test('the visit mission is usable before the collection and has causal inputs', 
   assert.match(html, /data-personal-route/);
   assert.match(html, /data-next-sentence/);
   assert.match(html, /name="feedback"/);
+  assert.match(html, /name="eventLine"/);
+  assert.match(html, /data-reconciliation-studio/);
+  assert.match(html, /data-perspective-speaker/);
+  assert.match(html, /data-strategy-candidates/);
+  assert.match(html, /data-confirm-strategy/);
 });
 
 test('the result can be saved and exported without an account or backend', () => {
@@ -24,9 +29,11 @@ test('the result can be saved and exported without an account or backend', () =>
   const script = read('script.js');
   assert.match(html, /data-save-reflection/);
   assert.match(html, /data-download-receipt/);
+  assert.match(html, /data-download-archive/);
   assert.match(html, /data-download-card/);
   assert.match(script, /localStorage/);
   assert.match(script, /URL\.createObjectURL/);
+  assert.match(script, /buildReconciliationArchive/);
   assert.doesNotMatch(script, /fetch\s*\(.*api/i);
 });
 

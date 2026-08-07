@@ -12,7 +12,8 @@
     perspective: 'speaker',
     goal: 'care',
     feedback: 'none',
-    moment: '周日晚饭前'
+    moment: '周日晚饭前',
+    eventLine: '我问“吃了吗？”，对方只回答了晚饭，我们都不知道下一句怎么接。'
   };
 
   var RELATIONSHIPS = {
@@ -130,6 +131,30 @@
     }
   };
 
+  var STRATEGIES = {
+    clarify: {
+      title: '把没有说出的意图补完整',
+      label: '直接澄清',
+      fit: '适合双方仍愿意继续、但字面遮住了真正意图的时刻。',
+      tradeoff: '更快抵达重点，也可能让对方感到你急着证明自己。',
+      phase: 'context'
+    },
+    mirror: {
+      title: '先并排复述双方听见的版本',
+      label: '双向复述',
+      fit: '适合双方都确信自己听懂了，却说的是两个版本的时刻。',
+      tradeoff: '更慢，但能减少辩解；需要先忍住判断谁对谁错。',
+      phase: 'misread'
+    },
+    space: {
+      title: '把是否继续的选择交还给对方',
+      label: '留出边界',
+      fit: '适合情绪升高、回应变短，或对方已经表现出压力的时刻。',
+      tradeoff: '保护关系安全，也意味着这次不一定立刻得到答案。',
+      phase: 'context'
+    }
+  };
+
   function oneLine(value, fallback, limit) {
     var text = typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : '';
     return (text || fallback).slice(0, limit || 40);
@@ -147,7 +172,8 @@
       perspective: validKey(value.perspective, PERSPECTIVES, DEFAULT_PROFILE.perspective),
       goal: validKey(value.goal, GOALS, DEFAULT_PROFILE.goal),
       feedback: validKey(value.feedback, FEEDBACKS, DEFAULT_PROFILE.feedback),
-      moment: oneLine(value.moment, DEFAULT_PROFILE.moment, 30)
+      moment: oneLine(value.moment, DEFAULT_PROFILE.moment, 30),
+      eventLine: oneLine(value.eventLine, DEFAULT_PROFILE.eventLine, 180)
     };
   }
 
@@ -157,6 +183,39 @@
     return [priority].concat(baseIds.filter(function (id) { return id !== priority; })).slice(0, 3);
   }
 
+  function strategyOrder(profile) {
+    if (profile.feedback === 'pressured' || profile.goal === 'boundary') return ['space', 'mirror', 'clarify'];
+    if (profile.feedback === 'unclear' || profile.goal === 'repair' || profile.perspective === 'mediator') return ['mirror', 'clarify', 'space'];
+    if (profile.perspective === 'listener') return ['mirror', 'space', 'clarify'];
+    return ['clarify', 'mirror', 'space'];
+  }
+
+  function strategySentence(id, mission) {
+    if (id === 'mirror') {
+      return '“我先不判断谁理解错了。你听见的是哪一句？我再说说我原本想表达的，我们一起看看差在哪里。”';
+    }
+    if (id === 'space') {
+      return '“我想把这件事说清，但不需要现在完成。你愿意继续、晚一点再聊，还是这次先停在这里？”';
+    }
+    return mission.nextSentence;
+  }
+
+  function buildStrategies(mission) {
+    return strategyOrder(mission.profile).map(function (id, index) {
+      var strategy = STRATEGIES[id];
+      return {
+        id: id,
+        title: strategy.title,
+        label: strategy.label,
+        fit: strategy.fit,
+        tradeoff: strategy.tradeoff,
+        sentence: strategySentence(id, mission),
+        exhibitId: mission.recommendedIds[index],
+        phase: strategy.phase
+      };
+    });
+  }
+
   function createVisitMission(input) {
     var profile = normalizeProfile(input);
     var relationship = RELATIONSHIPS[profile.relationship];
@@ -164,7 +223,7 @@
     var goal = GOALS[profile.goal];
     var feedback = FEEDBACKS[profile.feedback];
     var recommendedIds = applyFeedback(ROUTES[profile.relationship][profile.goal], profile.relationship, feedback);
-    return {
+    var mission = {
       profile: profile,
       owner: profile.name,
       relationshipLabel: relationship.label,
@@ -181,8 +240,15 @@
       outcome: feedback.outcome || goal.outcome,
       reviewPrompt: feedback.reviewPrompt || goal.reviewPrompt,
       observationQuestion: perspective.question,
-      story: profile.name + '准备在' + profile.moment + '前，和' + relationship.person + '处理一次没有说清的对话。作为' + perspective.label + '，这次参观要帮你' + goal.label + '。'
+      story: profile.name + '准备在' + profile.moment + '，和' + relationship.person + '处理一次没有说清的对话。作为' + perspective.label + '，这次参观要帮你' + goal.label + '。',
+      perspectives: {
+        speaker: '表达者可能想让对方听见“' + goal.label + '”，但善意没有自动成为共同语境。',
+        listener: '接收者只能从这段可确认的事件推断：' + profile.eventLine + ' 当下的短回应不等于已经理解。',
+        shared: perspective.question
+      }
     };
+    mission.strategies = buildStrategies(mission);
+    return mission;
   }
 
   function buildVisitReceipt(input) {
@@ -201,6 +267,7 @@
       '- 希望做到：' + mission.goalLabel,
       '- 对话反馈：' + mission.feedbackLabel,
       '- 发生时刻：' + mission.profile.moment,
+      '- 事件记录：' + mission.profile.eventLine,
       '- 推荐路线：' + mission.recommendedIds.join(' → '),
       '- 已阅藏品：' + (visited.length ? visited.join('、') : '尚未开始'),
       '',
@@ -222,14 +289,64 @@
     ].join('\n');
   }
 
+  function buildReconciliationArchive(input) {
+    var value = input && typeof input === 'object' ? input : {};
+    var mission = createVisitMission(value.profile);
+    var selected = mission.strategies.filter(function (strategy) { return strategy.id === value.candidateId; })[0] || mission.strategies[0];
+    var visited = Array.isArray(value.visitedIds) ? value.visitedIds.filter(function (id) {
+      return /^MIS-\d{3}$/.test(String(id));
+    }) : [];
+    var note = oneLine(value.note, '尚未记录真实回应；对话后再回来补充。', 240);
+    var confirmedAt = oneLine(value.confirmedAt, '本次会话内已由使用者确认', 40);
+    return [
+      '# 误会博物馆｜沟通与和解档案',
+      '',
+      '## 事件底稿',
+      '- 记录者：' + mission.profile.name,
+      '- 关系：' + mission.relationshipLabel + ' · ' + mission.personLabel,
+      '- 所在视角：' + mission.perspectiveLabel,
+      '- 准备开口：' + mission.profile.moment,
+      '- 当时发生：' + mission.profile.eventLine,
+      '',
+      '## 三种视角',
+      '- 表达者：' + mission.perspectives.speaker,
+      '- 接收者：' + mission.perspectives.listener,
+      '- 共同确认：' + mission.perspectives.shared,
+      '',
+      '## 候选方案与人的确认',
+      '- 已确认方案：' + selected.label + ' · ' + selected.title,
+      '- 适用时刻：' + selected.fit,
+      '- 需要承担的取舍：' + selected.tradeoff,
+      '- 确认记录：' + confirmedAt,
+      '',
+      '## 准备说出的下一句',
+      selected.sentence,
+      '',
+      '## 参观依据',
+      '- 推荐馆藏：' + mission.recommendedIds.join(' → '),
+      '- 已阅馆藏：' + (visited.length ? visited.join('、') : '尚未开始'),
+      '',
+      '## 真实回应与下一轮',
+      '- 本轮反馈：' + mission.feedbackLabel,
+      '- 下一轮依据：' + mission.feedbackSummary,
+      '- 我的记录：' + note,
+      '- 复盘问题：' + mission.reviewPrompt,
+      '',
+      '> 这份档案记录的是一次沟通选择，不替任何一方诊断意图，也不宣布唯一正确解释。',
+      ''
+    ].join('\n');
+  }
+
   return {
     DEFAULT_PROFILE: DEFAULT_PROFILE,
     RELATIONSHIPS: RELATIONSHIPS,
     PERSPECTIVES: PERSPECTIVES,
     GOALS: GOALS,
     FEEDBACKS: FEEDBACKS,
+    STRATEGIES: STRATEGIES,
     normalizeProfile: normalizeProfile,
     createVisitMission: createVisitMission,
-    buildVisitReceipt: buildVisitReceipt
+    buildVisitReceipt: buildVisitReceipt,
+    buildReconciliationArchive: buildReconciliationArchive
   };
 }));

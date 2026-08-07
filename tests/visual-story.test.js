@@ -49,6 +49,7 @@ test('brand, visual comparison and reflection controls are wired into the produc
   assert.match(html, /data-lens-scene/);
   assert.match(html, /data-inspector-scene/);
   assert.match(html, /name="feedback"/);
+  assert.match(read('script.js'), /window\.MuseumVisuals\.getExhibitVisual\(strategy\.exhibitId, strategy\.phase\)/);
   assert.match(sw, /visual-core\.js/);
   assert.match(build, /visual-core\.js/);
 });

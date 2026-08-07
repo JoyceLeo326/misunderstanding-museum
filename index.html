@@ -216,6 +216,11 @@
               <span>准备在什么时候开口</span>
               <input name="moment" value="周日晚饭前" maxlength="30" autocomplete="off">
             </label>
+            <label class="mission-event">
+              <span>当时发生了什么</span>
+              <textarea name="eventLine" rows="4" maxlength="180">我问“吃了吗？”，对方只回答了晚饭，我们都不知道下一句怎么接。</textarea>
+              <small>只写可确认的原话、动作与停顿，先不替对方判断动机。</small>
+            </label>
             <label class="mission-feedback">
               <span>如果已经试过，对方怎样回应</span>
               <select name="feedback">
@@ -260,11 +265,80 @@
           <div class="mission-actions">
             <button class="button button-primary" type="button" data-start-route>从第一件开始</button>
             <button class="button button-quiet" type="button" data-save-reflection>保存这句话</button>
-            <button class="button button-quiet" type="button" data-download-receipt>下载参观回执</button>
+            <button class="button button-quiet" type="button" data-download-receipt data-download-archive disabled>下载沟通档案</button>
           </div>
-          <p class="mission-status" data-mission-status>路线会随着关系、视角与目标即时变化。</p>
+          <p class="mission-status" data-mission-status>先比较三个方案，再由你确认真正要带进对话的那一个。</p>
         </article>
       </div>
+
+      <section class="reconciliation-studio" data-reconciliation-studio aria-labelledby="reconciliation-title" data-reveal>
+        <header class="reconciliation-heading">
+          <div>
+            <p class="eyebrow">MIS / REPAIR DESK · 和解工作台</p>
+            <h3 id="reconciliation-title">不替你决定，<br>把三种走法摆在桌上。</h3>
+          </div>
+          <p>同一段事件先经过表达者、接收者与共同关系三种视角，再形成三条带取舍的候选方案。只有你按下确认，方案才会进入可下载的沟通档案。</p>
+        </header>
+
+        <div class="perspective-table" aria-label="多视角误会解析">
+          <article>
+            <span>01 · 表达者</span>
+            <strong>我原本想让什么抵达？</strong>
+            <p data-perspective-speaker>表达者可能想让对方听见“确认关心”，但善意没有自动成为共同语境。</p>
+          </article>
+          <article>
+            <span>02 · 接收者</span>
+            <strong>对方实际拿到了什么？</strong>
+            <p data-perspective-listener>接收者只能从原话与当下关系里推断，短回应不等于已经理解。</p>
+          </article>
+          <article>
+            <span>03 · 共同关系</span>
+            <strong>下一步需要确认什么？</strong>
+            <p data-perspective-shared>如果不急着解释自己，你能先确认对方听见了什么吗？</p>
+          </article>
+        </div>
+
+        <div class="candidate-heading">
+          <div><span>三条候选路径</span><small>排序会随关系、目标、所在视角与真实反馈改变</small></div>
+          <p>先点开比较，再确认你的选择。</p>
+        </div>
+        <div class="strategy-candidates" data-strategy-candidates>
+          <button type="button" class="strategy-card is-selected" data-strategy-id="clarify" aria-pressed="true">
+            <figure><img src="assets/story/mis-001-context.webp" alt="两个人在餐桌旁放松交谈，把关于晚饭的询问补充成对彼此近况与照顾的关心。" width="1440" height="960" loading="lazy" decoding="async"><figcaption>路线 01</figcaption></figure>
+            <span data-candidate-label>直接澄清</span>
+            <strong data-candidate-title>把没有说出的意图补完整</strong>
+            <p data-candidate-fit>适合双方仍愿意继续、但字面遮住了真正意图的时刻。</p>
+            <small data-candidate-tradeoff>取舍 · 更快抵达重点，也可能让对方感到你急着证明自己。</small>
+          </button>
+          <button type="button" class="strategy-card" data-strategy-id="mirror" aria-pressed="false">
+            <figure><img src="assets/story/mis-002-misread.webp" alt="忙碌工作场景里，一人把你先忙吧理解成对话已经结束，另一人的失落没有被看见。" width="1440" height="960" loading="lazy" decoding="async"><figcaption>路线 02</figcaption></figure>
+            <span data-candidate-label>双向复述</span>
+            <strong data-candidate-title>先并排复述双方听见的版本</strong>
+            <p data-candidate-fit>适合双方都确信自己听懂了，却说的是两个版本的时刻。</p>
+            <small data-candidate-tradeoff>取舍 · 更慢，但能减少辩解；需要先忍住判断谁对谁错。</small>
+          </button>
+          <button type="button" class="strategy-card" data-strategy-id="space" aria-pressed="false">
+            <figure><img src="assets/story/mis-006-context.webp" alt="夜晚客厅里，一人明确询问对方需要独处还是陪伴，另一人用手势选择距离，边界变得可见。" width="1440" height="960" loading="lazy" decoding="async"><figcaption>路线 03</figcaption></figure>
+            <span data-candidate-label>留出边界</span>
+            <strong data-candidate-title>把是否继续的选择交还给对方</strong>
+            <p data-candidate-fit>适合情绪升高、回应变短，或对方已经表现出压力的时刻。</p>
+            <small data-candidate-tradeoff>取舍 · 保护关系安全，也意味着这次不一定立刻得到答案。</small>
+          </button>
+        </div>
+
+        <div class="human-confirmation" data-human-confirmation>
+          <div class="confirmation-copy">
+            <span>人的确认</span>
+            <strong data-confirmation-title>直接澄清 · 把没有说出的意图补完整</strong>
+            <blockquote data-confirmation-sentence>“我不是在追问结果，只是有点惦记你。你愿意告诉我今天过得怎么样吗？”</blockquote>
+            <p data-confirmation-tradeoff>你将承担的取舍：更快抵达重点，也可能让对方感到你急着证明自己。</p>
+          </div>
+          <div class="confirmation-actions">
+            <button class="button button-primary" type="button" data-confirm-strategy>确认采用这条路径</button>
+            <p role="status" data-confirmation-status>尚未确认。你仍可以切换候选路径。</p>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section class="section collection" id="collection" aria-labelledby="collection-title">
