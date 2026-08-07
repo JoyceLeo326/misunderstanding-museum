@@ -78,6 +78,7 @@ test('Vercel serves the same verified static artifact as GitHub Pages', () => {
 });
 
 test('production CSP keeps runtime dependencies on the same origin', () => {
+  const html = read('index.html');
   const config = JSON.parse(read('vercel.json'));
   const globalHeaders = config.headers.find(({ source }) => source === '/(.*)').headers;
   const csp = globalHeaders.find(({ key }) => key === 'Content-Security-Policy').value;
@@ -89,4 +90,8 @@ test('production CSP keeps runtime dependencies on the same origin', () => {
   assert.match(csp, /object-src 'none'/);
   assert.match(csp, /frame-ancestors 'none'/);
   assert.doesNotMatch(csp, /https?:\/\//);
+  assert.match(html, /http-equiv="Content-Security-Policy"[^>]*script-src 'self'/);
+  assert.match(html, /http-equiv="Content-Security-Policy"[^>]*connect-src 'self'/);
+  assert.match(html, /http-equiv="Content-Security-Policy"[^>]*object-src 'none'/);
+  assert.match(html, /http-equiv="Content-Security-Policy"[^>]*worker-src 'self'/);
 });
