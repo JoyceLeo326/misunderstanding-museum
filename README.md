@@ -6,7 +6,7 @@
 
 ## 访问
 
-- 推荐入口（已完成当前网络环境访问验证）：<https://joyceleo326.github.io/misunderstanding-museum/>
+- 推荐入口（已完成当前中国大陆网络环境访问验证）：<https://joyceleo326.github.io/misunderstanding-museum/>
 - 备用入口：<https://misunderstanding-museum.vercel.app/>
 - GitHub：<https://github.com/JoyceLeo326/misunderstanding-museum>
 - 四页策展档案：[`assets/misunderstanding-museum-case-study.pdf`](assets/misunderstanding-museum-case-study.pdf)
